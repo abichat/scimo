@@ -1,0 +1,44 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# scimo
+
+```{r, echo = FALSE}
+version <- as.vector(read.dcf('DESCRIPTION')[, 'Version'])
+version <- gsub('-', '.', version)
+```
+
+<!-- badges: start -->
+[![packageversion](https://img.shields.io/badge/version-`r version`-orange.svg)](commits/master)
+<!-- badges: end -->
+
+**scimo** provides extra recipes steps for dealing with omics data.
+
+## Installation
+
+You can install the development version of **scimo** like so:
+
+``` r
+# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+library(scimo)
+## basic example code
+```
