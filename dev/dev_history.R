@@ -17,6 +17,9 @@ library(testthat)
 # use_pipe()
 
 
+# use_r("select_cv")
+# use_r("to_keep")
+
 ####
 
 devtools::load_all()
@@ -24,3 +27,7 @@ devtools::document()
 attachment::att_amend_desc()
 
 usethis::use_tidy_description()
+
+devtools::run_examples()
+
+devtools::check()
