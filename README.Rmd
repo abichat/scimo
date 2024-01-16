@@ -37,6 +37,26 @@ remotes::install_github("abichat/scimo")
 
 ## Example
 
-```{r example}
+```{r, message=FALSE}
 library(scimo)
+
+data("pedcan_expression")
+pedcan_expression
 ```
+
+```{r}
+rec <-
+  recipe(pedcan_expression) %>% 
+  update_role(-disease, new_role = "predictor") %>% 
+  update_role(disease, new_role = "outcome") %>% 
+  update_role(cell_line, new_role = "ID") %>% 
+  step_select_cv(all_numeric_predictors(), prop_kept = 0.1) %>% 
+  prep()
+
+rec
+
+juice(rec)
+
+tidy(rec, 1)
+```
+
