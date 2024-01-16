@@ -13,6 +13,7 @@ License: GPL (>= 3)
 URL: https://github.com/abichat/scimo
 BugReports: https://github.com/abichat/scimo/issues
 Depends: 
+    R (>= 2.10),
     recipes
 Imports: 
     dplyr,
@@ -22,5 +23,6 @@ Imports:
     stats,
     tibble
 Encoding: UTF-8
+LazyData: false
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3

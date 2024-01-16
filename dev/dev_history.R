@@ -20,6 +20,10 @@ library(testthat)
 # use_r("select_cv")
 # use_r("to_keep")
 
+# use_data_raw("pedcan_expression")
+# use_r("data")
+# use_tibble()
+
 ####
 
 devtools::load_all()

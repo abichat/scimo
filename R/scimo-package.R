@@ -2,7 +2,8 @@
 "_PACKAGE"
 
 ## usethis namespace: start
-#' @importFrom recipes prep bake
 #' @importFrom generics tidy
+#' @importFrom recipes prep bake
+#' @importFrom tibble tibble
 ## usethis namespace: end
 NULL
