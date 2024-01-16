@@ -9,4 +9,11 @@ library(testthat)
 
 # use_readme_rmd()
 
-use_git()
+# use_git()
+
+# use_github_links()
+
+
+####
+
+usethis::use_tidy_description()

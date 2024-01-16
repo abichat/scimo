@@ -12,17 +12,15 @@
 
 ## Installation
 
-You can install the development version of **scimo** like so:
+You can install the **scimo** from GitHub with:
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+# install.packages("remotes")
+remotes::install_github("abichat/scimo")
 ```
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
-
 ``` r
 library(scimo)
-## basic example code
 ```
