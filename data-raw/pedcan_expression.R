@@ -13,7 +13,8 @@ df_model_raw <-
   read_csv("data-raw/data/Model.csv") %>%
   clean_names()
 
-df_expr_raw <- read_csv("data-raw/data/OmicsExpressionProteinCodingGenesTPMLogp1.csv")
+df_expr_raw <-
+  read_csv("data-raw/data/OmicsExpressionProteinCodingGenesTPMLogp1.csv")
 
 
 df_model <-

@@ -83,7 +83,9 @@ step_select_cv <- function(recipe, ..., role = NA, trained = FALSE,
 }
 
 #' @importFrom recipes step
-step_select_cv_new <- function(terms, role, trained, n_kept, prop_kept, cutoff, res, skip, id) {
+step_select_cv_new <- function(terms, role, trained,
+                               n_kept, prop_kept, cutoff,
+                               res, skip, id) {
 
   step(subclass = "select_cv",
        terms = terms,
@@ -110,7 +112,8 @@ prep.step_select_cv <- function(x, training, info = NULL, ...) {
     training[, col_names] %>%
     apply(2, cv) %>%
     enframe(name = "terms", value = "cv") %>%
-    mutate(kept = var_to_keep(cv, x$n_kept, x$prop_kept, x$cutoff, maximize = TRUE))
+    mutate(kept = var_to_keep(cv, x$n_kept, x$prop_kept, x$cutoff,
+                              maximize = TRUE))
 
   step_select_cv_new(
     terms = x$terms,
@@ -146,7 +149,8 @@ bake.step_select_cv <- function(object, new_data, ...) {
 
 #' @export
 #' @importFrom recipes print_step
-print.step_select_cv <- function(x, width = max(20, options()$width - 35), ...) {
+print.step_select_cv <- function(x,
+                                 width = max(20, options()$width - 35), ...) {
   title <- "Top CV filtering on "
 
   print_step(
