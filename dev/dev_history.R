@@ -24,6 +24,9 @@ library(testthat)
 # use_r("data")
 # use_tibble()
 
+# use_testthat()
+# use_test("to_keep")
+
 ####
 
 devtools::load_all()
@@ -33,5 +36,7 @@ attachment::att_amend_desc()
 usethis::use_tidy_description()
 
 devtools::run_examples()
+devtools::test()
+
 
 devtools::check()
