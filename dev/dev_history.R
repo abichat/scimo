@@ -27,6 +27,8 @@ library(testthat)
 # use_testthat()
 # use_test("to_keep")
 
+# use_test("select_cv")
+
 ####
 
 devtools::load_all()
@@ -40,3 +42,4 @@ devtools::test()
 
 
 devtools::check()
+goodpractice::goodpractice()
