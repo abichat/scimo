@@ -59,6 +59,7 @@ cv <- function(x, na.rm = TRUE) {
 #'   prep()
 #' rec
 #' tidy(rec, 1)
+#' juice(rec)
 step_select_cv <- function(recipe, ..., role = NA, trained = FALSE,
                            n_kept = NULL,
                            prop_kept = NULL,
@@ -112,7 +113,7 @@ prep.step_select_cv <- function(x, training, info = NULL, ...) {
     training[, col_names] %>%
     apply(2, cv) %>%
     enframe(name = "terms", value = "cv") %>%
-    mutate(kept = var_to_keep(cv, x$n_kept, x$prop_kept, x$cutoff,
+    mutate(kept = var_to_keep(.data$cv, x$n_kept, x$prop_kept, x$cutoff,
                               maximize = TRUE))
 
   step_select_cv_new(

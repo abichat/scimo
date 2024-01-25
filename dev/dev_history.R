@@ -29,6 +29,8 @@ library(testthat)
 
 # use_test("select_cv")
 
+# use_r("select_wilcoxon")
+
 ####
 
 devtools::load_all()
