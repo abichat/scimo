@@ -30,6 +30,7 @@ library(testthat)
 # use_test("select_cv")
 
 # use_r("select_wilcoxon")
+# use_test("select_wilcoxon")
 
 ####
 
