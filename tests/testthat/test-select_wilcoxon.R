@@ -12,7 +12,7 @@ gx <- df_expr[df_expr$event == "Primary", gene, drop = TRUE]
 gy <- df_expr[df_expr$event == "Metastatic", gene, drop = TRUE]
 gwt <- wilcox.test(x = gx, y = gy)
 
-test_that("step_select_cv works", {
+test_that("step_select_wilcoxon works", {
 
   my_cutoff <- 0.05
   my_correction <- "BH"
@@ -38,5 +38,33 @@ test_that("step_select_cv works", {
 
   expect_setequal(colnames(baked),
                   c(wt_tidy[wt_tidy$kept, ]$terms, "event", "disease"))
+
+})
+
+test_that("step_select_wilcoxon throw errors", {
+
+  rec <-
+    recipe(disease ~ ., data = df_expr)
+
+  expect_error(rec %>%
+                 step_select_wilcoxon(all_numeric_predictors(),
+                                      outcome = "disease",
+                                      cutoff = 0.05) %>%
+                 prep(),
+               "`outcome` must be a binary vector.")
+
+    expect_error(rec %>%
+                 step_select_wilcoxon(all_numeric_predictors(),
+                                      outcome = "event",
+                                      correction = c("BH", "fdr"),
+                                      cutoff = 0.05) %>%
+                 prep(), "`correction` must be a length-one vector.")
+
+    expect_error(rec %>%
+                 step_select_wilcoxon(all_numeric_predictors(),
+                                      outcome = "event",
+                                      correction = "FDR",
+                                      cutoff = 0.05) %>%
+                 prep(), '`correction` must be one of "holm", "hochberg", ')
 
 })

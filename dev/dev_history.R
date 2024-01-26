@@ -33,6 +33,7 @@ library(testthat)
 # use_test("select_wilcoxon")
 
 # use_r("checks")
+# use_test("checks")
 
 ####
 
