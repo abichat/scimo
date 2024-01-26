@@ -101,6 +101,8 @@ prep.step_select_wilcoxon <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
   check_type(training[, col_names], quant = TRUE)
   check_type(training[, x$outcome], quant = FALSE)
+  check_binary(training[[x$outcome]], name_x = "outcome")
+  check_in(x$correction, stats::p.adjust.methods, name_x = "correction")
 
   pvs <- rep(NA, length(col_names))
 

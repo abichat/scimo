@@ -32,6 +32,8 @@ library(testthat)
 # use_r("select_wilcoxon")
 # use_test("select_wilcoxon")
 
+# use_r("checks")
+
 ####
 
 devtools::load_all()
