@@ -36,6 +36,7 @@ library(testthat)
 # use_test("checks")
 
 # use_r("select_kruskal")
+# use_test("select_kruskal")
 
 ####
 
