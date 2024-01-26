@@ -35,6 +35,8 @@ library(testthat)
 # use_r("checks")
 # use_test("checks")
 
+# use_r("select_kruskal")
+
 ####
 
 devtools::load_all()
