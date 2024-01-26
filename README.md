@@ -51,8 +51,8 @@ pedcan_expression
 ``` r
 rec <-
   recipe(pedcan_expression) %>% 
-  update_role(-disease, new_role = "predictor") %>% 
   update_role(disease, new_role = "outcome") %>% 
+  update_role(-disease, new_role = "predictor") %>% 
   update_role(cell_line, new_role = "ID") %>% 
   step_select_cv(all_numeric_predictors(), n_kept = 3000) %>% 
   step_select_kruskal(all_numeric_predictors(), cutoff = 0.05,
@@ -102,39 +102,39 @@ tidy(rec, 1)
 #> # A tibble: 19,193 × 4
 #>    terms       cv kept  id             
 #>    <chr>    <dbl> <lgl> <chr>          
-#>  1 A1BG    0.371  FALSE select_cv_ErduI
-#>  2 A1CF    4.60   TRUE  select_cv_ErduI
-#>  3 A2M     1.69   FALSE select_cv_ErduI
-#>  4 A2ML1   2.45   FALSE select_cv_ErduI
-#>  5 A3GALT2 2.37   FALSE select_cv_ErduI
-#>  6 A4GALT  0.979  FALSE select_cv_ErduI
-#>  7 A4GNT   1.53   FALSE select_cv_ErduI
-#>  8 AAAS    0.0934 FALSE select_cv_ErduI
-#>  9 AACS    0.194  FALSE select_cv_ErduI
-#> 10 AADAC   3.40   TRUE  select_cv_ErduI
+#>  1 A1BG    0.371  FALSE select_cv_bOREU
+#>  2 A1CF    4.60   TRUE  select_cv_bOREU
+#>  3 A2M     1.69   FALSE select_cv_bOREU
+#>  4 A2ML1   2.45   FALSE select_cv_bOREU
+#>  5 A3GALT2 2.37   FALSE select_cv_bOREU
+#>  6 A4GALT  0.979  FALSE select_cv_bOREU
+#>  7 A4GNT   1.53   FALSE select_cv_bOREU
+#>  8 AAAS    0.0934 FALSE select_cv_bOREU
+#>  9 AACS    0.194  FALSE select_cv_bOREU
+#> 10 AADAC   3.40   TRUE  select_cv_bOREU
 #> # ℹ 19,183 more rows
 tidy(rec, 2)
 #> # A tibble: 3,000 × 5
 #>    terms         pv            qv kept  id                  
 #>    <chr>      <dbl>         <dbl> <lgl> <chr>               
-#>  1 A1CF    9.70e- 1 0.975         FALSE select_kruskal_8kNpS
-#>  2 AADAC   1.84e- 1 0.320         FALSE select_kruskal_8kNpS
-#>  3 AADACL2 3.45e- 4 0.00255       TRUE  select_kruskal_8kNpS
-#>  4 AADACL3 7.58e- 1 0.799         FALSE select_kruskal_8kNpS
-#>  5 AADACL4 5.75e-11 0.00000000821 TRUE  select_kruskal_8kNpS
-#>  6 ABCB11  1.07e- 5 0.000156      TRUE  select_kruskal_8kNpS
-#>  7 ABCB5   3.05e- 2 0.0854        FALSE select_kruskal_8kNpS
-#>  8 ABCC12  8.79e- 2 0.187         FALSE select_kruskal_8kNpS
-#>  9 ABO     3.58e- 1 0.498         FALSE select_kruskal_8kNpS
-#> 10 ABRA    5.85e- 2 0.138         FALSE select_kruskal_8kNpS
+#>  1 A1CF    9.70e- 1 0.975         FALSE select_kruskal_L1CeI
+#>  2 AADAC   1.84e- 1 0.320         FALSE select_kruskal_L1CeI
+#>  3 AADACL2 3.45e- 4 0.00255       TRUE  select_kruskal_L1CeI
+#>  4 AADACL3 7.58e- 1 0.799         FALSE select_kruskal_L1CeI
+#>  5 AADACL4 5.75e-11 0.00000000821 TRUE  select_kruskal_L1CeI
+#>  6 ABCB11  1.07e- 5 0.000156      TRUE  select_kruskal_L1CeI
+#>  7 ABCB5   3.05e- 2 0.0854        FALSE select_kruskal_L1CeI
+#>  8 ABCC12  8.79e- 2 0.187         FALSE select_kruskal_L1CeI
+#>  9 ABO     3.58e- 1 0.498         FALSE select_kruskal_L1CeI
+#> 10 ABRA    5.85e- 2 0.138         FALSE select_kruskal_L1CeI
 #> # ℹ 2,990 more rows
 ```
 
 ## Notes
 
-### Protection stack overflow
+### `protection stack overflow` error
 
-If you have very large dataset, you may encounter this error:
+If you have a very large dataset, you may encounter this error:
 
 ``` r
 recipe(disease ~ ., data = pedcan_expression) %>% 
@@ -142,7 +142,22 @@ recipe(disease ~ ., data = pedcan_expression) %>%
 #> Error: protect(): protection stack overflow
 ```
 
-It is linked to how **R** handles [many variables in
+It is linked to [how **R** handles many variables in
 formulas](https://github.com/tidymodels/recipes/issues/467). To solve
 it, pass only the dataset to `recipe()` and manually update roles with
 `update_role()`, like in the example above.
+
+### Steps for variable selection
+
+Inspired by [**colino**](https://github.com/stevenpawley/colino),
+**scimo** proposes 3 arguments for variable selection steps based on a
+statistic: `n_kept`, `prop_kept` and `cutoff`.
+
+- `n_kept` and `prop_kept` deal with how many variables will be kept in
+  the preprocessed dataset, based on an exact count of variables or a
+  proportion relative to the original dataset. They are mutually
+  exclusive.
+
+- `cutoff` removes variables whose statistic is below (or above,
+  depending on the step) it. It could be used alone or in addition to
+  the two others.

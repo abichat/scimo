@@ -37,18 +37,18 @@ remotes::install_github("abichat/scimo")
 
 ## Example
 
-```{r, message=FALSE}
+```{r data, message=FALSE}
 library(scimo)
 
 data("pedcan_expression")
 pedcan_expression
 ```
 
-```{r}
+```{r example}
 rec <-
   recipe(pedcan_expression) %>% 
-  update_role(-disease, new_role = "predictor") %>% 
   update_role(disease, new_role = "outcome") %>% 
+  update_role(-disease, new_role = "predictor") %>% 
   update_role(cell_line, new_role = "ID") %>% 
   step_select_cv(all_numeric_predictors(), n_kept = 3000) %>% 
   step_select_kruskal(all_numeric_predictors(), cutoff = 0.05,
@@ -67,15 +67,25 @@ tidy(rec, 2)
 
 ## Notes
 
-### Protection stack overflow
+### `protection stack overflow` error
 
-If you have very large dataset, you may encounter this error: 
+If you have a very large dataset, you may encounter this error: 
 
-```{r, error=TRUE}
+```{r error, error=TRUE}
 recipe(disease ~ ., data = pedcan_expression) %>% 
     step_select_cv(all_numeric_predictors(), prop_kept = 0.1) 
 ```
 
-It is linked to how **R** handles [many variables in formulas](https://github.com/tidymodels/recipes/issues/467). To solve it, pass only the dataset to `recipe()` and manually update roles with `update_role()`, like in the example above.
+It is linked to [how **R** handles many variables in formulas](https://github.com/tidymodels/recipes/issues/467). To solve it, pass only the dataset to `recipe()` and manually update roles with `update_role()`, like in the example above.
+
+
+### Steps for variable selection
+
+Inspired by [**colino**](https://github.com/stevenpawley/colino), **scimo** proposes 3 arguments for variable selection steps based on a statistic: `n_kept`, `prop_kept` and `cutoff`.
+
+* `n_kept` and `prop_kept` deal with how many variables will be kept in the preprocessed dataset, based on an exact count of variables or a proportion relative to the original dataset. They are mutually exclusive.
+
+* `cutoff` removes variables whose statistic is below (or above, depending on the step) it. It could be used alone or in addition to the two others. 
+
 
 
