@@ -54,7 +54,9 @@ rec <-
   update_role(-disease, new_role = "predictor") %>% 
   update_role(disease, new_role = "outcome") %>% 
   update_role(cell_line, new_role = "ID") %>% 
-  step_select_cv(all_numeric_predictors(), prop_kept = 0.1) %>% 
+  step_select_cv(all_numeric_predictors(), n_kept = 3000) %>% 
+  step_select_kruskal(all_numeric_predictors(), cutoff = 0.05,
+                      outcome = "disease", correction = "fdr") %>% 
   prep()
 
 rec
@@ -72,42 +74,75 @@ rec
 #> 
 #> ── Operations
 #> • Top CV filtering on: A1BG, A1CF, A2M, A2ML1, A3GALT2, A4GALT, ... | Trained
+#> • Kruskal filtering against disease on: A1CF, AADAC, AADACL2, ... | Trained
 
 juice(rec)
-#> # A tibble: 108 × 1,923
-#>    cell_line sex    event     disease   A1CF  AADAC AADACL3 ABCB11 ABCC12   ABRA
-#>    <fct>     <fct>  <fct>     <fct>    <dbl>  <dbl>   <dbl>  <dbl>  <dbl>  <dbl>
-#>  1 143B      Female Primary   Osteos… 0.0566 0.0704       0 0      0      0     
-#>  2 A-673     Female Primary   Ewing … 0      0.151        0 0      0      0     
-#>  3 BT-12     Female Primary   Embryo… 0.0286 3.49         0 0      0      0     
-#>  4 BT-16     Male   Unknown   Embryo… 0      0.0286       0 0      0      0     
-#>  5 C396      Male   Metastat… Osteos… 0      0            0 0      0      0.0144
-#>  6 CADO-ES1  Female Metastat… Ewing … 0      0            0 0      0.0286 0     
-#>  7 CAL-72    Male   Primary   Osteos… 0.0426 0            0 0      0.0426 0.0144
-#>  8 CBAGPN    Female Primary   Ewing … 0.0976 0            0 0      0      0     
-#>  9 CHLA-06   Female Unknown   Embryo… 0      0            0 0      0      0     
-#> 10 CHLA-10   Female Unknown   Ewing … 0.0144 0            0 0.0144 0.0566 0.0144
+#> # A tibble: 108 × 928
+#>    cell_line sex    event      disease AADACL2 AADACL4 ABCB11 AC008770.4    ACAN
+#>    <fct>     <fct>  <fct>      <fct>     <dbl>   <dbl>  <dbl>      <dbl>   <dbl>
+#>  1 143B      Female Primary    Osteos…  0       0      0          0       0.0286
+#>  2 A-673     Female Primary    Ewing …  0.0286  0.856  0          0       0.0566
+#>  3 BT-12     Female Primary    Embryo…  0.0144  0      0          0       0     
+#>  4 BT-16     Male   Unknown    Embryo…  0       0      0          0       0     
+#>  5 C396      Male   Metastatic Osteos…  0       0      0          0      10.1   
+#>  6 CADO-ES1  Female Metastatic Ewing …  0.0144  0      0          0       0     
+#>  7 CAL-72    Male   Primary    Osteos…  0       0      0          0       0.111 
+#>  8 CBAGPN    Female Primary    Ewing …  0       0.0976 0          0       0     
+#>  9 CHLA-06   Female Unknown    Embryo…  0       0      0          0       0     
+#> 10 CHLA-10   Female Unknown    Ewing …  0       0.239  0.0144     0.0426  0     
 #> # ℹ 98 more rows
-#> # ℹ 1,913 more variables: AC002456.2 <dbl>, AC008397.1 <dbl>, ACOD1 <dbl>,
-#> #   ACSM1 <dbl>, ACSM2B <dbl>, ACSM5 <dbl>, ACSM6 <dbl>, ACTBL2 <dbl>,
-#> #   ACTL9 <dbl>, ACTRT1 <dbl>, ACTRT2 <dbl>, ACY3 <dbl>, ADAD1 <dbl>,
-#> #   ADAD2 <dbl>, ADAM2 <dbl>, ADAM30 <dbl>, ADAMDEC1 <dbl>, ADGRE3 <dbl>,
-#> #   ADGRF2 <dbl>, ADGRG4 <dbl>, ADH1B <dbl>, ADH4 <dbl>, ADIG <dbl>, AFM <dbl>,
-#> #   AGBL1 <dbl>, AGRP <dbl>, AGTR2 <dbl>, AGXT <dbl>, AGXT2 <dbl>, …
+#> # ℹ 919 more variables: ACCSL <dbl>, ACOT12 <dbl>, ACP7 <dbl>, ACSM4 <dbl>,
+#> #   ACSM5 <dbl>, ACTBL2 <dbl>, ACY3 <dbl>, ADAM33 <dbl>, ADAMDEC1 <dbl>,
+#> #   ADCY8 <dbl>, ADGRD2 <dbl>, ADGRF5 <dbl>, ADGRG7 <dbl>, ADGRL4 <dbl>,
+#> #   AGTR2 <dbl>, AICDA <dbl>, AKAIN1 <dbl>, AKAP4 <dbl>, AL160269.1 <dbl>,
+#> #   AL445238.1 <dbl>, ALLC <dbl>, ALOX15B <dbl>, AMTN <dbl>, ANKRD30B <dbl>,
+#> #   ANKRD30BL <dbl>, ANKRD35 <dbl>, ANXA10 <dbl>, ANXA13 <dbl>, AOAH <dbl>, …
 
 tidy(rec, 1)
 #> # A tibble: 19,193 × 4
 #>    terms       cv kept  id             
 #>    <chr>    <dbl> <lgl> <chr>          
-#>  1 A1BG    0.371  FALSE select_cv_H5YSG
-#>  2 A1CF    4.60   TRUE  select_cv_H5YSG
-#>  3 A2M     1.69   FALSE select_cv_H5YSG
-#>  4 A2ML1   2.45   FALSE select_cv_H5YSG
-#>  5 A3GALT2 2.37   FALSE select_cv_H5YSG
-#>  6 A4GALT  0.979  FALSE select_cv_H5YSG
-#>  7 A4GNT   1.53   FALSE select_cv_H5YSG
-#>  8 AAAS    0.0934 FALSE select_cv_H5YSG
-#>  9 AACS    0.194  FALSE select_cv_H5YSG
-#> 10 AADAC   3.40   TRUE  select_cv_H5YSG
+#>  1 A1BG    0.371  FALSE select_cv_ErduI
+#>  2 A1CF    4.60   TRUE  select_cv_ErduI
+#>  3 A2M     1.69   FALSE select_cv_ErduI
+#>  4 A2ML1   2.45   FALSE select_cv_ErduI
+#>  5 A3GALT2 2.37   FALSE select_cv_ErduI
+#>  6 A4GALT  0.979  FALSE select_cv_ErduI
+#>  7 A4GNT   1.53   FALSE select_cv_ErduI
+#>  8 AAAS    0.0934 FALSE select_cv_ErduI
+#>  9 AACS    0.194  FALSE select_cv_ErduI
+#> 10 AADAC   3.40   TRUE  select_cv_ErduI
 #> # ℹ 19,183 more rows
+tidy(rec, 2)
+#> # A tibble: 3,000 × 5
+#>    terms         pv            qv kept  id                  
+#>    <chr>      <dbl>         <dbl> <lgl> <chr>               
+#>  1 A1CF    9.70e- 1 0.975         FALSE select_kruskal_8kNpS
+#>  2 AADAC   1.84e- 1 0.320         FALSE select_kruskal_8kNpS
+#>  3 AADACL2 3.45e- 4 0.00255       TRUE  select_kruskal_8kNpS
+#>  4 AADACL3 7.58e- 1 0.799         FALSE select_kruskal_8kNpS
+#>  5 AADACL4 5.75e-11 0.00000000821 TRUE  select_kruskal_8kNpS
+#>  6 ABCB11  1.07e- 5 0.000156      TRUE  select_kruskal_8kNpS
+#>  7 ABCB5   3.05e- 2 0.0854        FALSE select_kruskal_8kNpS
+#>  8 ABCC12  8.79e- 2 0.187         FALSE select_kruskal_8kNpS
+#>  9 ABO     3.58e- 1 0.498         FALSE select_kruskal_8kNpS
+#> 10 ABRA    5.85e- 2 0.138         FALSE select_kruskal_8kNpS
+#> # ℹ 2,990 more rows
 ```
+
+## Notes
+
+### Protection stack overflow
+
+If you have very large dataset, you may encounter this error:
+
+``` r
+recipe(disease ~ ., data = pedcan_expression) %>% 
+    step_select_cv(all_numeric_predictors(), prop_kept = 0.1) 
+#> Error: protect(): protection stack overflow
+```
+
+It is linked to how **R** handles [many variables in
+formulas](https://github.com/tidymodels/recipes/issues/467). To solve
+it, pass only the dataset to `recipe()` and manually update roles with
+`update_role()`, like in the example above.

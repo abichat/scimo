@@ -49,6 +49,12 @@ usethis::use_tidy_description()
 devtools::run_examples()
 devtools::test()
 
-
 devtools::check()
 goodpractice::goodpractice()
+
+####
+
+devtools::install(upgrade = "never")
+rmarkdown::render("README.Rmd"); file.remove("README.html")
+devtools::install(upgrade = "never")
+

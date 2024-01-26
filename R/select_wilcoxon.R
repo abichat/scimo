@@ -13,7 +13,7 @@
 #' @param outcome Name of the variable to perform the test against.
 #' @inheritParams var_to_keep
 #' @param correction Multiple testing correction method. One of
-#' `p.adjust.methods`. Default to `"none`.
+#' `p.adjust.methods`. Default to `"none"`.
 #' @param res This parameter is only produced after the recipe has been trained.
 #' @param skip A logical. Should the step be skipped when the
 #'  recipe is baked by [bake()]? While all operations are baked

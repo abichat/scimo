@@ -41,11 +41,11 @@ have been estimated.}
 \item{prop_kept}{A numeric value between 0 and 1 representing the proportion
 of variables to keep. \code{n_kept} and \code{prop_kept} are mutually exclusive.}
 
-\item{cutoff}{Threshold beyond which (below or above), the variables are
+\item{cutoff}{Threshold beyond which (below or above) the variables are
 discarded.}
 
 \item{correction}{Multiple testing correction method. One of
-\code{p.adjust.methods}. Default to \verb{"none}.}
+\code{p.adjust.methods}. Default to \code{"none"}.}
 
 \item{res}{This parameter is only produced after the recipe has been trained.}
 

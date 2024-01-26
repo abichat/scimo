@@ -50,7 +50,9 @@ rec <-
   update_role(-disease, new_role = "predictor") %>% 
   update_role(disease, new_role = "outcome") %>% 
   update_role(cell_line, new_role = "ID") %>% 
-  step_select_cv(all_numeric_predictors(), prop_kept = 0.1) %>% 
+  step_select_cv(all_numeric_predictors(), n_kept = 3000) %>% 
+  step_select_kruskal(all_numeric_predictors(), cutoff = 0.05,
+                      outcome = "disease", correction = "fdr") %>% 
   prep()
 
 rec
@@ -58,5 +60,22 @@ rec
 juice(rec)
 
 tidy(rec, 1)
+tidy(rec, 2)
 ```
+
+
+
+## Notes
+
+### Protection stack overflow
+
+If you have very large dataset, you may encounter this error: 
+
+```{r, error=TRUE}
+recipe(disease ~ ., data = pedcan_expression) %>% 
+    step_select_cv(all_numeric_predictors(), prop_kept = 0.1) 
+```
+
+It is linked to how **R** handles [many variables in formulas](https://github.com/tidymodels/recipes/issues/467). To solve it, pass only the dataset to `recipe()` and manually update roles with `update_role()`, like in the example above.
+
 

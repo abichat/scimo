@@ -5,7 +5,7 @@
 #' @param n_kept Number of variables to keep.
 #' @param prop_kept A numeric value between 0 and 1 representing the proportion
 #' of variables to keep. `n_kept` and `prop_kept` are mutually exclusive.
-#' @param cutoff Threshold beyond which (below or above), the variables are
+#' @param cutoff Threshold beyond which (below or above) the variables are
 #' discarded.
 #' @param maximize Whether to minimize (`FALSE`) or maximize (`TRUE`, the
 #' default) the quantity given by `values`.
