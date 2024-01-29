@@ -38,6 +38,8 @@ library(testthat)
 # use_r("select_kruskal")
 # use_test("select_kruskal")
 
+# use_r("select_background")
+
 ####
 
 devtools::load_all()
