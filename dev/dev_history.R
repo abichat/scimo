@@ -41,6 +41,9 @@ library(testthat)
 # use_r("select_background")
 # use_test("select_background")
 
+# use_r("aggregate")
+# use_test("aggregate")
+
 ####
 
 devtools::load_all()
