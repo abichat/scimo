@@ -39,6 +39,7 @@ library(testthat)
 # use_test("select_kruskal")
 
 # use_r("select_background")
+# use_test("select_background")
 
 ####
 

@@ -68,7 +68,10 @@ step_select_background <- function(recipe, ..., role = NA, trained = FALSE,
 
 
 #' @importFrom recipes step
-step_select_background_new <- function(terms, role, trained, background_level, n_samples, prop_samples, res, skip, id) {
+step_select_background_new <- function(terms, role, trained,
+                                       background_level,
+                                       n_samples, prop_samples,
+                                       res, skip, id) {
 
   step(subclass = "select_background",
        terms = terms,
