@@ -44,6 +44,8 @@ library(testthat)
 # use_r("aggregate")
 # use_test("aggregate")
 
+# use_r("aggregate_list")
+
 ####
 
 devtools::load_all()
