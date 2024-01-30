@@ -21,14 +21,16 @@ version <- gsub('-', '.', version)
 ```
 
 <!-- badges: start -->
+[![experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![packageversion](https://img.shields.io/badge/version-`r version`-orange.svg)](commits/master)
 <!-- badges: end -->
 
-**scimo** provides extra recipes steps for dealing with omics data.
+**scimo** provides extra recipes steps for dealing with omics data, but not only.
+
 
 ## Installation
 
-You can install the **scimo** from GitHub with:
+You can install **scimo** from GitHub with:
 
 ``` r
 # install.packages("remotes")
@@ -42,6 +44,10 @@ library(scimo)
 
 data("pedcan_expression")
 pedcan_expression
+```
+
+```{r seed, echo=FALSE}
+set.seed(42)
 ```
 
 ```{r example}
@@ -64,7 +70,6 @@ tidy(rec, 2)
 ```
 
 
-
 ## Notes
 
 ### `protection stack overflow` error
@@ -81,7 +86,7 @@ It is linked to [how **R** handles many variables in formulas](https://github.co
 
 ### Steps for variable selection
 
-Inspired by [**colino**](https://github.com/stevenpawley/colino), **scimo** proposes 3 arguments for variable selection steps based on a statistic: `n_kept`, `prop_kept` and `cutoff`.
+Like [**colino**](https://github.com/stevenpawley/colino), **scimo** proposes 3 arguments for variable selection steps based on a statistic: `n_kept`, `prop_kept` and `cutoff`.
 
 * `n_kept` and `prop_kept` deal with how many variables will be kept in the preprocessed dataset, based on an exact count of variables or a proportion relative to the original dataset. They are mutually exclusive.
 

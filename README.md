@@ -5,14 +5,16 @@
 
 <!-- badges: start -->
 
+[![experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![packageversion](https://img.shields.io/badge/version-0.0.0.9000-orange.svg)](commits/master)
 <!-- badges: end -->
 
-**scimo** provides extra recipes steps for dealing with omics data.
+**scimo** provides extra recipes steps for dealing with omics data, but
+not only.
 
 ## Installation
 
-You can install the **scimo** from GitHub with:
+You can install **scimo** from GitHub with:
 
 ``` r
 # install.packages("remotes")
@@ -102,31 +104,31 @@ tidy(rec, 1)
 #> # A tibble: 19,193 × 4
 #>    terms       cv kept  id             
 #>    <chr>    <dbl> <lgl> <chr>          
-#>  1 A1BG    0.371  FALSE select_cv_bOREU
-#>  2 A1CF    4.60   TRUE  select_cv_bOREU
-#>  3 A2M     1.69   FALSE select_cv_bOREU
-#>  4 A2ML1   2.45   FALSE select_cv_bOREU
-#>  5 A3GALT2 2.37   FALSE select_cv_bOREU
-#>  6 A4GALT  0.979  FALSE select_cv_bOREU
-#>  7 A4GNT   1.53   FALSE select_cv_bOREU
-#>  8 AAAS    0.0934 FALSE select_cv_bOREU
-#>  9 AACS    0.194  FALSE select_cv_bOREU
-#> 10 AADAC   3.40   TRUE  select_cv_bOREU
+#>  1 A1BG    0.371  FALSE select_cv_Jr5WU
+#>  2 A1CF    4.60   TRUE  select_cv_Jr5WU
+#>  3 A2M     1.69   FALSE select_cv_Jr5WU
+#>  4 A2ML1   2.45   FALSE select_cv_Jr5WU
+#>  5 A3GALT2 2.37   FALSE select_cv_Jr5WU
+#>  6 A4GALT  0.979  FALSE select_cv_Jr5WU
+#>  7 A4GNT   1.53   FALSE select_cv_Jr5WU
+#>  8 AAAS    0.0934 FALSE select_cv_Jr5WU
+#>  9 AACS    0.194  FALSE select_cv_Jr5WU
+#> 10 AADAC   3.40   TRUE  select_cv_Jr5WU
 #> # ℹ 19,183 more rows
 tidy(rec, 2)
 #> # A tibble: 3,000 × 5
 #>    terms         pv            qv kept  id                  
 #>    <chr>      <dbl>         <dbl> <lgl> <chr>               
-#>  1 A1CF    9.70e- 1 0.975         FALSE select_kruskal_L1CeI
-#>  2 AADAC   1.84e- 1 0.320         FALSE select_kruskal_L1CeI
-#>  3 AADACL2 3.45e- 4 0.00255       TRUE  select_kruskal_L1CeI
-#>  4 AADACL3 7.58e- 1 0.799         FALSE select_kruskal_L1CeI
-#>  5 AADACL4 5.75e-11 0.00000000821 TRUE  select_kruskal_L1CeI
-#>  6 ABCB11  1.07e- 5 0.000156      TRUE  select_kruskal_L1CeI
-#>  7 ABCB5   3.05e- 2 0.0854        FALSE select_kruskal_L1CeI
-#>  8 ABCC12  8.79e- 2 0.187         FALSE select_kruskal_L1CeI
-#>  9 ABO     3.58e- 1 0.498         FALSE select_kruskal_L1CeI
-#> 10 ABRA    5.85e- 2 0.138         FALSE select_kruskal_L1CeI
+#>  1 A1CF    9.70e- 1 0.975         FALSE select_kruskal_WKayj
+#>  2 AADAC   1.84e- 1 0.320         FALSE select_kruskal_WKayj
+#>  3 AADACL2 3.45e- 4 0.00255       TRUE  select_kruskal_WKayj
+#>  4 AADACL3 7.58e- 1 0.799         FALSE select_kruskal_WKayj
+#>  5 AADACL4 5.75e-11 0.00000000821 TRUE  select_kruskal_WKayj
+#>  6 ABCB11  1.07e- 5 0.000156      TRUE  select_kruskal_WKayj
+#>  7 ABCB5   3.05e- 2 0.0854        FALSE select_kruskal_WKayj
+#>  8 ABCC12  8.79e- 2 0.187         FALSE select_kruskal_WKayj
+#>  9 ABO     3.58e- 1 0.498         FALSE select_kruskal_WKayj
+#> 10 ABRA    5.85e- 2 0.138         FALSE select_kruskal_WKayj
 #> # ℹ 2,990 more rows
 ```
 
@@ -149,9 +151,9 @@ it, pass only the dataset to `recipe()` and manually update roles with
 
 ### Steps for variable selection
 
-Inspired by [**colino**](https://github.com/stevenpawley/colino),
-**scimo** proposes 3 arguments for variable selection steps based on a
-statistic: `n_kept`, `prop_kept` and `cutoff`.
+Like [**colino**](https://github.com/stevenpawley/colino), **scimo**
+proposes 3 arguments for variable selection steps based on a statistic:
+`n_kept`, `prop_kept` and `cutoff`.
 
 - `n_kept` and `prop_kept` deal with how many variables will be kept in
   the preprocessed dataset, based on an exact count of variables or a
