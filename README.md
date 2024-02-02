@@ -7,6 +7,7 @@
 
 [![experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![packageversion](https://img.shields.io/badge/version-0.0.0.9000-orange.svg)](commits/master)
+[![R-CMD-check](https://github.com/abichat/scimo/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/abichat/scimo/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 **scimo** provides extra recipes steps for dealing with omics data, but

@@ -46,6 +46,8 @@ library(testthat)
 
 # use_r("aggregate_list")
 
+# use_github_action("check-standard")
+
 ####
 
 devtools::load_all()
