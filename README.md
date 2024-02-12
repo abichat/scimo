@@ -164,3 +164,8 @@ proposes 3 arguments for variable selection steps based on a statistic:
 - `cutoff` removes variables whose statistic is below (or above,
   depending on the step) it. It could be used alone or in addition to
   the two others.
+
+### Dependencies
+
+**scimo** doesn’t introduce any additional dependencies compared to
+**recipes**.
