@@ -48,6 +48,8 @@ library(testthat)
 
 # use_github_action("check-standard")
 
+# use_vignette("pedcan")
+
 ####
 
 devtools::load_all()

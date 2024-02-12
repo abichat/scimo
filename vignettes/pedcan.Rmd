@@ -1,0 +1,81 @@
+---
+title: "Pediatric cancers"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{pedcan}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, message=FALSE}
+library(dplyr)
+library(ggplot2)
+library(recipes)
+library(scimo)
+
+theme_set(theme_light())
+
+data("pedcan_expression")
+```
+
+## Dataset
+
+`pedcan_expression` contains the expression of 108 cell lines from 5 different pediatric cancers. Additionally, it includes information on the sex of the original donor, the type of cancer it represents, and whether it is a primary tumor or a metastasis.
+
+```{r}
+pedcan_expression
+```
+
+
+## Dimension reduction
+
+One approach to exploring this dataset is by performing PCA.
+
+```{r}
+rec_naive_pca <-
+  recipe(pedcan_expression) %>% 
+  update_role(-cell_line) %>% 
+  step_zv(all_numeric_predictors()) %>% 
+  step_normalize(all_numeric_predictors()) %>% 
+  step_pca(all_numeric_predictors()) %>% 
+  prep()
+
+rec_naive_pca %>% 
+  juice() %>% 
+  ggplot() +
+  aes(x = PC1, y = PC2, color = disease) +
+  geom_point()
+```
+
+To improve the appearance of PCA, one can precede it with a feature selection step based on the coefficient of variation. Here, `step_select_cv` keeps only one fourth of the original features.
+
+```{r}
+rec_cv_pca <-
+  recipe(pedcan_expression) %>% 
+  update_role(-cell_line) %>% 
+  step_select_cv(all_numeric_predictors(), prop_kept = 1/4) %>% 
+  step_normalize(all_numeric_predictors()) %>%
+  step_pca(all_numeric_predictors()) %>%
+  prep()
+
+rec_cv_pca %>% 
+  juice() %>% 
+  ggplot() +
+  aes(x = PC1, y = PC2, color = disease) +
+  geom_point()
+```
+
+The `tidy` method allows to see which features are kept.
+
+```{r}
+tidy(rec_cv_pca, 1)
+```
+
+
