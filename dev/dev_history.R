@@ -50,6 +50,8 @@ library(testthat)
 
 # use_vignette("pedcan")
 
+# use_pkgdown()
+
 ####
 
 devtools::load_all()
@@ -69,4 +71,10 @@ goodpractice::goodpractice()
 devtools::install(upgrade = "never")
 rmarkdown::render("README.Rmd"); file.remove("README.html")
 devtools::install(upgrade = "never")
+
+
+# pkgdown::template_reference()
+pkgdown::check_pkgdown()
+pkgdown::build_site()
+unlink("docs/", recursive = TRUE)
 

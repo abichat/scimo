@@ -1,0 +1,21 @@
+# url: ~
+template:
+  bootstrap: 5
+
+reference:
+- title: Feature Selection Steps
+  contents:
+  - '`step_select_background`'
+  - '`step_select_cv`'
+  - '`step_select_wilcoxon`'
+  - '`step_select_kruskal`'
+- title: Feature Aggregation Steps
+  contents:
+  - '`step_aggregate_list`'
+- title: Datasets
+  contents:
+  - '`pedcan_expression`'
+- title: Helpers
+  contents:
+  - '`cv`'
+  - '`var_to_keep`'

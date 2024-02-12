@@ -2,7 +2,7 @@
 title: "Pediatric cancers"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{pedcan}
+  %\VignetteIndexEntry{Pediatric cancers}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -31,6 +31,10 @@ data("pedcan_expression")
 
 ```{r}
 pedcan_expression
+```
+
+```{r}
+count(pedcan_expression, disease, sort = TRUE)
 ```
 
 
