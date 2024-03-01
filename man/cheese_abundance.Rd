@@ -31,7 +31,7 @@ This dataset came from \url{https://doi.org/10.24072/pcjournal.321}.
 \usage{
 data("cheese_abundance", package = "scimo")
 
-cheese_taxonomy
+data("cheese_taxonomy", package = "scimo")
 }
 \description{
 Fungal community abundance of 74 ASVs sampled from the surface of three

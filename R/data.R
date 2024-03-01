@@ -48,6 +48,9 @@
 "cheese_abundance"
 
 #' @rdname cheese_abundance
+#'
+#' @usage data("cheese_taxonomy", package = "scimo")
+#'
 #' @format For `cheese_taxonomy`, a [tibble][tibble::tibble-package]
 #' with columns:
 #' \describe{
