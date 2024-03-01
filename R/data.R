@@ -1,4 +1,4 @@
-#' Pediatric cancer gene expression
+#' Gene Expression of Pediatric Cancer
 #'
 #' Gene expression of 108 CCLE cell lines from 5 different pediatric cancers.
 #'
@@ -21,3 +21,42 @@
 #' data("pedcan_expression", package = "scimo")
 #' pedcan_expression
 "pedcan_expression"
+
+
+#' Abundance of Fungal Communities in Cheese
+#'
+#' Fungal community abundance of 74 ASVs sampled from the surface of three
+#' different French cheeses.
+#'
+#' @usage data("cheese_abundance", package = "scimo")
+#'
+#' @format For `cheese_abundance`, a [tibble][tibble::tibble-package]
+#' with columns:
+#' \describe{
+#'   \item{sample}{Sample ID.}
+#'   \item{cheese}{Appellation of the cheese. One of `Saint-Nectaire`,
+#'   `Livarot` or `Epoisses`.}
+#'   \item{rind_type}{One of `Natural` or `Washed`.}
+#'   \item{other columns}{Count of the ASV.}
+#' }
+#'
+#' @source This dataset came from \url{https://doi.org/10.24072/pcjournal.321}.
+#'
+#' @examples
+#' data("cheese_abundance", package = "scimo")
+#' cheese_abundance
+"cheese_abundance"
+
+#' @rdname cheese_abundance
+#' @format For `cheese_taxonomy`, a [tibble][tibble::tibble-package]
+#' with columns:
+#' \describe{
+#'   \item{asv}{ASV ID.}
+#'   \item{lineage}{Character corresponding to a standard concatenation of
+#'   taxonomic clades.}
+#'   \item{other columns}{Clade to which the ASV belongs.}
+#' }
+#' @examples
+#' data("cheese_taxonomy", package = "scimo")
+#' cheese_taxonomy
+"cheese_taxonomy"

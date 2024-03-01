@@ -15,6 +15,7 @@ reference:
 - title: Datasets
   contents:
   - '`pedcan_expression`'
+  - '`cheese_abundance`'
 - title: Helpers
   contents:
   - '`cv`'

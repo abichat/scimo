@@ -52,6 +52,8 @@ library(testthat)
 
 # use_pkgdown()
 
+# use_data_raw("cheese_abundance")
+
 ####
 
 devtools::load_all()

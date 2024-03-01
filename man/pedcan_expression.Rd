@@ -3,7 +3,7 @@
 \docType{data}
 \name{pedcan_expression}
 \alias{pedcan_expression}
-\title{Pediatric cancer gene expression}
+\title{Gene Expression of Pediatric Cancer}
 \format{
 A \link[tibble:tibble-package]{tibble} with columns:
 \describe{
