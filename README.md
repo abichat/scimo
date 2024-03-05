@@ -137,19 +137,19 @@ tidy(rec, 3)
 #> # A tibble: 13 × 4
 #>    terms                                    pv kept  id                  
 #>    <chr>                                 <dbl> <lgl> <chr>               
-#>  1 Aspergillaceae                       0.0608 FALSE select_kruskal_rtUAJ
-#>  2 Debaryomycetaceae                    0.0273 TRUE  select_kruskal_rtUAJ
-#>  3 Dipodascaceae                        0.0273 TRUE  select_kruskal_rtUAJ
-#>  4 Dothioraceae                         0.101  FALSE select_kruskal_rtUAJ
-#>  5 Lichtheimiaceae                      0.276  FALSE select_kruskal_rtUAJ
-#>  6 Metschnikowiaceae                    0.0509 FALSE select_kruskal_rtUAJ
-#>  7 Mucoraceae                           0.0608 FALSE select_kruskal_rtUAJ
-#>  8 Phaffomycetaceae                     0.0794 FALSE select_kruskal_rtUAJ
-#>  9 Saccharomycetaceae                   0.0273 TRUE  select_kruskal_rtUAJ
-#> 10 Saccharomycetales fam Incertae sedis 0.0221 TRUE  select_kruskal_rtUAJ
-#> 11 Trichomonascaceae                    0.0625 FALSE select_kruskal_rtUAJ
-#> 12 Trichosporonaceae                    0.0273 TRUE  select_kruskal_rtUAJ
-#> 13 Wickerhamomyceteae                   0.177  FALSE select_kruskal_rtUAJ
+#>  1 Aspergillaceae                       0.0608 FALSE select_kruskal_WKayj
+#>  2 Debaryomycetaceae                    0.0273 TRUE  select_kruskal_WKayj
+#>  3 Dipodascaceae                        0.0273 TRUE  select_kruskal_WKayj
+#>  4 Dothioraceae                         0.101  FALSE select_kruskal_WKayj
+#>  5 Lichtheimiaceae                      0.276  FALSE select_kruskal_WKayj
+#>  6 Metschnikowiaceae                    0.0509 FALSE select_kruskal_WKayj
+#>  7 Mucoraceae                           0.0608 FALSE select_kruskal_WKayj
+#>  8 Phaffomycetaceae                     0.0794 FALSE select_kruskal_WKayj
+#>  9 Saccharomycetaceae                   0.0273 TRUE  select_kruskal_WKayj
+#> 10 Saccharomycetales fam Incertae sedis 0.0221 TRUE  select_kruskal_WKayj
+#> 11 Trichomonascaceae                    0.0625 FALSE select_kruskal_WKayj
+#> 12 Trichosporonaceae                    0.0273 TRUE  select_kruskal_WKayj
+#> 13 Wickerhamomyceteae                   0.177  FALSE select_kruskal_WKayj
 ```
 
 ## Notes

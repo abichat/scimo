@@ -56,6 +56,10 @@ list_family <- split(cheese_taxonomy$asv, cheese_taxonomy$family)
 head(list_family, 2)
 ```
 
+```{r seed, echo=FALSE}
+set.seed(42)
+```
+
 The following recipe will 
 
 1. aggregate the ASV variables at the family level, as defined by `list_family`;
