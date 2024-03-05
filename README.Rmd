@@ -26,7 +26,7 @@ version <- gsub('-', '.', version)
 [![R-CMD-check](https://github.com/abichat/scimo/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/abichat/scimo/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-**scimo** provides extra recipes steps for dealing with omics data, but not only.
+**scimo** provides extra recipes steps for dealing with omics data, while also being adaptable to other data types.
 
 
 ## Installation
@@ -40,34 +40,48 @@ remotes::install_github("abichat/scimo")
 
 ## Example
 
+The `cheese_abundance` dataset describe fungal community abundance of 74 ASVs sampled from the surface of three different French cheeses.
+
 ```{r data, message=FALSE}
 library(scimo)
+data("cheese_abundance", "cheese_taxonomy")
 
-data("pedcan_expression")
-pedcan_expression
+cheese_abundance
+
+glimpse(cheese_taxonomy)
 ```
 
-```{r seed, echo=FALSE}
-set.seed(42)
+```{r}
+list_family <- split(cheese_taxonomy$asv, cheese_taxonomy$family)
+head(list_family, 2)
 ```
 
-```{r example}
+The following recipe will 
+
+1. aggregate the ASV variables at the family level, as defined by `list_family`;
+2. transform counts into proportions;
+3. discard variables those p-values are above 0.05 with a Kruskal-Wallis test against `cheese`.
+
+
+```{r recipe}
 rec <-
-  recipe(pedcan_expression) %>% 
-  update_role(disease, new_role = "outcome") %>% 
-  update_role(-disease, new_role = "predictor") %>% 
-  update_role(cell_line, new_role = "ID") %>% 
-  step_select_cv(all_numeric_predictors(), n_kept = 3000) %>% 
-  step_select_kruskal(all_numeric_predictors(), cutoff = 0.05,
-                      outcome = "disease", correction = "fdr") %>% 
+  recipe(cheese ~ ., data = cheese_abundance) %>% 
+  step_aggregate_list(all_numeric_predictors(),
+                      list_agg = list_family, fun_agg = sum) %>%
+  step_rownormalize_tss(all_numeric_predictors()) %>% 
+  step_select_kruskal(all_numeric_predictors(), 
+                      outcome = "cheese", cutoff = 0.05) %>%
   prep()
 
 rec
 
 juice(rec)
+```
 
-tidy(rec, 1)
-tidy(rec, 2)
+To see which variables are kept and the associated p-values, you can use the `tidy` method on the third step:
+
+```{r tidy}
+tidy(rec, 3)
 ```
 
 
@@ -78,11 +92,19 @@ tidy(rec, 2)
 If you have a very large dataset, you may encounter this error: 
 
 ```{r error, error=TRUE}
+data("pedcan_expression")
 recipe(disease ~ ., data = pedcan_expression) %>% 
     step_select_cv(all_numeric_predictors(), prop_kept = 0.1) 
 ```
 
-It is linked to [how **R** handles many variables in formulas](https://github.com/tidymodels/recipes/issues/467). To solve it, pass only the dataset to `recipe()` and manually update roles with `update_role()`, like in the example above.
+It is linked to [how **R** handles many variables in formulas](https://github.com/tidymodels/recipes/issues/467). To solve it, pass only the dataset to `recipe()` and manually update roles with `update_role()`, like in the example below:
+
+```{r fix}
+recipe(pedcan_expression) %>% 
+  update_role(disease, new_role = "outcome") %>% 
+  update_role(-disease, new_role = "predictor") %>% 
+  step_select_cv(all_numeric_predictors(), prop_kept = 0.1) 
+```
 
 
 ### Steps for variable selection

@@ -10,8 +10,8 @@
 [![R-CMD-check](https://github.com/abichat/scimo/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/abichat/scimo/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-**scimo** provides extra recipes steps for dealing with omics data, but
-not only.
+**scimo** provides extra recipes steps for dealing with omics data,
+while also being adaptable to other data types.
 
 ## Installation
 
@@ -24,42 +24,75 @@ remotes::install_github("abichat/scimo")
 
 ## Example
 
+The `cheese_abundance` dataset describe fungal community abundance of 74
+ASVs sampled from the surface of three different French cheeses.
+
 ``` r
 library(scimo)
+data("cheese_abundance", "cheese_taxonomy")
 
-data("pedcan_expression")
-pedcan_expression
-#> # A tibble: 108 × 19,197
-#>    cell_line sex   event disease  A1BG   A1CF   A2M  A2ML1 A3GALT2 A4GALT  A4GNT
-#>    <chr>     <chr> <chr> <chr>   <dbl>  <dbl> <dbl>  <dbl>   <dbl>  <dbl>  <dbl>
-#>  1 143B      Fema… Prim… Osteos…  3.02 0.0566 2.78  0       0       2.13  0     
-#>  2 A-673     Fema… Prim… Ewing …  4.87 0      2.00  3.19    0.0841  4.62  0.189 
-#>  3 BT-12     Fema… Prim… Embryo…  3.52 0.0286 0.111 0       0       2.32  0.0704
-#>  4 BT-16     Male  Unkn… Embryo…  3.51 0      0.433 0.0144  0       1.54  0.0144
-#>  5 C396      Male  Meta… Osteos…  4.59 0      0.956 0       0       5.10  0     
-#>  6 CADO-ES1  Fema… Meta… Ewing …  5.89 0      0.614 0.379   0.0704  6.60  0.151 
-#>  7 CAL-72    Male  Prim… Osteos…  4.35 0.0426 0.333 0       0       0.614 0     
-#>  8 CBAGPN    Fema… Prim… Ewing …  4.87 0.0976 1.33  0.111   0       0.722 0.0704
-#>  9 CHLA-06   Fema… Unkn… Embryo…  5.05 0      0.124 0       0       0.848 0.138 
-#> 10 CHLA-10   Fema… Unkn… Ewing …  5.05 0.0144 0.949 1.73    0.0704  0.506 0.0704
-#> # ℹ 98 more rows
-#> # ℹ 19,186 more variables: AAAS <dbl>, AACS <dbl>, AADAC <dbl>, AADACL2 <dbl>,
-#> #   AADACL3 <dbl>, AADACL4 <dbl>, AADAT <dbl>, AAGAB <dbl>, AAK1 <dbl>,
-#> #   AAMDC <dbl>, AAMP <dbl>, AANAT <dbl>, AAR2 <dbl>, AARD <dbl>, AARS1 <dbl>,
-#> #   AARS2 <dbl>, AARSD1 <dbl>, AASDH <dbl>, AASDHPPT <dbl>, AASS <dbl>,
-#> #   AATF <dbl>, AATK <dbl>, ABAT <dbl>, ABCA1 <dbl>, ABCA10 <dbl>,
-#> #   ABCA12 <dbl>, ABCA13 <dbl>, ABCA2 <dbl>, ABCA3 <dbl>, ABCA4 <dbl>, …
+cheese_abundance
+#> # A tibble: 9 × 77
+#>   sample    cheese    rind_type asv_01 asv_02 asv_03 asv_04 asv_05 asv_06 asv_07
+#>   <chr>     <chr>     <chr>      <dbl>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl>
+#> 1 sample1-1 Saint-Ne… Natural        1      0     38     40      1      2     31
+#> 2 sample1-2 Saint-Ne… Natural        3      4     38     61      4      4     48
+#> 3 sample1-3 Saint-Ne… Natural       28     16     33     23     31     29     21
+#> 4 sample2-1 Livarot   Washed         0      2      1      0      5      1      0
+#> 5 sample2-2 Livarot   Washed         0      0      4      0      1      1      2
+#> 6 sample2-3 Livarot   Washed         0      1      2      0      2      1      0
+#> 7 sample3-1 Epoisses  Washed         4      2      3      0      2      5      0
+#> 8 sample3-2 Epoisses  Washed         0      0      0      0      0      0      0
+#> 9 sample3-3 Epoisses  Washed         0      0      1      0      0      0      2
+#> # ℹ 67 more variables: asv_08 <dbl>, asv_09 <dbl>, asv_10 <dbl>, asv_11 <dbl>,
+#> #   asv_12 <dbl>, asv_13 <dbl>, asv_14 <dbl>, asv_15 <dbl>, asv_16 <dbl>,
+#> #   asv_17 <dbl>, asv_18 <dbl>, asv_19 <dbl>, asv_20 <dbl>, asv_21 <dbl>,
+#> #   asv_22 <dbl>, asv_23 <dbl>, asv_24 <dbl>, asv_25 <dbl>, asv_26 <dbl>,
+#> #   asv_27 <dbl>, asv_28 <dbl>, asv_29 <dbl>, asv_30 <dbl>, asv_31 <dbl>,
+#> #   asv_32 <dbl>, asv_33 <dbl>, asv_34 <dbl>, asv_35 <dbl>, asv_36 <dbl>,
+#> #   asv_37 <dbl>, asv_38 <dbl>, asv_39 <dbl>, asv_40 <dbl>, asv_41 <dbl>, …
+
+glimpse(cheese_taxonomy)
+#> Rows: 74
+#> Columns: 9
+#> $ asv     <chr> "asv_01", "asv_02", "asv_03", "asv_04", "asv_05", "asv_06", "a…
+#> $ lineage <chr> "k__Fungi|p__Ascomycota|c__Dothideomycetes|o__Dothideales|f__D…
+#> $ kingdom <chr> "Fungi", "Fungi", "Fungi", "Fungi", "Fungi", "Fungi", "Fungi",…
+#> $ phylum  <chr> "Ascomycota", "Ascomycota", "Ascomycota", "Ascomycota", "Ascom…
+#> $ class   <chr> "Dothideomycetes", "Eurotiomycetes", "Eurotiomycetes", "Euroti…
+#> $ order   <chr> "Dothideales", "Eurotiales", "Eurotiales", "Eurotiales", "Euro…
+#> $ family  <chr> "Dothioraceae", "Aspergillaceae", "Aspergillaceae", "Aspergill…
+#> $ genus   <chr> "Aureobasidium", "Aspergillus", "Penicillium", "Penicillium", …
+#> $ species <chr> "Aureobasidium Group pullulans", "Aspergillus fumigatus", "Pen…
 ```
 
 ``` r
+list_family <- split(cheese_taxonomy$asv, cheese_taxonomy$family)
+head(list_family, 2)
+#> $Aspergillaceae
+#> [1] "asv_02" "asv_03" "asv_04" "asv_05" "asv_06" "asv_07" "asv_08" "asv_09"
+#> 
+#> $Debaryomycetaceae
+#>  [1] "asv_10" "asv_11" "asv_12" "asv_13" "asv_14" "asv_15" "asv_16" "asv_17"
+#>  [9] "asv_18" "asv_19" "asv_20" "asv_21" "asv_22"
+```
+
+The following recipe will
+
+1.  aggregate the ASV variables at the family level, as defined by
+    `list_family`;
+2.  transform counts into proportions;
+3.  discard variables those p-values are above 0.05 with a
+    Kruskal-Wallis test against `cheese`.
+
+``` r
 rec <-
-  recipe(pedcan_expression) %>% 
-  update_role(disease, new_role = "outcome") %>% 
-  update_role(-disease, new_role = "predictor") %>% 
-  update_role(cell_line, new_role = "ID") %>% 
-  step_select_cv(all_numeric_predictors(), n_kept = 3000) %>% 
-  step_select_kruskal(all_numeric_predictors(), cutoff = 0.05,
-                      outcome = "disease", correction = "fdr") %>% 
+  recipe(cheese ~ ., data = cheese_abundance) %>% 
+  step_aggregate_list(all_numeric_predictors(),
+                      list_agg = list_family, fun_agg = sum) %>%
+  step_rownormalize_tss(all_numeric_predictors()) %>% 
+  step_select_kruskal(all_numeric_predictors(), 
+                      outcome = "cheese", cutoff = 0.05) %>%
   prep()
 
 rec
@@ -68,69 +101,55 @@ rec
 #> 
 #> ── Inputs
 #> Number of variables by role
-#> outcome:       1
-#> predictor: 19195
-#> ID:            1
+#> outcome:    1
+#> predictor: 76
 #> 
 #> ── Training information
-#> Training data contained 108 data points and no incomplete rows.
+#> Training data contained 9 data points and no incomplete rows.
 #> 
 #> ── Operations
-#> • Top CV filtering on: A1BG, A1CF, A2M, A2ML1, A3GALT2, A4GALT, ... | Trained
-#> • Kruskal filtering against disease on: A1CF, AADAC, AADACL2, ... | Trained
+#> • Aggregation of: asv_01, asv_02, asv_03, asv_04, asv_05, ... | Trained
+#> • TSS normalization on: Aspergillaceae and Debaryomycetaceae, ... | Trained
+#> • Kruskal filtering against cheese on: Aspergillaceae, ... | Trained
 
 juice(rec)
-#> # A tibble: 108 × 928
-#>    cell_line sex    event      disease AADACL2 AADACL4 ABCB11 AC008770.4    ACAN
-#>    <fct>     <fct>  <fct>      <fct>     <dbl>   <dbl>  <dbl>      <dbl>   <dbl>
-#>  1 143B      Female Primary    Osteos…  0       0      0          0       0.0286
-#>  2 A-673     Female Primary    Ewing …  0.0286  0.856  0          0       0.0566
-#>  3 BT-12     Female Primary    Embryo…  0.0144  0      0          0       0     
-#>  4 BT-16     Male   Unknown    Embryo…  0       0      0          0       0     
-#>  5 C396      Male   Metastatic Osteos…  0       0      0          0      10.1   
-#>  6 CADO-ES1  Female Metastatic Ewing …  0.0144  0      0          0       0     
-#>  7 CAL-72    Male   Primary    Osteos…  0       0      0          0       0.111 
-#>  8 CBAGPN    Female Primary    Ewing …  0       0.0976 0          0       0     
-#>  9 CHLA-06   Female Unknown    Embryo…  0       0      0          0       0     
-#> 10 CHLA-10   Female Unknown    Ewing …  0       0.239  0.0144     0.0426  0     
-#> # ℹ 98 more rows
-#> # ℹ 919 more variables: ACCSL <dbl>, ACOT12 <dbl>, ACP7 <dbl>, ACSM4 <dbl>,
-#> #   ACSM5 <dbl>, ACTBL2 <dbl>, ACY3 <dbl>, ADAM33 <dbl>, ADAMDEC1 <dbl>,
-#> #   ADCY8 <dbl>, ADGRD2 <dbl>, ADGRF5 <dbl>, ADGRG7 <dbl>, ADGRL4 <dbl>,
-#> #   AGTR2 <dbl>, AICDA <dbl>, AKAIN1 <dbl>, AKAP4 <dbl>, AL160269.1 <dbl>,
-#> #   AL445238.1 <dbl>, ALLC <dbl>, ALOX15B <dbl>, AMTN <dbl>, ANKRD30B <dbl>,
-#> #   ANKRD30BL <dbl>, ANKRD35 <dbl>, ANXA10 <dbl>, ANXA13 <dbl>, AOAH <dbl>, …
+#> # A tibble: 9 × 8
+#>   sample    rind_type cheese  Debaryomycetaceae Dipodascaceae Saccharomycetaceae
+#>   <fct>     <fct>     <fct>               <dbl>         <dbl>              <dbl>
+#> 1 sample1-1 Natural   Saint-…            0.719         0.0684           0.113   
+#> 2 sample1-2 Natural   Saint-…            0.715         0.0725           0.119   
+#> 3 sample1-3 Natural   Saint-…            0.547         0.277            0.0938  
+#> 4 sample2-1 Washed    Livarot            0.153         0.845            0.000854
+#> 5 sample2-2 Washed    Livarot            0.150         0.848            0.00106 
+#> 6 sample2-3 Washed    Livarot            0.160         0.837            0.00108 
+#> 7 sample3-1 Washed    Epoiss…            0.0513        0.944            0.00327 
+#> 8 sample3-2 Washed    Epoiss…            0.0558        0.941            0.00321 
+#> 9 sample3-3 Washed    Epoiss…            0.0547        0.942            0.00329 
+#> # ℹ 2 more variables: `Saccharomycetales fam Incertae sedis` <dbl>,
+#> #   Trichosporonaceae <dbl>
+```
 
-tidy(rec, 1)
-#> # A tibble: 19,193 × 4
-#>    terms       cv kept  id             
-#>    <chr>    <dbl> <lgl> <chr>          
-#>  1 A1BG    0.371  FALSE select_cv_Jr5WU
-#>  2 A1CF    4.60   TRUE  select_cv_Jr5WU
-#>  3 A2M     1.69   FALSE select_cv_Jr5WU
-#>  4 A2ML1   2.45   FALSE select_cv_Jr5WU
-#>  5 A3GALT2 2.37   FALSE select_cv_Jr5WU
-#>  6 A4GALT  0.979  FALSE select_cv_Jr5WU
-#>  7 A4GNT   1.53   FALSE select_cv_Jr5WU
-#>  8 AAAS    0.0934 FALSE select_cv_Jr5WU
-#>  9 AACS    0.194  FALSE select_cv_Jr5WU
-#> 10 AADAC   3.40   TRUE  select_cv_Jr5WU
-#> # ℹ 19,183 more rows
-tidy(rec, 2)
-#> # A tibble: 3,000 × 5
-#>    terms         pv            qv kept  id                  
-#>    <chr>      <dbl>         <dbl> <lgl> <chr>               
-#>  1 A1CF    9.70e- 1 0.975         FALSE select_kruskal_WKayj
-#>  2 AADAC   1.84e- 1 0.320         FALSE select_kruskal_WKayj
-#>  3 AADACL2 3.45e- 4 0.00255       TRUE  select_kruskal_WKayj
-#>  4 AADACL3 7.58e- 1 0.799         FALSE select_kruskal_WKayj
-#>  5 AADACL4 5.75e-11 0.00000000821 TRUE  select_kruskal_WKayj
-#>  6 ABCB11  1.07e- 5 0.000156      TRUE  select_kruskal_WKayj
-#>  7 ABCB5   3.05e- 2 0.0854        FALSE select_kruskal_WKayj
-#>  8 ABCC12  8.79e- 2 0.187         FALSE select_kruskal_WKayj
-#>  9 ABO     3.58e- 1 0.498         FALSE select_kruskal_WKayj
-#> 10 ABRA    5.85e- 2 0.138         FALSE select_kruskal_WKayj
-#> # ℹ 2,990 more rows
+To see which variables are kept and the associated p-values, you can use
+the `tidy` method on the third step:
+
+``` r
+tidy(rec, 3)
+#> # A tibble: 13 × 4
+#>    terms                                    pv kept  id                  
+#>    <chr>                                 <dbl> <lgl> <chr>               
+#>  1 Aspergillaceae                       0.0608 FALSE select_kruskal_rtUAJ
+#>  2 Debaryomycetaceae                    0.0273 TRUE  select_kruskal_rtUAJ
+#>  3 Dipodascaceae                        0.0273 TRUE  select_kruskal_rtUAJ
+#>  4 Dothioraceae                         0.101  FALSE select_kruskal_rtUAJ
+#>  5 Lichtheimiaceae                      0.276  FALSE select_kruskal_rtUAJ
+#>  6 Metschnikowiaceae                    0.0509 FALSE select_kruskal_rtUAJ
+#>  7 Mucoraceae                           0.0608 FALSE select_kruskal_rtUAJ
+#>  8 Phaffomycetaceae                     0.0794 FALSE select_kruskal_rtUAJ
+#>  9 Saccharomycetaceae                   0.0273 TRUE  select_kruskal_rtUAJ
+#> 10 Saccharomycetales fam Incertae sedis 0.0221 TRUE  select_kruskal_rtUAJ
+#> 11 Trichomonascaceae                    0.0625 FALSE select_kruskal_rtUAJ
+#> 12 Trichosporonaceae                    0.0273 TRUE  select_kruskal_rtUAJ
+#> 13 Wickerhamomyceteae                   0.177  FALSE select_kruskal_rtUAJ
 ```
 
 ## Notes
@@ -140,6 +159,7 @@ tidy(rec, 2)
 If you have a very large dataset, you may encounter this error:
 
 ``` r
+data("pedcan_expression")
 recipe(disease ~ ., data = pedcan_expression) %>% 
     step_select_cv(all_numeric_predictors(), prop_kept = 0.1) 
 #> Error: protect(): protection stack overflow
@@ -148,7 +168,24 @@ recipe(disease ~ ., data = pedcan_expression) %>%
 It is linked to [how **R** handles many variables in
 formulas](https://github.com/tidymodels/recipes/issues/467). To solve
 it, pass only the dataset to `recipe()` and manually update roles with
-`update_role()`, like in the example above.
+`update_role()`, like in the example below:
+
+``` r
+recipe(pedcan_expression) %>% 
+  update_role(disease, new_role = "outcome") %>% 
+  update_role(-disease, new_role = "predictor") %>% 
+  step_select_cv(all_numeric_predictors(), prop_kept = 0.1) 
+#> 
+#> ── Recipe ──────────────────────────────────────────────────────────────────────
+#> 
+#> ── Inputs
+#> Number of variables by role
+#> outcome:       1
+#> predictor: 19196
+#> 
+#> ── Operations
+#> • Top CV filtering on: all_numeric_predictors()
+```
 
 ### Steps for variable selection
 
