@@ -59,6 +59,9 @@ library(testthat)
 
 # use_test("aggregate_list")
 
+# use_r("aggregate_hclust")
+# use_test("aggregate_hclust")
+
 ####
 
 devtools::load_all()

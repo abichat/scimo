@@ -12,6 +12,7 @@ reference:
 - title: Feature Aggregation Steps
   contents:
   - '`step_aggregate_list`'
+  - '`step_aggregate_hclust`'
 - title: Feature Normalization Steps
   contents:
   - '`step_rownormalize_tss`'
