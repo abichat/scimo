@@ -17,7 +17,8 @@ cheese_taxonomy <-
   mutate(asv = if_else(asv >= 10,
                        paste0("asv_", asv),
                        paste0("asv_0", asv))) %>%
-  select(asv, lineage, everything())
+  select(asv, lineage, everything()) %>%
+  janitor::clean_names()
 
 cheese_abundance <-
   cheese_taxonomy %>%
