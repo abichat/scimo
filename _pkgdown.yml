@@ -12,6 +12,9 @@ reference:
 - title: Feature Aggregation Steps
   contents:
   - '`step_aggregate_list`'
+- title: Feature Normalization Steps
+  contents:
+  - '`step_rownormalize_tss`'
 - title: Datasets
   contents:
   - '`pedcan_expression`'

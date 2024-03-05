@@ -54,6 +54,9 @@ library(testthat)
 
 # use_data_raw("cheese_abundance")
 
+# use_r("rownormalize_tss")
+# use_test("rownormalize_tss")
+
 ####
 
 devtools::load_all()
