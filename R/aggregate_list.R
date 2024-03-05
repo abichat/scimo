@@ -168,8 +168,7 @@ tidy.step_aggregate_list <- function(x, ...) {
     res <-
       tibble(
         terms = term_names,
-        pv = rlang::na_dbl,
-        kept = rlang::na_lgl
+        aggregate = rlang::na_chr
       )
   }
   # Always return the step id:
