@@ -57,6 +57,8 @@ library(testthat)
 # use_r("rownormalize_tss")
 # use_test("rownormalize_tss")
 
+# use_test("aggregate_list")
+
 ####
 
 devtools::load_all()

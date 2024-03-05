@@ -94,7 +94,6 @@ step_aggregate_list_new <- function(terms, role, trained,
 #' @export
 #' @importFrom dplyr left_join
 #' @importFrom recipes recipes_eval_select
-#' @importFrom rlang .data
 #' @importFrom tibble enframe tibble
 #' @importFrom tidyr unnest_longer
 prep.step_aggregate_list <- function(x, training, info = NULL, ...) {
@@ -104,7 +103,7 @@ prep.step_aggregate_list <- function(x, training, info = NULL, ...) {
     x$list_agg %>%
     fill_name(prefix = x$prefix) %>%
     enframe(name = "aggregate", value = "terms") %>%
-    unnest_longer(.data$terms)
+    unnest_longer("terms")
 
   res_agg_list <-
     left_join(tibble(terms = unname(col_names)),

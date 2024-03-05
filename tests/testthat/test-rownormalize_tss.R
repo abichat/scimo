@@ -1,6 +1,6 @@
 data("cheese_abundance")
 
-test_that("multiplication works", {
+test_that("step_rownormalize_tss() works", {
   rec <-
     recipe(~ ., data = cheese_abundance) %>%
     step_rownormalize_tss(all_numeric_predictors())
