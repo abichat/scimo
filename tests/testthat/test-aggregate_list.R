@@ -22,6 +22,8 @@ test_that("step_aggregate_list() works", {
   expect_equal(agglist_tidy[-3],
                select(cheese_taxonomy, terms = asv, aggregate = all_of(rk)))
 
+  expect_setequal(summary(prepped)$role, "predictor")
+
   baked <- bake(prepped, new_data = NULL)
 
   expect_equal(colnames(baked),
@@ -36,6 +38,8 @@ test_that("step_aggregate_list() works", {
                  select(all_of(rk_list[[cl]])) %>%
                  rowSums())
 
+  ## keep_original_cols
+
   baked2 <-
     recipe(~ ., data = cheese_abundance) %>%
     step_aggregate_list(all_numeric_predictors(),
@@ -46,4 +50,5 @@ test_that("step_aggregate_list() works", {
 
   expect_equal(colnames(baked2),
                c(colnames(cheese_abundance), names(rk_list)))
+
 })

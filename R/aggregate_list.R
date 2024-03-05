@@ -6,7 +6,9 @@
 #' operations for this recipe.
 #' @param ... One or more selector functions to choose variables
 #'  for this step. See [selections()] for more details.
-#' @param role Not used by this step since no new variables are created.
+#' @param role For model terms created by this step, what analysis role should
+#'  they be assigned? By default, the new columns created by this step from
+#'  the original variables will be used as `predictors` in a model.
 #' @param trained A logical to indicate if the quantities for preprocessing
 #' have been estimated.
 #' @param list_agg Named list of .
@@ -46,7 +48,7 @@
 #' rec
 #' tidy(rec, 1)
 #' juice(rec)
-step_aggregate_list <- function(recipe, ..., role = NA, trained = FALSE,
+step_aggregate_list <- function(recipe, ..., role = "predictor", trained = FALSE,
                                 list_agg = NULL,
                                 fun_agg = NULL,
                                 res = NULL,
