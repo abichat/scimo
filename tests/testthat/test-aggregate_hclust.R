@@ -91,3 +91,27 @@ test_that("step_aggregate_hclust works", {
   expect_equal(colnames(baked2),
                c(colnames(cheese_abundance), new_names))
 })
+
+
+test_that("step_aggregate_hclust throws errors", {
+
+  expect_error(
+    recipe(~ ., data = cheese_abundance) %>%
+      step_aggregate_hclust(all_numeric_predictors(),
+                            n_clusters = nc, fun_agg = sum,
+                            dist_metric = "hello") %>%
+      prep(),
+    '`dist_metric` must be one of "euclidean",'
+  )
+
+  expect_error(
+    recipe(~ ., data = cheese_abundance) %>%
+      step_aggregate_hclust(all_numeric_predictors(),
+                            n_clusters = nc, fun_agg = sum,
+                            linkage_method = "hello") %>%
+      prep(),
+    '`linkage_method` must be one of "ward.D",'
+  )
+
+
+})

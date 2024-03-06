@@ -112,6 +112,12 @@ step_aggregate_hclust_new <- function(terms, role, trained,
 prep.step_aggregate_hclust <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
   check_type(training[, col_names], quant = TRUE)
+  check_in(x$dist_metric, name_x = "dist_metric",
+           values = c("euclidean", "maximum", "manhattan",
+                      "canberra", "binary", "minkowski"))
+  check_in(x$linkage_method, name_x = "linkage_method",
+           values = c("ward.D", "ward.D2", "single", "complete",
+                      "average", "mcquitty", "median", "centroid"))
 
   ct <-
     training[, col_names] %>%
