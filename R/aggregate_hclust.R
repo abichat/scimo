@@ -1,6 +1,6 @@
-#' Feature aggregation step based on a defined list.
+#' Feature aggregation step based on a hierarchical clustering.
 #'
-#' Aggregate variables according to prior knowledge.
+#' Aggregate variables according to hierarchical clustering.
 #'
 #' @param recipe A recipe object. The step will be added to the sequence of
 #' operations for this recipe.
@@ -10,12 +10,16 @@
 #'  they be assigned? By default, the new columns created by this step from
 #'  the original variables will be used as `predictors` in a model.
 #' @param trained A logical to indicate if the quantities for preprocessing
-#' have been estimated.D
-#' @param list_agg Named list of aggregated variables.
-#' @param fun_agg  Aggregation function like `sum` or `mean`.
+#' have been estimated.
+#' @param n_clusters Number of cluster to create.
+#' @param fun_agg Aggregation function like `sum` or `mean`.
+#' @param dist_metric Default to `euclidean`. See [stats::dist()] for more
+#' details.
+#' @param linkage_method Deault to `complete`. See [stats::hclust()] for more
+#' details.
 #' @param res This parameter is only produced after the recipe has been trained.
 #' @param prefix A character string for the prefix of the resulting new
-#' variables that are not named in `list_agg`.
+#' variables.
 #' @param keep_original_cols A logical to keep the original variables in
 #' the output. Defaults to `FALSE`.
 #' @param skip A logical. Should the step be skipped when the
@@ -37,35 +41,37 @@
 #' @author Antoine Bichat
 #'
 #' @examples
-#' list_iris <- list(sepal.size = c("Sepal.Length", "Sepal.Width"),
-#'                   petal.size = c("Petal.Length", "Petal.Width"))
 #' rec <-
 #'   iris %>%
 #'   recipe(formula = Species ~ .) %>%
-#'   step_aggregate_list(all_numeric_predictors(),
-#'                       list_agg = list_iris, fun_agg = prod) %>%
+#'   step_aggregate_hclust(all_numeric_predictors(),
+#'                         n_clusters = 2, fun_agg = sum) %>%
 #'   prep()
 #' rec
 #' tidy(rec, 1)
 #' juice(rec)
-step_aggregate_list <- function(recipe, ..., role = "predictor",
-                                trained = FALSE,
-                                list_agg = NULL,
-                                fun_agg = NULL,
-                                res = NULL,
-                                prefix = "agg_",
-                                keep_original_cols = FALSE,
-                                skip = FALSE,
-                                id = rand_id("aggregate_list")) {
+step_aggregate_hclust <- function(recipe, ..., role = "predictor",
+                                  trained = FALSE,
+                                  n_clusters,
+                                  fun_agg,
+                                  dist_metric = "euclidean",
+                                  linkage_method = "complete",
+                                  res = NULL,
+                                  prefix = "cl_",
+                                  keep_original_cols = FALSE,
+                                  skip = FALSE,
+                                  id = rand_id("aggregate_hclust")) {
 
   add_step(
     recipe,
-    step_aggregate_list_new(
+    step_aggregate_hclust_new(
       terms = enquos(...),
       role = role,
       trained = trained,
-      list_agg = list_agg,
+      n_clusters = n_clusters,
       fun_agg = fun_agg,
+      dist_metric = dist_metric,
+      linkage_method = linkage_method,
       res = res,
       prefix = prefix,
       keep_original_cols = keep_original_cols,
@@ -76,17 +82,20 @@ step_aggregate_list <- function(recipe, ..., role = "predictor",
 }
 
 #' @importFrom recipes step
-step_aggregate_list_new <- function(terms, role, trained,
-                                    list_agg, fun_agg,
-                                    res, prefix, keep_original_cols,
-                                    skip, id) {
+step_aggregate_hclust_new <- function(terms, role, trained,
+                                      n_clusters, fun_agg,
+                                      dist_metric, linkage_method,
+                                      res, prefix, keep_original_cols,
+                                      skip, id) {
 
-  step(subclass = "aggregate_list",
+  step(subclass = "aggregate_hclust",
        terms = terms,
        role = role,
        trained = trained,
-       list_agg = list_agg,
+       n_clusters = n_clusters,
        fun_agg = fun_agg,
+       dist_metric = dist_metric,
+       linkage_method = linkage_method,
        res = res,
        prefix = prefix,
        keep_original_cols = keep_original_cols,
@@ -95,31 +104,38 @@ step_aggregate_list_new <- function(terms, role, trained,
 }
 
 #' @export
-#' @importFrom dplyr left_join
+#' @importFrom dplyr mutate
 #' @importFrom recipes recipes_eval_select
-#' @importFrom tibble enframe tibble
-#' @importFrom tidyr unnest_longer
-prep.step_aggregate_list <- function(x, training, info = NULL, ...) {
+#' @importFrom rlang .data
+#' @importFrom stats cutree dist hclust
+#' @importFrom tibble enframe
+prep.step_aggregate_hclust <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
+  check_type(training[, col_names], quant = TRUE)
 
-  df_agg <-
-    x$list_agg %>%
-    fill_name(prefix = x$prefix) %>%
-    enframe(name = "aggregate", value = "terms") %>%
-    unnest_longer("terms")
+  ct <-
+    training[, col_names] %>%
+    as.matrix() %>%
+    t() %>%
+    dist(method = x$dist_metric) %>%
+    hclust(method = x$linkage_method) %>%
+    cutree(k = x$n_clusters)
 
-  res_agg_list <-
-    left_join(tibble(terms = unname(col_names)),
-              df_agg,
-              by = "terms")
+  res_agg_hclust <-
+    ct %>%
+    enframe(name = "terms", value = "aggregate") %>%
+    mutate(aggregate = paste0(x$prefix, .data$aggregate))
 
-  step_aggregate_list_new(
+
+  step_aggregate_hclust_new(
     terms = x$terms,
     role = x$role,
     trained = TRUE,
-    list_agg = x$list_agg,
+    n_clusters = x$n_clusters,
     fun_agg = x$fun_agg,
-    res = res_agg_list,
+    dist_metric = x$dist_metric,
+    linkage_method = x$linkage_method,
+    res = res_agg_hclust,
     prefix = x$prefix,
     keep_original_cols = x$keep_original_cols,
     skip = x$skip,
@@ -130,20 +146,22 @@ prep.step_aggregate_list <- function(x, training, info = NULL, ...) {
 
 #' @export
 #' @importFrom recipes check_new_data
-bake.step_aggregate_list <- function(object, new_data, ...) {
+bake.step_aggregate_hclust <- function(object, new_data, ...) {
   col_names <- object$res$terms
   check_new_data(col_names, object, new_data)
 
-  aggregate_var(new_data, list_agg = object$list_agg, fun_agg = object$fun_agg,
+  list_agg_hc <- split(object$res$terms, object$res$aggregate)
+
+  aggregate_var(new_data, list_agg = list_agg_hc, fun_agg = object$fun_agg,
                 prefix = object$prefix,
                 keep_original_cols = object$keep_original_cols)
 }
 
 #' @export
 #' @importFrom recipes print_step
-print.step_aggregate_list <-
+print.step_aggregate_hclust <-
   function(x, width = max(20, options()$width - 35), ...) {
-    title <- paste("Aggregation of ")
+    title <- paste("`hclust` aggregation of ")
 
     print_step(
       tr_obj = x$res$terms,
@@ -156,12 +174,12 @@ print.step_aggregate_list <-
   }
 
 
-#' @rdname step_aggregate_list
-#' @param x A `step_aggregate_list` object.
+#' @rdname step_aggregate_hclust
+#' @param x A `step_aggregate_hclust` object.
 #' @export
 #' @importFrom recipes is_trained sel2char
 #' @importFrom tibble tibble
-tidy.step_aggregate_list <- function(x, ...) {
+tidy.step_aggregate_hclust <- function(x, ...) {
   if (is_trained(x)) {
     res <- x$res
   } else {
