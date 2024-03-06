@@ -20,7 +20,7 @@ cv <- function(x, na.rm = TRUE) {
 
 
 
-#' Feature selection step using the coefficient of variation.
+#' Feature selection step using the coefficient of variation
 #'
 #' Select variables with highest coefficient of variation.
 #'

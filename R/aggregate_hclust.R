@@ -1,4 +1,4 @@
-#' Feature aggregation step based on a hierarchical clustering.
+#' Feature aggregation step based on a hierarchical clustering
 #'
 #' Aggregate variables according to hierarchical clustering.
 #'
@@ -15,7 +15,7 @@
 #' @param fun_agg Aggregation function like `sum` or `mean`.
 #' @param dist_metric Default to `euclidean`. See [stats::dist()] for more
 #' details.
-#' @param linkage_method Deault to `complete`. See [stats::hclust()] for more
+#' @param linkage_method Default to `complete`. See [stats::hclust()] for more
 #' details.
 #' @param res This parameter is only produced after the recipe has been trained.
 #' @param prefix A character string for the prefix of the resulting new

@@ -19,5 +19,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Antoine BICHAT \email{antoine.bichat@proton.me} (\href{https://orcid.org/0000-0001-6599-7081}{ORCID})
 
+Other contributors:
+\itemize{
+  \item Julie AUBERT \email{julie.aubert@inrae.fr} (\href{https://orcid.org/0000-0001-5203-5748}{ORCID}) [contributor]
+}
+
 }
 \keyword{internal}

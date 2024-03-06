@@ -3,7 +3,7 @@
 \name{step_select_wilcoxon}
 \alias{step_select_wilcoxon}
 \alias{tidy.step_select_wilcoxon}
-\title{Feature selection step using Wilcoxon test.}
+\title{Feature selection step using Wilcoxon test}
 \usage{
 step_select_wilcoxon(
   recipe,

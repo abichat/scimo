@@ -3,7 +3,7 @@
 \name{step_rownormalize_tss}
 \alias{step_rownormalize_tss}
 \alias{tidy.step_rownormalize_tss}
-\title{Feature normalization step using total sum scaling.}
+\title{Feature normalization step using total sum scaling}
 \usage{
 step_rownormalize_tss(
   recipe,

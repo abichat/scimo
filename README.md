@@ -24,8 +24,9 @@ remotes::install_github("abichat/scimo")
 
 ## Example
 
-The `cheese_abundance` dataset describe fungal community abundance of 74
-ASVs sampled from the surface of three different French cheeses.
+The `cheese_abundance` dataset describes fungal community abundance of
+74 Amplicon Sequences Variants (ASVs) sampled from the surface of three
+different French cheeses.
 
 ``` r
 library(scimo)

@@ -1,4 +1,4 @@
-#' Feature selection step using Kruskal test.
+#' Feature selection step using Kruskal test
 #'
 #' Select variables with the lowest (adjusted) p-value of a
 #' Kruskal-Wallis test against an outcome.

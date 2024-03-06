@@ -3,7 +3,7 @@
 \name{step_select_kruskal}
 \alias{step_select_kruskal}
 \alias{tidy.step_select_kruskal}
-\title{Feature selection step using Kruskal test.}
+\title{Feature selection step using Kruskal test}
 \usage{
 step_select_kruskal(
   recipe,

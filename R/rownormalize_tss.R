@@ -1,4 +1,4 @@
-#' Feature normalization step using total sum scaling.
+#' Feature normalization step using total sum scaling
 #'
 #' Normalize a set of variables by converting them to proportion, making
 #' them sum to 1. Also known as simplex projection.

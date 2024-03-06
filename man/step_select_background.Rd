@@ -3,7 +3,7 @@
 \name{step_select_background}
 \alias{step_select_background}
 \alias{tidy.step_select_background}
-\title{Feature selection step using background level.}
+\title{Feature selection step using background level}
 \usage{
 step_select_background(
   recipe,

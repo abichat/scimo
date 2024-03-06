@@ -28,7 +28,7 @@ discarded.}
 default) the quantity given by \code{values}.}
 }
 \value{
-A logical vector indicating if variables are ept or discarded.
+A logical vector indicating if variables are kept or discarded.
 }
 \description{
 Decide which variable to keep

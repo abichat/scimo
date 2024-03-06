@@ -1,9 +1,12 @@
 Package: scimo
 Title: Extra Recipes Steps For Dealing With Omics Data
 Version: 0.0.0.9000
-Authors@R: 
+Authors@R: c(
     person("Antoine", "BICHAT", , "antoine.bichat@proton.me", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0001-6599-7081"))
+           comment = c(ORCID = "0000-0001-6599-7081")),
+    person("Julie", "AUBERT", , "julie.aubert@inrae.fr", role = "ctb",
+           comment = c(ORCID = "0000-0001-5203-5748"))
+  )
 Description: Omics data (e.g. transcriptomics, proteomics,
     metagenomics...)  offer a detailed and multi-dimensional perspective
     on the molecular components and interactions within complex biological

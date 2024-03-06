@@ -1,4 +1,4 @@
-#' Feature selection step using Wilcoxon test.
+#' Feature selection step using Wilcoxon test
 #'
 #' Select variables with the lowest (adjusted) p-value of a
 #' Wilcoxon-Mann-Whitney test against an outcome.

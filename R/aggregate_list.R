@@ -1,4 +1,4 @@
-#' Feature aggregation step based on a defined list.
+#' Feature aggregation step based on a defined list
 #'
 #' Aggregate variables according to prior knowledge.
 #'
@@ -10,7 +10,7 @@
 #'  they be assigned? By default, the new columns created by this step from
 #'  the original variables will be used as `predictors` in a model.
 #' @param trained A logical to indicate if the quantities for preprocessing
-#' have been estimated.D
+#' have been estimated.
 #' @param list_agg Named list of aggregated variables.
 #' @param fun_agg  Aggregation function like `sum` or `mean`.
 #' @param res This parameter is only produced after the recipe has been trained.

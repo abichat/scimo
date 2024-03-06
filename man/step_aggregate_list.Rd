@@ -3,7 +3,7 @@
 \name{step_aggregate_list}
 \alias{step_aggregate_list}
 \alias{tidy.step_aggregate_list}
-\title{Feature aggregation step based on a defined list.}
+\title{Feature aggregation step based on a defined list}
 \usage{
 step_aggregate_list(
   recipe,
@@ -35,7 +35,7 @@ the original variables will be used as \code{predictors} in a model.}
 \item{trained}{A logical to indicate if the quantities for preprocessing
 have been estimated.}
 
-\item{list_agg}{Named list of .}
+\item{list_agg}{Named list of aggregated variables.}
 
 \item{fun_agg}{Aggregation function like \code{sum} or \code{mean}.}
 

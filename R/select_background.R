@@ -1,4 +1,4 @@
-#' Feature selection step using background level.
+#' Feature selection step using background level
 #'
 #' Select features that exceed a background level in at least a defined
 #' number of samples.

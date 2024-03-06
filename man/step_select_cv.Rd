@@ -3,7 +3,7 @@
 \name{step_select_cv}
 \alias{step_select_cv}
 \alias{tidy.step_select_cv}
-\title{Feature selection step using the coefficient of variation.}
+\title{Feature selection step using the coefficient of variation}
 \usage{
 step_select_cv(
   recipe,

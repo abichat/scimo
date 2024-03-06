@@ -3,7 +3,7 @@
 \name{step_aggregate_hclust}
 \alias{step_aggregate_hclust}
 \alias{tidy.step_aggregate_hclust}
-\title{Feature aggregation step based on a hierarchical clustering.}
+\title{Feature aggregation step based on a hierarchical clustering}
 \usage{
 step_aggregate_hclust(
   recipe,
@@ -44,7 +44,7 @@ have been estimated.}
 \item{dist_metric}{Default to \code{euclidean}. See \code{\link[stats:dist]{stats::dist()}} for more
 details.}
 
-\item{linkage_method}{Deault to \code{complete}. See \code{\link[stats:hclust]{stats::hclust()}} for more
+\item{linkage_method}{Default to \code{complete}. See \code{\link[stats:hclust]{stats::hclust()}} for more
 details.}
 
 \item{res}{This parameter is only produced after the recipe has been trained.}
