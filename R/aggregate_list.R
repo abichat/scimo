@@ -107,8 +107,9 @@ step_aggregate_list_new <- function(terms, role, trained,
 }
 
 #' @export
-#' @importFrom dplyr left_join
+#' @importFrom dplyr if_else left_join
 #' @importFrom recipes recipes_eval_select
+#' @importFrom rlang .data .env
 #' @importFrom tibble enframe tibble
 #' @importFrom tidyr unnest_longer
 prep.step_aggregate_list <- function(x, training, info = NULL, ...) {
@@ -131,7 +132,8 @@ prep.step_aggregate_list <- function(x, training, info = NULL, ...) {
     asis <- setdiff(col_names, unlist(x$list_agg))
     res_agg_list <-
       res_agg_list %>%
-      mutate(aggregate = if_else(terms %in% asis, terms, aggregate))
+      mutate(aggregate = if_else(.data$terms %in% .env$asis,
+                                 .data$terms, .data$aggregate))
   }
 
   step_aggregate_list_new(

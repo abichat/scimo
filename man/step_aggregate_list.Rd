@@ -12,6 +12,8 @@ step_aggregate_list(
   trained = FALSE,
   list_agg = NULL,
   fun_agg = NULL,
+  others = "discard",
+  name_others = "others",
   res = NULL,
   prefix = "agg_",
   keep_original_cols = FALSE,
@@ -38,6 +40,14 @@ have been estimated.}
 \item{list_agg}{Named list of aggregated variables.}
 
 \item{fun_agg}{Aggregation function like \code{sum} or \code{mean}.}
+
+\item{others}{Behavior with selected behavior that are not present in
+\code{list_agg}. If \code{discard} (the default), they are not kept. If \code{asis}, they
+are kept without modification. If \code{aggregate}, they are aggregated in a
+new variable.}
+
+\item{name_others}{If \code{others} is set to \code{aggregate}, name of the
+aggregated variable. Not used otherwise.}
 
 \item{res}{This parameter is only produced after the recipe has been trained.}
 
