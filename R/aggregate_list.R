@@ -117,8 +117,17 @@ prep.step_aggregate_list <- function(x, training, info = NULL, ...) {
   check_in(x$others, name_x = "others",
            values = c("discard", "asis", "aggregate"))
 
+  updt_list_agg <- x$list_agg
+
+  if (x$others == "aggregate") {
+    other_cols <- setdiff(col_names, unlist(x$list_agg))
+    if (length(other_cols) != 0) {
+      updt_list_agg[[x$name_others]] <- other_cols
+    }
+  }
+
   df_agg <-
-    x$list_agg %>%
+    updt_list_agg %>%
     fill_name(prefix = x$prefix) %>%
     enframe(name = "aggregate", value = "terms") %>%
     unnest_longer("terms")
@@ -129,7 +138,7 @@ prep.step_aggregate_list <- function(x, training, info = NULL, ...) {
               by = "terms")
 
   if (x$others == "asis") {
-    asis <- setdiff(col_names, unlist(x$list_agg))
+    asis <- setdiff(col_names, unlist(updt_list_agg))
     res_agg_list <-
       res_agg_list %>%
       mutate(aggregate = if_else(.data$terms %in% .env$asis,
@@ -140,7 +149,7 @@ prep.step_aggregate_list <- function(x, training, info = NULL, ...) {
     terms = x$terms,
     role = x$role,
     trained = TRUE,
-    list_agg = x$list_agg,
+    list_agg = updt_list_agg,
     fun_agg = x$fun_agg,
     others = x$others,
     name_others = x$name_others,

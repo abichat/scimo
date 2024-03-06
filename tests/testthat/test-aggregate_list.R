@@ -97,7 +97,7 @@ test_that("`others` argument works", {
   expect_equal(tidy(rec1_keepori, 1)$aggregate,
                c("sepal.size", "sepal.size", "petal.size", "petal.size"))
 
-  ### Some variables are missing in list_agg
+  ### One variable is missing in list_agg
   l2 <- list(petal.size = c("Petal.Length"),
              sepal.size = c("Sepal.Width", "Sepal.Length"))
 
@@ -175,5 +175,51 @@ test_that("`others` argument works", {
                colnames(iris)[-5])
   expect_equal(tidy(rec2_keepoth_keepori, 1)$aggregate,
                c("sepal.size", "sepal.size", "petal.size", "Petal.Width"))
+
+  ### Some variables are missing in list_agg
+  l3 <- list(sepal.size = c("Sepal.Width", "Sepal.Length"))
+
+
+  # Aggregate other columns and discard original columns
+  rec3_aggoth_disori <-
+    iris %>%
+    recipe(formula = Species ~ .) %>%
+    step_aggregate_list(all_numeric_predictors(),
+                        others = "aggregate", name_others = "Oth",
+                        list_agg = l3, fun_agg = prod) %>%
+    prep()
+
+  expect_equal(colnames(juice(rec3_aggoth_disori)),
+               c("Species", names(l3), "Oth"))
+
+  expect_equal(tidy(rec3_aggoth_disori, 1)$terms,
+               colnames(iris)[-5])
+  expect_equal(tidy(rec3_aggoth_disori, 1)$aggregate,
+               c("sepal.size", "sepal.size", "Oth", "Oth"))
+
+  expect_equal(juice(rec3_aggoth_disori)$Oth,
+               iris$Petal.Length * iris$Petal.Width)
+
+
+  # Aggregate other columns and keep original columns
+  rec3_aggcoth_keepori <-
+    iris %>%
+    recipe(formula = Species ~ .) %>%
+    step_aggregate_list(all_numeric_predictors(),
+                        list_agg = l3, fun_agg = prod,
+                        others = "aggregate", name_others = "Oth",
+                        keep_original_cols = TRUE) %>%
+    prep()
+
+  expect_equal(colnames(juice(rec3_aggcoth_keepori)),
+               c(colnames(iris), names(l3), "Oth"))
+
+  expect_equal(tidy(rec3_aggcoth_keepori, 1)$terms,
+               colnames(iris)[-5])
+  expect_equal(tidy(rec3_aggcoth_keepori, 1)$aggregate,
+               c("sepal.size", "sepal.size", "Oth", "Oth"))
+
+  expect_equal(juice(rec3_aggcoth_keepori)$Oth,
+               iris$Petal.Length * iris$Petal.Width)
 
 })
