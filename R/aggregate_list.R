@@ -11,8 +11,8 @@
 #'  the original variables will be used as `predictors` in a model.
 #' @param trained A logical to indicate if the quantities for preprocessing
 #' have been estimated.
-#' @param list_agg Named list of .
-#' @param fun_agg Function .
+#' @param list_agg Named list of aggregated variables.
+#' @param fun_agg Function to be used to aggregate variables.
 #' @param res This parameter is only produced after the recipe has been trained.
 #' @param prefix A character string for the prefix of the resulting new
 #' variables that are not named in `list_agg`.

@@ -10,7 +10,7 @@
 #' @param maximize Whether to minimize (`FALSE`) or maximize (`TRUE`, the
 #' default) the quantity given by `values`.
 #'
-#' @return A logical vector indicating if variables are ept or discarded.
+#' @return A logical vector indicating if variables are kept or discarded.
 #' @export
 #'
 #' @importFrom rlang abort

@@ -54,7 +54,7 @@
 #' @format For `cheese_taxonomy`, a [tibble][tibble::tibble-package]
 #' with columns:
 #' \describe{
-#'   \item{asv}{ASV ID.}
+#'   \item{asv}{Amplicon Sequence Variant (ASV) ID.}
 #'   \item{lineage}{Character corresponding to a standard concatenation of
 #'   taxonomic clades.}
 #'   \item{other columns}{Clade to which the ASV belongs.}
