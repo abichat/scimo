@@ -52,3 +52,128 @@ test_that("step_aggregate_list() works", {
                c(colnames(cheese_abundance), names(rk_list)))
 
 })
+
+
+test_that("`others` argument works", {
+
+  ### All variables are present in list_agg
+  l1 <- list(petal.size = c("Petal.Width", "Petal.Length"),
+             sepal.size = c("Sepal.Length", "Sepal.Width"))
+
+
+  # Discard original columns
+  rec1_discori <-
+    iris %>%
+    recipe(formula = Species ~ .) %>%
+    step_aggregate_list(all_numeric_predictors(),
+                        list_agg = l1, fun_agg = prod,
+                        others = "discard") %>%
+    prep()
+
+  expect_equal(colnames(juice(rec1_discori)),
+               c("Species", names(l1)))
+
+  expect_equal(tidy(rec1_discori, 1)$terms,
+               colnames(iris)[-5])
+  expect_equal(tidy(rec1_discori, 1)$aggregate,
+               c("sepal.size", "sepal.size", "petal.size", "petal.size"))
+
+
+  # Keep original columns
+  rec1_keepori <-
+    iris %>%
+    recipe(formula = Species ~ .) %>%
+    step_aggregate_list(all_numeric_predictors(),
+                        list_agg = l1, fun_agg = prod,
+                        others = "discard",
+                        keep_original_cols = TRUE) %>%
+    prep()
+
+  expect_equal(colnames(juice(rec1_keepori)),
+               c(colnames(iris), names(l1)))
+
+  expect_equal(tidy(rec1_keepori, 1)$terms,
+               colnames(iris)[-5])
+  expect_equal(tidy(rec1_keepori, 1)$aggregate,
+               c("sepal.size", "sepal.size", "petal.size", "petal.size"))
+
+  ### Some variables are missing in list_agg
+  l2 <- list(petal.size = c("Petal.Length"),
+             sepal.size = c("Sepal.Width", "Sepal.Length"))
+
+
+  # Discard other columns and discard original columns
+  rec2_discoth_disori <-
+    iris %>%
+    recipe(formula = Species ~ .) %>%
+    step_aggregate_list(all_numeric_predictors(),
+                        others = "discard",
+                        list_agg = l2, fun_agg = prod) %>%
+    prep()
+
+  expect_equal(colnames(juice(rec2_discoth_disori)),
+               c("Species", names(l2)))
+
+  expect_equal(tidy(rec2_discoth_disori, 1)$terms,
+               colnames(iris)[-5])
+  expect_equal(tidy(rec2_discoth_disori, 1)$aggregate,
+               c("sepal.size", "sepal.size", "petal.size", NA))
+
+
+  # Discard other columns and keep original columns
+  rec2_discoth_keepori <-
+    iris %>%
+    recipe(formula = Species ~ .) %>%
+    step_aggregate_list(all_numeric_predictors(),
+                        list_agg = l2, fun_agg = prod,
+                        others = "discard",
+                        keep_original_cols = TRUE) %>%
+    prep()
+
+  expect_equal(colnames(juice(rec2_discoth_keepori)),
+               c(colnames(iris), names(l2)))
+
+  expect_equal(tidy(rec2_discoth_keepori, 1)$terms,
+               colnames(iris)[-5])
+  expect_equal(tidy(rec2_discoth_keepori, 1)$aggregate,
+               c("sepal.size", "sepal.size", "petal.size", NA))
+
+
+  # Keep other columns and discard original columns
+  rec2_keepoth_disori <-
+    iris %>%
+    recipe(formula = Species ~ .) %>%
+    step_aggregate_list(all_numeric_predictors(),
+                        list_agg = l2, fun_agg = prod,
+                        others = "asis",
+                        keep_original_cols = FALSE) %>%
+    prep()
+
+  expect_equal(colnames(juice(rec2_keepoth_disori)),
+               c("Petal.Width", "Species", names(l2)))
+
+  expect_equal(tidy(rec2_keepoth_disori, 1)$terms,
+               colnames(iris)[-5])
+  expect_equal(tidy(rec2_keepoth_disori, 1)$aggregate,
+               c("sepal.size", "sepal.size", "petal.size", "Petal.Width"))
+
+
+  # Keep other columns and keep original columns
+  rec2_keepoth_keepori <-
+    iris %>%
+    recipe(formula = Species ~ .) %>%
+    step_aggregate_list(all_numeric_predictors(),
+                        list_agg = l2, fun_agg = prod,
+                        others = "asis",
+                        keep_original_cols = TRUE) %>%
+    prep()
+
+  expect_equal(colnames(juice(rec2_keepoth_keepori)),
+               c(names(iris), names(l2)))
+
+  expect_equal(tidy(rec2_keepoth_keepori, 1)$terms,
+               colnames(iris)[-5])
+  expect_equal(tidy(rec2_keepoth_keepori, 1)$aggregate,
+               c("sepal.size", "sepal.size", "petal.size", "Petal.Width"))
+
+})

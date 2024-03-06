@@ -13,6 +13,12 @@
 #' have been estimated.
 #' @param list_agg Named list of aggregated variables.
 #' @param fun_agg  Aggregation function like `sum` or `mean`.
+#' @param others Behavior with selected behavior that are not present in
+#' `list_agg`. If `discard` (the default), they are not kept. If `asis`, they
+#' are kept without modification. If `aggregate`, they are aggregated in a
+#' new variable.
+#' @param name_others If `others` is set to `aggregate`, name of the
+#' aggregated variable. Not used otherwise.
 #' @param res This parameter is only produced after the recipe has been trained.
 #' @param prefix A character string for the prefix of the resulting new
 #' variables that are not named in `list_agg`.
@@ -52,6 +58,8 @@ step_aggregate_list <- function(recipe, ..., role = "predictor",
                                 trained = FALSE,
                                 list_agg = NULL,
                                 fun_agg = NULL,
+                                others = "discard",
+                                name_others = "others",
                                 res = NULL,
                                 prefix = "agg_",
                                 keep_original_cols = FALSE,
@@ -66,6 +74,8 @@ step_aggregate_list <- function(recipe, ..., role = "predictor",
       trained = trained,
       list_agg = list_agg,
       fun_agg = fun_agg,
+      others = others,
+      name_others = name_others,
       res = res,
       prefix = prefix,
       keep_original_cols = keep_original_cols,
@@ -77,7 +87,7 @@ step_aggregate_list <- function(recipe, ..., role = "predictor",
 
 #' @importFrom recipes step
 step_aggregate_list_new <- function(terms, role, trained,
-                                    list_agg, fun_agg,
+                                    list_agg, fun_agg, others,name_others,
                                     res, prefix, keep_original_cols,
                                     skip, id) {
 
@@ -87,6 +97,8 @@ step_aggregate_list_new <- function(terms, role, trained,
        trained = trained,
        list_agg = list_agg,
        fun_agg = fun_agg,
+       others = others,
+       name_others = name_others,
        res = res,
        prefix = prefix,
        keep_original_cols = keep_original_cols,
@@ -101,6 +113,8 @@ step_aggregate_list_new <- function(terms, role, trained,
 #' @importFrom tidyr unnest_longer
 prep.step_aggregate_list <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
+  check_in(x$others, name_x = "others",
+           values = c("discard", "asis", "aggregate"))
 
   df_agg <-
     x$list_agg %>%
@@ -109,9 +123,16 @@ prep.step_aggregate_list <- function(x, training, info = NULL, ...) {
     unnest_longer("terms")
 
   res_agg_list <-
-    left_join(tibble(terms = unname(col_names)),
-              df_agg,
+    tibble(terms = unname(col_names)) %>%
+    left_join(df_agg,
               by = "terms")
+
+  if (x$others == "asis") {
+    asis <- setdiff(col_names, unlist(x$list_agg))
+    res_agg_list <-
+      res_agg_list %>%
+      mutate(aggregate = if_else(terms %in% asis, terms, aggregate))
+  }
 
   step_aggregate_list_new(
     terms = x$terms,
@@ -119,6 +140,8 @@ prep.step_aggregate_list <- function(x, training, info = NULL, ...) {
     trained = TRUE,
     list_agg = x$list_agg,
     fun_agg = x$fun_agg,
+    others = x$others,
+    name_others = x$name_others,
     res = res_agg_list,
     prefix = x$prefix,
     keep_original_cols = x$keep_original_cols,
@@ -134,9 +157,23 @@ bake.step_aggregate_list <- function(object, new_data, ...) {
   col_names <- object$res$terms
   check_new_data(col_names, object, new_data)
 
-  aggregate_var(new_data, list_agg = object$list_agg, fun_agg = object$fun_agg,
-                prefix = object$prefix,
-                keep_original_cols = object$keep_original_cols)
+  new_df <-
+    aggregate_var(new_data, list_agg = object$list_agg,
+                  fun_agg = object$fun_agg,
+                  prefix = object$prefix,
+                  keep_original_cols = object$keep_original_cols)
+
+  if (object$others == "discard" && !object$keep_original_cols) {
+    to_discard <-
+      col_names %>%
+      setdiff(unlist(object$list_agg)) %>%
+      setdiff(names(object$list_agg))
+
+    new_df[, to_discard] <- NULL
+  }
+
+
+  new_df
 }
 
 #' @export
