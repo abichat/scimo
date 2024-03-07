@@ -62,6 +62,10 @@ library(testthat)
 # use_r("aggregate_hclust")
 # use_test("aggregate_hclust")
 
+# use_github_action("check-release", save_as = "R-CMD-check-prdev.yaml")
+# use_github_action("pkgdown")
+
+
 ####
 
 devtools::load_all()
