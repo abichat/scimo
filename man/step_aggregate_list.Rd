@@ -41,7 +41,7 @@ have been estimated.}
 
 \item{fun_agg}{Aggregation function like \code{sum} or \code{mean}.}
 
-\item{others}{Behavior with selected behavior that are not present in
+\item{others}{Behavior for the selected variables in \code{...} that are not present in
 \code{list_agg}. If \code{discard} (the default), they are not kept. If \code{asis}, they
 are kept without modification. If \code{aggregate}, they are aggregated in a
 new variable.}

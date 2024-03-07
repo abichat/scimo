@@ -13,7 +13,7 @@
 #' have been estimated.
 #' @param list_agg Named list of aggregated variables.
 #' @param fun_agg  Aggregation function like `sum` or `mean`.
-#' @param others Behavior with selected behavior that are not present in
+#' @param others Behavior for the selected variables in `...` that are not present in
 #' `list_agg`. If `discard` (the default), they are not kept. If `asis`, they
 #' are kept without modification. If `aggregate`, they are aggregated in a
 #' new variable.
