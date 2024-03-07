@@ -1,6 +1,6 @@
 Package: scimo
 Title: Extra Recipes Steps For Dealing With Omics Data
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: c(
     person("Antoine", "BICHAT", , "antoine.bichat@proton.me", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-6599-7081")),
