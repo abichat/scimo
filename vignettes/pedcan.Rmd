@@ -52,7 +52,7 @@ rec_naive_pca <-
   prep()
 
 rec_naive_pca %>% 
-  juice() %>% 
+  bake(new_data = NULL) %>% 
   ggplot() +
   aes(x = PC1, y = PC2, color = disease) +
   geom_point()
@@ -70,7 +70,7 @@ rec_cv_pca <-
   prep()
 
 rec_cv_pca %>% 
-  juice() %>% 
+  bake(new_data = NULL) %>% 
   ggplot() +
   aes(x = PC1, y = PC2, color = disease) +
   geom_point()

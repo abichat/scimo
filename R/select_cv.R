@@ -59,7 +59,7 @@ cv <- function(x, na.rm = TRUE) {
 #'   prep()
 #' rec
 #' tidy(rec, 1)
-#' juice(rec)
+#' bake(rec, new_data = NULL)
 step_select_cv <- function(recipe, ..., role = NA, trained = FALSE,
                            n_kept = NULL,
                            prop_kept = NULL,

@@ -53,7 +53,7 @@
 #'   prep()
 #' rec
 #' tidy(rec, 1)
-#' juice(rec)
+#' bake(rec, new_data = NULL)
 step_aggregate_list <- function(recipe, ..., role = "predictor",
                                 trained = FALSE,
                                 list_agg = NULL,

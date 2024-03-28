@@ -36,7 +36,7 @@
 #'   prep()
 #' rec
 #' tidy(rec, 1)
-#' juice(rec)
+#' bake(rec, new_data = NULL)
 step_rownormalize_tss <- function(recipe, ..., role = NA, trained = FALSE,
                                     res = NULL, skip = FALSE,
                                     id = rand_id("rownormalize_tss")) {

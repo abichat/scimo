@@ -49,7 +49,7 @@
 #'   prep()
 #' rec
 #' tidy(rec, 1)
-#' juice(rec)
+#' bake(rec, new_data = NULL)
 step_aggregate_hclust <- function(recipe, ..., role = "predictor",
                                   trained = FALSE,
                                   n_clusters,

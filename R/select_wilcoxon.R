@@ -43,7 +43,7 @@
 #'   prep()
 #' rec
 #' tidy(rec, 1)
-#' juice(rec)
+#' bake(rec, new_data = NULL)
 step_select_wilcoxon <- function(recipe, ..., role = NA, trained = FALSE,
                                  outcome = NULL,
                                  n_kept = NULL,

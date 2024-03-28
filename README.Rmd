@@ -79,7 +79,7 @@ rec <-
 
 rec
 
-juice(rec)
+bake(rec, new_data = NULL)
 ```
 
 To see which variables are kept and the associated p-values, you can use the `tidy` method on the third step:

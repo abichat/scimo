@@ -78,7 +78,7 @@ rec <-
   prep()
 rec
 tidy(rec, 1)
-juice(rec)
+bake(rec, new_data = NULL)
 }
 \author{
 Antoine Bichat
