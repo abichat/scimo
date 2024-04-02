@@ -1,5 +1,5 @@
 Package: scimo
-Title: Extra Recipes Steps For Dealing With Omics Data
+Title: Extra Recipes Steps for Dealing with Omics Data
 Version: 0.0.1
 Authors@R: c(
     person("Antoine", "BICHAT", , "antoine.bichat@proton.me", role = c("aut", "cre"),

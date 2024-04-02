@@ -40,7 +40,7 @@
 #'   \item{other columns}{Count of the ASV.}
 #' }
 #'
-#' @source This dataset came from \url{https://doi.org/10.24072/pcjournal.321}.
+#' @source This dataset came from \doi{10.24072/pcjournal.321}.
 #'
 #' @examples
 #' data("cheese_abundance", package = "scimo")

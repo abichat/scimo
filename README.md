@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![packageversion](https://img.shields.io/badge/version-0.0.1-orange.svg)](commits/master)
+![packageversion](https://img.shields.io/badge/version-0.0.1-orange.svg)
 [![R-CMD-check](https://github.com/abichat/scimo/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/abichat/scimo/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 

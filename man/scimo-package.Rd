@@ -4,7 +4,7 @@
 \name{scimo-package}
 \alias{scimo}
 \alias{scimo-package}
-\title{scimo: Extra Recipes Steps For Dealing With Omics Data}
+\title{scimo: Extra Recipes Steps for Dealing with Omics Data}
 \description{
 Omics data (e.g. transcriptomics, proteomics, metagenomics...) offer a detailed and multi-dimensional perspective on the molecular components and interactions within complex biological (eco)systems. Analyzing these data requires adapted procedures, which are implemented as steps according to the 'recipes' package.
 }
