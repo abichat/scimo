@@ -26,7 +26,7 @@ taxonomic clades.}
 }
 }
 \source{
-This dataset came from \url{https://doi.org/10.24072/pcjournal.321}.
+This dataset came from \doi{10.24072/pcjournal.321}.
 }
 \usage{
 data("cheese_abundance", package = "scimo")
