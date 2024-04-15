@@ -87,7 +87,7 @@ step_aggregate_list <- function(recipe, ..., role = "predictor",
 
 #' @importFrom recipes step
 step_aggregate_list_new <- function(terms, role, trained,
-                                    list_agg, fun_agg, others,name_others,
+                                    list_agg, fun_agg, others, name_others,
                                     res, prefix, keep_original_cols,
                                     skip, id) {
 

@@ -65,8 +65,14 @@ library(testthat)
 # use_github_action("check-release", save_as = "R-CMD-check-prdev.yaml")
 # use_github_action("pkgdown")
 
+# use_r("taxonomy")
+
 
 ####
+
+# data("cheese_abundance")
+# data("cheese_taxonomy")
+# data("pedcan_expression")
 
 devtools::load_all()
 devtools::document()
