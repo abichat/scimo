@@ -17,4 +17,7 @@ test_that("step_rownormalize_tss() works", {
   expect_equal(colnames(baked), colnames(cheese_abundance))
   expect_equal(rowSums(baked[, -c(1:3)]), rep(1, nrow(cheese_abundance)))
 
+
+  expect_invisible(recipes_pkg_check(required_pkgs.step_rownormalize_tss()))
+
 })

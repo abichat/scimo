@@ -90,6 +90,10 @@ test_that("step_aggregate_hclust works", {
 
   expect_equal(colnames(baked2),
                c(colnames(cheese_abundance), new_names))
+
+
+  expect_invisible(recipes_pkg_check(required_pkgs.step_aggregate_hclust()))
+
 })
 
 

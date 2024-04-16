@@ -39,6 +39,9 @@ test_that("step_select_wilcoxon works", {
   expect_setequal(colnames(baked),
                   c(wt_tidy[wt_tidy$kept, ]$terms, "event", "disease"))
 
+
+  expect_invisible(recipes_pkg_check(required_pkgs.step_select_wilcoxon()))
+
 })
 
 test_that("step_select_wilcoxon throw errors", {

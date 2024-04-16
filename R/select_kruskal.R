@@ -179,3 +179,10 @@ tidy.step_select_kruskal <- function(x, ...) {
   res$id <- x$id
   res
 }
+
+
+#' @rdname required_pkgs.scimo
+#' @export
+required_pkgs.step_select_kruskal <- function(x, ...) {
+  c("scimo")
+}

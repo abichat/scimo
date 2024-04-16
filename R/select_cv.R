@@ -187,3 +187,9 @@ tidy.step_select_cv <- function(x, ...) {
   res
 }
 
+
+#' @rdname required_pkgs.scimo
+#' @export
+required_pkgs.step_select_cv <- function(x, ...) {
+  c("scimo")
+}

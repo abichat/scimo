@@ -184,3 +184,10 @@ tidy.step_select_background <- function(x, ...) {
   res$id <- x$id
   res
 }
+
+
+#' @rdname required_pkgs.scimo
+#' @export
+required_pkgs.step_select_background <- function(x, ...) {
+  c("scimo")
+}

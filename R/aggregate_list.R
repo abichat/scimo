@@ -224,3 +224,10 @@ tidy.step_aggregate_list <- function(x, ...) {
   res$id <- x$id
   res
 }
+
+
+#' @rdname required_pkgs.scimo
+#' @export
+required_pkgs.step_aggregate_list <- function(x, ...) {
+  c("scimo")
+}

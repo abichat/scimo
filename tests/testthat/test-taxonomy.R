@@ -64,6 +64,8 @@ test_that("step_taxonomy works", {
 
   expect_error(prep(rec_error), "`rank` must")
 
+  expect_invisible(recipes_pkg_check(required_pkgs.step_taxonomy()))
+
 })
 
 

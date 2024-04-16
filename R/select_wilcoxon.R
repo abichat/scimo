@@ -199,3 +199,10 @@ tidy.step_select_wilcoxon <- function(x, ...) {
   res$id <- x$id
   res
 }
+
+
+#' @rdname required_pkgs.scimo
+#' @export
+required_pkgs.step_select_wilcoxon <- function(x, ...) {
+  c("scimo")
+}

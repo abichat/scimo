@@ -58,7 +58,7 @@ An updated version of recipe with the new step added to the
 sequence of any existing operations.
 }
 \description{
-Extract clades from a lineage, as defined by \code{yatah}.
+Extract clades from a lineage, as defined in the \code{{yatah}} package.
 }
 \examples{
 \dontshow{if (rlang::is_installed("yatah")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
