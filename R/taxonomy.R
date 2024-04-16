@@ -1,6 +1,6 @@
 #' Taxonomic clades feature generator
 #'
-#' Extract clades from a lineage, as defined by `yatah`.
+#' Extract clades from a lineage, as defined in the `{yatah}` package.
 #'
 #'
 #' @param recipe A recipe object. The step will be added to the sequence of
@@ -13,7 +13,8 @@
 #' @param trained A logical to indicate if the quantities for preprocessing
 #' have been estimated.
 #' @param rank The desired ranks, a combinaison of `"kingdom"`, `"phylum"`,
-#' `"class"`, `"order"`, `"family"`, `"genus"`, `"species"`, or `"strain"`.
+#' `"class"`, `"order"`, `"family"`, `"genus"`, `"species"`, or `"strain"`. See
+#' [yatah::get_clade()] for more details.
 #' @param res This parameter is only produced after the recipe has been trained.
 #' @param keep_original_cols A logical to keep the original variables in
 #' the output. Defaults to `FALSE`.

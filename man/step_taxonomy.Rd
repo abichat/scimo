@@ -34,7 +34,8 @@ the original variables will be used as \code{predictors} in a model.}
 have been estimated.}
 
 \item{rank}{The desired ranks, a combinaison of \code{"kingdom"}, \code{"phylum"},
-\code{"class"}, \code{"order"}, \code{"family"}, \code{"genus"}, \code{"species"}, or \code{"strain"}.}
+\code{"class"}, \code{"order"}, \code{"family"}, \code{"genus"}, \code{"species"}, or \code{"strain"}. See
+\code{\link[yatah:get_clade]{yatah::get_clade()}} for more details.}
 
 \item{res}{This parameter is only produced after the recipe has been trained.}
 
