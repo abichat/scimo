@@ -51,6 +51,9 @@ test_that("step_aggregate_list() works", {
   expect_equal(colnames(baked2),
                c(colnames(cheese_abundance), names(rk_list)))
 
+
+  expect_invisible(recipes_pkg_check(required_pkgs.step_aggregate_list()))
+
 })
 
 

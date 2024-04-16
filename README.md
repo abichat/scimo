@@ -5,9 +5,10 @@
 
 <!-- badges: start -->
 
-[![experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 ![packageversion](https://img.shields.io/badge/version-0.0.1.9000-orange.svg)
 [![R-CMD-check](https://github.com/abichat/scimo/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/abichat/scimo/actions/workflows/R-CMD-check.yaml)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/scimo)](https://CRAN.R-project.org/package=scimo)
 <!-- badges: end -->
 
 **scimo** provides extra recipes steps for dealing with omics data,

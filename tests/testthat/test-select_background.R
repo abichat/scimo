@@ -59,7 +59,7 @@ test_that("step_select_background works", {
                names(kepts[kepts]))
 
 
-
+  expect_invisible(recipes_pkg_check(required_pkgs.step_select_background()))
 
 })
 

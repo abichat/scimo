@@ -200,3 +200,10 @@ tidy.step_aggregate_hclust <- function(x, ...) {
   res$id <- x$id
   res
 }
+
+
+#' @rdname required_pkgs.scimo
+#' @export
+required_pkgs.step_aggregate_hclust <- function(x, ...) {
+  c("scimo")
+}

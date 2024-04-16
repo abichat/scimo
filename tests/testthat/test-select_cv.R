@@ -30,4 +30,6 @@ test_that("step_select_cv works", {
                   names(cvs[cvs > 1]))
 
 
+  expect_invisible(recipes_pkg_check(required_pkgs.step_select_cv()))
+
 })
