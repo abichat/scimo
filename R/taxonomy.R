@@ -133,7 +133,7 @@ print.step_taxonomy <- function(x,
   title <- "Taxonomy features from "
 
   print_step(
-    tr_obj = x$res$terms,
+    tr_obj = unique(x$res$terms),
     untr_obj = x$terms,
     trained = x$trained,
     title = title,

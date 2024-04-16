@@ -66,6 +66,7 @@ library(testthat)
 # use_github_action("pkgdown")
 
 # use_r("taxonomy")
+# use_test("taxonomy")
 
 
 ####
