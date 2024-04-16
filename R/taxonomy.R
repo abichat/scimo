@@ -108,15 +108,17 @@ prep.step_taxonomy <- function(x, training, info = NULL, ...) {
 
 #' @export
 #' @importFrom recipes check_new_data
+#' @importFrom rlang eval_tidy call2
 bake.step_taxonomy <- function(object, new_data, ...) {
   col_names <- object$res$terms
   check_new_data(col_names, object, new_data)
 
   for (i in seq_len(nrow(object$res))) {
     new_col <- paste0(object$res$terms[i], "_", object$res$rank[i])
-    new_data[[new_col]] <- yatah::get_clade(new_data[[object$res$terms[i]]],
-                                            rank = object$res$rank[i],
-                                            same = FALSE)
+    yatah_call <- call2("get_clade", .ns = "yatah",
+                        lineage = new_data[[object$res$terms[i]]],
+                        rank = object$res$rank[i], same = TRUE)
+    new_data[[new_col]] <- eval_tidy(yatah_call)
   }
 
   if (!object$keep_original_cols) {

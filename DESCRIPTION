@@ -25,8 +25,7 @@ Imports:
     rlang,
     stats,
     tibble,
-    tidyr,
-    yatah
+    tidyr
 Suggests: 
     ggplot2,
     knitr,
