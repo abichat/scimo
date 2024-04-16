@@ -2,6 +2,7 @@ data("cheese_taxonomy")
 
 
 test_that("step_taxonomy works", {
+  skip_if_not_installed("yatah", minimum_version = "1.0.0")
 
   rks <- c("kingdom", "phylum", "class", "order",
            "family", "genus", "species")
@@ -55,4 +56,13 @@ test_that("step_taxonomy works", {
                                    paste0("lineage_", rks2),
                                    paste0("lin2_", rks2)))
 
+})
+
+
+test_that("step_taxonomy fails witout yatah", {
+  skip_if(rlang::is_installed("yatah"))
+
+  suppressMessages(
+    expect_message(recipes::recipes_pkg_check(required_pkgs.step_taxonomy()),
+                   ".*yatah.*"))
 })

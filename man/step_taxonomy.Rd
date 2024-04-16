@@ -60,6 +60,7 @@ sequence of any existing operations.
 Extract clades from a lineage, as defined by \code{yatah}.
 }
 \examples{
+\dontshow{if (rlang::is_installed("yatah")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 data("cheese_taxonomy")
 rec <-
   cheese_taxonomy \%>\%
@@ -70,6 +71,7 @@ rec <-
 rec
 tidy(rec, 1)
 bake(rec, new_data = NULL)
+\dontshow{\}) # examplesIf}
 }
 \author{
 Antoine Bichat

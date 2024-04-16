@@ -35,7 +35,7 @@
 #'
 #' @author Antoine Bichat
 #'
-#' @examples
+#' @examplesIf rlang::is_installed("yatah")
 #' data("cheese_taxonomy")
 #' rec <-
 #'   cheese_taxonomy %>%
@@ -163,5 +163,19 @@ tidy.step_taxonomy <- function(x, ...) {
 
   res$id <- x$id
   res
+}
+
+
+#' S3 methods for tracking which additional packages are needed for steps.
+#'
+#' Recipe-adjacent packages always list themselves as a required package so that
+#' the steps can function properly within parallel processing schemes.
+#' @param x A recipe step
+#' @return A character vector
+#' @rdname required_pkgs.scimo
+#' @keywords internal
+#' @export
+required_pkgs.step_taxonomy <- function(x, ...) {
+  c("yatah", "scimo")
 }
 
