@@ -56,6 +56,14 @@ test_that("step_taxonomy works", {
                                    paste0("lineage_", rks2),
                                    paste0("lin2_", rks2)))
 
+
+  rec_error <-
+    cheese_taxonomy %>%
+    recipe(~ .) %>%
+    step_taxonomy(lineage)
+
+  expect_error(prep(rec_error), "`rank` must")
+
 })
 
 

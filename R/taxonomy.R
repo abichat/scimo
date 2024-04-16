@@ -89,6 +89,7 @@ step_taxonomy_new <- function(terms, role, trained,
 prep.step_taxonomy <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
   check_type(training[, col_names], quant = FALSE)
+  check_not_null(x$rank, "rank")
 
 
   res_txn <- expand_grid(terms = unname(col_names),
