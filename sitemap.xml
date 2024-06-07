@@ -1,69 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://abichat.github.io/scimo/404.html</loc>
   </url>
   <url>
-    <loc>/LICENSE.html</loc>
+    <loc>https://abichat.github.io/scimo/LICENSE.html</loc>
   </url>
   <url>
-    <loc>/articles/index.html</loc>
+    <loc>https://abichat.github.io/scimo/articles/index.html</loc>
   </url>
   <url>
-    <loc>/articles/pedcan.html</loc>
+    <loc>https://abichat.github.io/scimo/articles/pedcan.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://abichat.github.io/scimo/authors.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://abichat.github.io/scimo/index.html</loc>
   </url>
   <url>
-    <loc>/news/index.html</loc>
+    <loc>https://abichat.github.io/scimo/news/index.html</loc>
   </url>
   <url>
-    <loc>/pull_request_template.html</loc>
+    <loc>https://abichat.github.io/scimo/reference/cheese_abundance.html</loc>
   </url>
   <url>
-    <loc>/reference/cheese_abundance.html</loc>
+    <loc>https://abichat.github.io/scimo/reference/cv.html</loc>
   </url>
   <url>
-    <loc>/reference/cv.html</loc>
+    <loc>https://abichat.github.io/scimo/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://abichat.github.io/scimo/reference/pedcan_expression.html</loc>
   </url>
   <url>
-    <loc>/reference/pedcan_expression.html</loc>
+    <loc>https://abichat.github.io/scimo/reference/pipe.html</loc>
   </url>
   <url>
-    <loc>/reference/pipe.html</loc>
+    <loc>https://abichat.github.io/scimo/reference/required_pkgs.scimo.html</loc>
   </url>
   <url>
-    <loc>/reference/scimo-package.html</loc>
+    <loc>https://abichat.github.io/scimo/reference/scimo-package.html</loc>
   </url>
   <url>
-    <loc>/reference/step_aggregate_hclust.html</loc>
+    <loc>https://abichat.github.io/scimo/reference/step_aggregate_hclust.html</loc>
   </url>
   <url>
-    <loc>/reference/step_aggregate_list.html</loc>
+    <loc>https://abichat.github.io/scimo/reference/step_aggregate_list.html</loc>
   </url>
   <url>
-    <loc>/reference/step_rownormalize_tss.html</loc>
+    <loc>https://abichat.github.io/scimo/reference/step_rownormalize_tss.html</loc>
   </url>
   <url>
-    <loc>/reference/step_select_background.html</loc>
+    <loc>https://abichat.github.io/scimo/reference/step_select_background.html</loc>
   </url>
   <url>
-    <loc>/reference/step_select_cv.html</loc>
+    <loc>https://abichat.github.io/scimo/reference/step_select_cv.html</loc>
   </url>
   <url>
-    <loc>/reference/step_select_kruskal.html</loc>
+    <loc>https://abichat.github.io/scimo/reference/step_select_kruskal.html</loc>
   </url>
   <url>
-    <loc>/reference/step_select_wilcoxon.html</loc>
+    <loc>https://abichat.github.io/scimo/reference/step_select_wilcoxon.html</loc>
   </url>
   <url>
-    <loc>/reference/var_to_keep.html</loc>
+    <loc>https://abichat.github.io/scimo/reference/step_taxonomy.html</loc>
+  </url>
+  <url>
+    <loc>https://abichat.github.io/scimo/reference/var_to_keep.html</loc>
   </url>
 </urlset>
