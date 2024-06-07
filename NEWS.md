@@ -1,4 +1,4 @@
-# scimo 0.0.1.9000
+# scimo 0.0.2
 
 * New function `step_taxonomy()`.
 
