@@ -13,10 +13,10 @@
 #' have been estimated.
 #' @param list_agg Named list of aggregated variables.
 #' @param fun_agg  Aggregation function like `sum` or `mean`.
-#' @param others Behavior for the selected variables in `...` that are not present in
-#' `list_agg`. If `discard` (the default), they are not kept. If `asis`, they
-#' are kept without modification. If `aggregate`, they are aggregated in a
-#' new variable.
+#' @param others Behavior for the selected variables in `...` that are not
+#' present in `list_agg`. If `discard` (the default), they are not kept.
+#' If `asis`, they are kept without modification. If `aggregate`, they are
+#' aggregated in a new variable.
 #' @param name_others If `others` is set to `aggregate`, name of the
 #' aggregated variable. Not used otherwise.
 #' @param res This parameter is only produced after the recipe has been trained.

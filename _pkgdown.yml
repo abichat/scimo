@@ -23,7 +23,3 @@ reference:
   contents:
   - '`pedcan_expression`'
   - '`cheese_abundance`'
-- title: Helpers
-  contents:
-  - '`cv`'
-  - '`var_to_keep`'

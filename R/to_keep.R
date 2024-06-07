@@ -11,15 +11,16 @@
 #' default) the quantity given by `values`.
 #'
 #' @return A logical vector indicating if variables are kept or discarded.
-#' @export
 #'
 #' @importFrom rlang abort
 #'
 #' @author Antoine Bichat
 #'
+#' @keywords internal
+#'
 #' @examples
-#' var_to_keep(1:5, n_kept = 3, maximize = TRUE)
-#' var_to_keep(1:10, cutoff = 8, maximize = FALSE)
+#' scimo:::var_to_keep(1:5, n_kept = 3, maximize = TRUE)
+#' scimo:::var_to_keep(1:10, cutoff = 8, maximize = FALSE)
 var_to_keep <- function(values, n_kept = NULL, prop_kept = NULL,
                         cutoff = NULL, maximize = TRUE) {
 

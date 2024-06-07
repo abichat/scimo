@@ -26,7 +26,8 @@ check_binary <- function(x, name_x = "x") {
 
 check_not_null <- function(x, name_x = "x") {
   if (is.null(x)) {
-    rlang::abort(paste0("`", name_x, "` must be specified and can't be `NULL`."))
+    rlang::abort(paste0("`", name_x,
+                        "` must be specified and can't be `NULL`."))
   }
 
   invisible(x)
