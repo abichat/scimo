@@ -34,9 +34,10 @@ A logical vector indicating if variables are kept or discarded.
 Decide which variable to keep
 }
 \examples{
-var_to_keep(1:5, n_kept = 3, maximize = TRUE)
-var_to_keep(1:10, cutoff = 8, maximize = FALSE)
+scimo:::var_to_keep(1:5, n_kept = 3, maximize = TRUE)
+scimo:::var_to_keep(1:10, cutoff = 8, maximize = FALSE)
 }
 \author{
 Antoine Bichat
 }
+\keyword{internal}

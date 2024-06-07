@@ -1,4 +1,5 @@
-# url: ~
+url: https://abichat.github.io/scimo/
+
 template:
   bootstrap: 5
 
@@ -16,11 +17,10 @@ reference:
 - title: Feature Normalization Steps
   contents:
   - '`step_rownormalize_tss`'
+- title: Feature Generation Steps
+  contents:
+  - '`step_taxonomy`'
 - title: Datasets
   contents:
   - '`pedcan_expression`'
   - '`cheese_abundance`'
-- title: Helpers
-  contents:
-  - '`cv`'
-  - '`var_to_keep`'

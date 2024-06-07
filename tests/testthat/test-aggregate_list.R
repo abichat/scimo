@@ -46,10 +46,13 @@ test_that("step_aggregate_list() works", {
                         list_agg = rk_list, fun_agg = sum,
                         keep_original_cols = TRUE) %>%
     prep() %>%
-    juice()
+    bake(new_data = NULL)
 
   expect_equal(colnames(baked2),
                c(colnames(cheese_abundance), names(rk_list)))
+
+
+  expect_invisible(recipes_pkg_check(required_pkgs.step_aggregate_list()))
 
 })
 
@@ -70,7 +73,7 @@ test_that("`others` argument works", {
                         others = "discard") %>%
     prep()
 
-  expect_equal(colnames(juice(rec1_discori)),
+  expect_equal(colnames(bake(rec1_discori, new_data = NULL)),
                c("Species", names(l1)))
 
   expect_equal(tidy(rec1_discori, 1)$terms,
@@ -89,7 +92,7 @@ test_that("`others` argument works", {
                         keep_original_cols = TRUE) %>%
     prep()
 
-  expect_equal(colnames(juice(rec1_keepori)),
+  expect_equal(colnames(bake(rec1_keepori, new_data = NULL)),
                c(colnames(iris), names(l1)))
 
   expect_equal(tidy(rec1_keepori, 1)$terms,
@@ -111,7 +114,7 @@ test_that("`others` argument works", {
                         list_agg = l2, fun_agg = prod) %>%
     prep()
 
-  expect_equal(colnames(juice(rec2_discoth_disori)),
+  expect_equal(colnames(bake(rec2_discoth_disori, new_data = NULL)),
                c("Species", names(l2)))
 
   expect_equal(tidy(rec2_discoth_disori, 1)$terms,
@@ -130,7 +133,7 @@ test_that("`others` argument works", {
                         keep_original_cols = TRUE) %>%
     prep()
 
-  expect_equal(colnames(juice(rec2_discoth_keepori)),
+  expect_equal(colnames(bake(rec2_discoth_keepori, new_data = NULL)),
                c(colnames(iris), names(l2)))
 
   expect_equal(tidy(rec2_discoth_keepori, 1)$terms,
@@ -149,7 +152,7 @@ test_that("`others` argument works", {
                         keep_original_cols = FALSE) %>%
     prep()
 
-  expect_equal(colnames(juice(rec2_keepoth_disori)),
+  expect_equal(colnames(bake(rec2_keepoth_disori, new_data = NULL)),
                c("Petal.Width", "Species", names(l2)))
 
   expect_equal(tidy(rec2_keepoth_disori, 1)$terms,
@@ -168,7 +171,7 @@ test_that("`others` argument works", {
                         keep_original_cols = TRUE) %>%
     prep()
 
-  expect_equal(colnames(juice(rec2_keepoth_keepori)),
+  expect_equal(colnames(bake(rec2_keepoth_keepori, new_data = NULL)),
                c(names(iris), names(l2)))
 
   expect_equal(tidy(rec2_keepoth_keepori, 1)$terms,
@@ -189,7 +192,7 @@ test_that("`others` argument works", {
                         list_agg = l3, fun_agg = prod) %>%
     prep()
 
-  expect_equal(colnames(juice(rec3_aggoth_disori)),
+  expect_equal(colnames(bake(rec3_aggoth_disori, new_data = NULL)),
                c("Species", names(l3), "Oth"))
 
   expect_equal(tidy(rec3_aggoth_disori, 1)$terms,
@@ -197,7 +200,7 @@ test_that("`others` argument works", {
   expect_equal(tidy(rec3_aggoth_disori, 1)$aggregate,
                c("sepal.size", "sepal.size", "Oth", "Oth"))
 
-  expect_equal(juice(rec3_aggoth_disori)$Oth,
+  expect_equal(bake(rec3_aggoth_disori, new_data = NULL)$Oth,
                iris$Petal.Length * iris$Petal.Width)
 
 
@@ -211,7 +214,7 @@ test_that("`others` argument works", {
                         keep_original_cols = TRUE) %>%
     prep()
 
-  expect_equal(colnames(juice(rec3_aggcoth_keepori)),
+  expect_equal(colnames(bake(rec3_aggcoth_keepori, new_data = NULL)),
                c(colnames(iris), names(l3), "Oth"))
 
   expect_equal(tidy(rec3_aggcoth_keepori, 1)$terms,
@@ -219,7 +222,7 @@ test_that("`others` argument works", {
   expect_equal(tidy(rec3_aggcoth_keepori, 1)$aggregate,
                c("sepal.size", "sepal.size", "Oth", "Oth"))
 
-  expect_equal(juice(rec3_aggcoth_keepori)$Oth,
+  expect_equal(bake(rec3_aggcoth_keepori, new_data = NULL)$Oth,
                iris$Petal.Length * iris$Petal.Width)
 
 })

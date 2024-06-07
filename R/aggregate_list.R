@@ -13,10 +13,10 @@
 #' have been estimated.
 #' @param list_agg Named list of aggregated variables.
 #' @param fun_agg  Aggregation function like `sum` or `mean`.
-#' @param others Behavior for the selected variables in `...` that are not present in
-#' `list_agg`. If `discard` (the default), they are not kept. If `asis`, they
-#' are kept without modification. If `aggregate`, they are aggregated in a
-#' new variable.
+#' @param others Behavior for the selected variables in `...` that are not
+#' present in `list_agg`. If `discard` (the default), they are not kept.
+#' If `asis`, they are kept without modification. If `aggregate`, they are
+#' aggregated in a new variable.
 #' @param name_others If `others` is set to `aggregate`, name of the
 #' aggregated variable. Not used otherwise.
 #' @param res This parameter is only produced after the recipe has been trained.
@@ -53,7 +53,7 @@
 #'   prep()
 #' rec
 #' tidy(rec, 1)
-#' juice(rec)
+#' bake(rec, new_data = NULL)
 step_aggregate_list <- function(recipe, ..., role = "predictor",
                                 trained = FALSE,
                                 list_agg = NULL,
@@ -87,7 +87,7 @@ step_aggregate_list <- function(recipe, ..., role = "predictor",
 
 #' @importFrom recipes step
 step_aggregate_list_new <- function(terms, role, trained,
-                                    list_agg, fun_agg, others,name_others,
+                                    list_agg, fun_agg, others, name_others,
                                     res, prefix, keep_original_cols,
                                     skip, id) {
 
@@ -223,4 +223,11 @@ tidy.step_aggregate_list <- function(x, ...) {
   # Always return the step id:
   res$id <- x$id
   res
+}
+
+
+#' @rdname required_pkgs.scimo
+#' @export
+required_pkgs.step_aggregate_list <- function(x, ...) {
+  c("scimo")
 }

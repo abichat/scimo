@@ -43,7 +43,7 @@
 #'   prep()
 #' rec
 #' tidy(rec, 1)
-#' juice(rec)
+#' bake(rec, new_data = NULL)
 step_select_wilcoxon <- function(recipe, ..., role = NA, trained = FALSE,
                                  outcome = NULL,
                                  n_kept = NULL,
@@ -198,4 +198,11 @@ tidy.step_select_wilcoxon <- function(x, ...) {
   # Always return the step id:
   res$id <- x$id
   res
+}
+
+
+#' @rdname required_pkgs.scimo
+#' @export
+required_pkgs.step_select_wilcoxon <- function(x, ...) {
+  c("scimo")
 }

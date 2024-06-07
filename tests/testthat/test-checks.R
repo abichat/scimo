@@ -12,8 +12,16 @@ test_that("check_in works", {
 
 test_that("check_binary works", {
   expect_invisible(check_binary(letters[1:2]))
-  expect_error(check_binary(letters), "must be a binary vector")
 
+  expect_error(check_binary(letters), "must be a binary vector")
   expect_error(check_binary(iris$Species, name_x = "outcome"),
                "outcome")
+})
+
+test_that("check_not_null works", {
+  expect_invisible(check_not_null(letters))
+
+  expect_error(check_not_null(NULL), "must be specified and can't be `NULL`.")
+  expect_error(check_binary(NULL, name_x = "rank"),
+               "rank")
 })

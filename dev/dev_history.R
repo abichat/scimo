@@ -65,8 +65,17 @@ library(testthat)
 # use_github_action("check-release", save_as = "R-CMD-check-prdev.yaml")
 # use_github_action("pkgdown")
 
+# use_r("taxonomy")
+# use_test("taxonomy")
+
+# scimo <a href="https://abichat.github.io/scimo/"><img src="man/figures/logo.png" align="right" height="138" alt="scimo website" /></a>
+
 
 ####
+
+# data("cheese_abundance")
+# data("cheese_taxonomy")
+# data("pedcan_expression")
 
 devtools::load_all()
 devtools::document()
@@ -90,5 +99,5 @@ devtools::install(upgrade = "never")
 # pkgdown::template_reference()
 pkgdown::check_pkgdown()
 pkgdown::build_site()
-unlink("docs/", recursive = TRUE)
+unlink("pkgdown/", recursive = TRUE)
 

@@ -1,13 +1,14 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# scimo
+# scimo <a href="https://abichat.github.io/scimo/"><img src="man/figures/logo.png" align="right" height="138" alt="scimo website" /></a>
 
 <!-- badges: start -->
 
-[![experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-![packageversion](https://img.shields.io/badge/version-0.0.1-orange.svg)
+![packageversion](https://img.shields.io/badge/version-0.0.2-orange.svg)
 [![R-CMD-check](https://github.com/abichat/scimo/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/abichat/scimo/actions/workflows/R-CMD-check.yaml)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/scimo)](https://CRAN.R-project.org/package=scimo)
 <!-- badges: end -->
 
 **scimo** provides extra recipes steps for dealing with omics data,
@@ -34,37 +35,37 @@ data("cheese_abundance", "cheese_taxonomy")
 
 cheese_abundance
 #> # A tibble: 9 × 77
-#>   sample    cheese    rind_type asv_01 asv_02 asv_03 asv_04 asv_05 asv_06 asv_07 asv_08 asv_09 asv_10 asv_11 asv_12 asv_13 asv_14 asv_15 asv_16
-#>   <chr>     <chr>     <chr>      <dbl>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl>
-#> 1 sample1-1 Saint-Ne… Natural        1      0     38     40      1      2     31      8     15  20076    160     92     64     24     51      0
-#> 2 sample1-2 Saint-Ne… Natural        3      4     38     61      4      4     48     14     20  32101    403    143    165     39    104      1
-#> 3 sample1-3 Saint-Ne… Natural       28     16     33     23     31     29     21      1      7  12921    134     53     55     16     45      2
-#> 4 sample2-1 Livarot   Washed         0      2      1      0      5      1      0      0      0   7823      2      0      0     42      0      2
-#> 5 sample2-2 Livarot   Washed         0      0      4      0      1      1      2      0      0   6740      4      1      0     45      0      1
-#> 6 sample2-3 Livarot   Washed         0      1      2      0      2      1      0      0      0   7484      6      1      0     43      0      7
-#> 7 sample3-1 Epoisses  Washed         4      2      3      0      2      5      0      0      0   2486      1      1      1     23      0     24
-#> 8 sample3-2 Epoisses  Washed         0      0      0      0      0      0      0      0      0   3686      2      0      0     28      0     54
-#> 9 sample3-3 Epoisses  Washed         0      0      1      0      0      0      2      0      0   2988      2      1      0     22      0     36
-#> # ℹ 58 more variables: asv_17 <dbl>, asv_18 <dbl>, asv_19 <dbl>, asv_20 <dbl>, asv_21 <dbl>, asv_22 <dbl>, asv_23 <dbl>, asv_24 <dbl>,
-#> #   asv_25 <dbl>, asv_26 <dbl>, asv_27 <dbl>, asv_28 <dbl>, asv_29 <dbl>, asv_30 <dbl>, asv_31 <dbl>, asv_32 <dbl>, asv_33 <dbl>,
-#> #   asv_34 <dbl>, asv_35 <dbl>, asv_36 <dbl>, asv_37 <dbl>, asv_38 <dbl>, asv_39 <dbl>, asv_40 <dbl>, asv_41 <dbl>, asv_42 <dbl>,
-#> #   asv_43 <dbl>, asv_44 <dbl>, asv_45 <dbl>, asv_46 <dbl>, asv_47 <dbl>, asv_48 <dbl>, asv_49 <dbl>, asv_50 <dbl>, asv_51 <dbl>,
-#> #   asv_52 <dbl>, asv_53 <dbl>, asv_54 <dbl>, asv_55 <dbl>, asv_56 <dbl>, asv_57 <dbl>, asv_58 <dbl>, asv_59 <dbl>, asv_60 <dbl>,
-#> #   asv_61 <dbl>, asv_62 <dbl>, asv_63 <dbl>, asv_64 <dbl>, asv_65 <dbl>, asv_66 <dbl>, asv_67 <dbl>, asv_68 <dbl>, asv_69 <dbl>,
-#> #   asv_70 <dbl>, asv_71 <dbl>, asv_72 <dbl>, asv_73 <dbl>, asv_74 <dbl>
+#>   sample    cheese    rind_type asv_01 asv_02 asv_03 asv_04 asv_05 asv_06 asv_07
+#>   <chr>     <chr>     <chr>      <dbl>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl>
+#> 1 sample1-1 Saint-Ne… Natural        1      0     38     40      1      2     31
+#> 2 sample1-2 Saint-Ne… Natural        3      4     38     61      4      4     48
+#> 3 sample1-3 Saint-Ne… Natural       28     16     33     23     31     29     21
+#> 4 sample2-1 Livarot   Washed         0      2      1      0      5      1      0
+#> 5 sample2-2 Livarot   Washed         0      0      4      0      1      1      2
+#> 6 sample2-3 Livarot   Washed         0      1      2      0      2      1      0
+#> 7 sample3-1 Epoisses  Washed         4      2      3      0      2      5      0
+#> 8 sample3-2 Epoisses  Washed         0      0      0      0      0      0      0
+#> 9 sample3-3 Epoisses  Washed         0      0      1      0      0      0      2
+#> # ℹ 67 more variables: asv_08 <dbl>, asv_09 <dbl>, asv_10 <dbl>, asv_11 <dbl>,
+#> #   asv_12 <dbl>, asv_13 <dbl>, asv_14 <dbl>, asv_15 <dbl>, asv_16 <dbl>,
+#> #   asv_17 <dbl>, asv_18 <dbl>, asv_19 <dbl>, asv_20 <dbl>, asv_21 <dbl>,
+#> #   asv_22 <dbl>, asv_23 <dbl>, asv_24 <dbl>, asv_25 <dbl>, asv_26 <dbl>,
+#> #   asv_27 <dbl>, asv_28 <dbl>, asv_29 <dbl>, asv_30 <dbl>, asv_31 <dbl>,
+#> #   asv_32 <dbl>, asv_33 <dbl>, asv_34 <dbl>, asv_35 <dbl>, asv_36 <dbl>,
+#> #   asv_37 <dbl>, asv_38 <dbl>, asv_39 <dbl>, asv_40 <dbl>, asv_41 <dbl>, …
 
 glimpse(cheese_taxonomy)
 #> Rows: 74
 #> Columns: 9
-#> $ asv     <chr> "asv_01", "asv_02", "asv_03", "asv_04", "asv_05", "asv_06", "asv_07", "asv_08", "asv_09", "asv_10", "asv_11", "asv_12", "asv_…
-#> $ lineage <chr> "k__Fungi|p__Ascomycota|c__Dothideomycetes|o__Dothideales|f__Dothioraceae|g__Aureobasidium|s__Aureobasidium_Group_pullulans",…
-#> $ kingdom <chr> "Fungi", "Fungi", "Fungi", "Fungi", "Fungi", "Fungi", "Fungi", "Fungi", "Fungi", "Fungi", "Fungi", "Fungi", "Fungi", "Fungi",…
-#> $ phylum  <chr> "Ascomycota", "Ascomycota", "Ascomycota", "Ascomycota", "Ascomycota", "Ascomycota", "Ascomycota", "Ascomycota", "Ascomycota",…
-#> $ class   <chr> "Dothideomycetes", "Eurotiomycetes", "Eurotiomycetes", "Eurotiomycetes", "Eurotiomycetes", "Eurotiomycetes", "Eurotiomycetes"…
-#> $ order   <chr> "Dothideales", "Eurotiales", "Eurotiales", "Eurotiales", "Eurotiales", "Eurotiales", "Eurotiales", "Eurotiales", "Eurotiales"…
-#> $ family  <chr> "Dothioraceae", "Aspergillaceae", "Aspergillaceae", "Aspergillaceae", "Aspergillaceae", "Aspergillaceae", "Aspergillaceae", "…
-#> $ genus   <chr> "Aureobasidium", "Aspergillus", "Penicillium", "Penicillium", "Penicillium", "Penicillium", "Penicillium", "Penicillium", "Pe…
-#> $ species <chr> "Aureobasidium Group pullulans", "Aspergillus fumigatus", "Penicillium Group camemberti caseifulvum fuscoglaucum commune", "P…
+#> $ asv     <chr> "asv_01", "asv_02", "asv_03", "asv_04", "asv_05", "asv_06", "a…
+#> $ lineage <chr> "k__Fungi|p__Ascomycota|c__Dothideomycetes|o__Dothideales|f__D…
+#> $ kingdom <chr> "Fungi", "Fungi", "Fungi", "Fungi", "Fungi", "Fungi", "Fungi",…
+#> $ phylum  <chr> "Ascomycota", "Ascomycota", "Ascomycota", "Ascomycota", "Ascom…
+#> $ class   <chr> "Dothideomycetes", "Eurotiomycetes", "Eurotiomycetes", "Euroti…
+#> $ order   <chr> "Dothideales", "Eurotiales", "Eurotiales", "Eurotiales", "Euro…
+#> $ family  <chr> "Dothioraceae", "Aspergillaceae", "Aspergillaceae", "Aspergill…
+#> $ genus   <chr> "Aureobasidium", "Aspergillus", "Penicillium", "Penicillium", …
+#> $ species <chr> "Aureobasidium Group pullulans", "Aspergillus fumigatus", "Pen…
 ```
 
 ``` r
@@ -74,7 +75,8 @@ head(list_family, 2)
 #> [1] "asv_02" "asv_03" "asv_04" "asv_05" "asv_06" "asv_07" "asv_08" "asv_09"
 #> 
 #> $Debaryomycetaceae
-#>  [1] "asv_10" "asv_11" "asv_12" "asv_13" "asv_14" "asv_15" "asv_16" "asv_17" "asv_18" "asv_19" "asv_20" "asv_21" "asv_22"
+#>  [1] "asv_10" "asv_11" "asv_12" "asv_13" "asv_14" "asv_15" "asv_16" "asv_17"
+#>  [9] "asv_18" "asv_19" "asv_20" "asv_21" "asv_22"
 ```
 
 The following recipe will
@@ -97,7 +99,7 @@ rec <-
 
 rec
 #> 
-#> ── Recipe ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+#> ── Recipe ──────────────────────────────────────────────────────────────────────
 #> 
 #> ── Inputs
 #> Number of variables by role
@@ -108,24 +110,25 @@ rec
 #> Training data contained 9 data points and no incomplete rows.
 #> 
 #> ── Operations
-#> • Aggregation of: asv_01, asv_02, asv_03, asv_04, asv_05, asv_06, asv_07, asv_08, asv_09, asv_10, asv_11, asv_12, asv_13, ... | Trained
-#> • TSS normalization on: Aspergillaceae, Debaryomycetaceae, Dipodascaceae, Dothioraceae, Lichtheimiaceae, Metschnikowiaceae, ... | Trained
-#> • Kruskal filtering against cheese on: Aspergillaceae, Debaryomycetaceae, Dipodascaceae, Dothioraceae, Lichtheimiaceae, ... | Trained
+#> • Aggregation of: asv_01, asv_02, asv_03, asv_04, asv_05, ... | Trained
+#> • TSS normalization on: Aspergillaceae and Debaryomycetaceae, ... | Trained
+#> • Kruskal filtering against cheese on: Aspergillaceae, ... | Trained
 
-juice(rec)
+bake(rec, new_data = NULL)
 #> # A tibble: 9 × 8
-#>   sample    rind_type cheese         Debaryomycetaceae Dipodascaceae Saccharomycetaceae Saccharomycetales fam Incertae sedi…¹ Trichosporonaceae
-#>   <fct>     <fct>     <fct>                      <dbl>         <dbl>              <dbl>                                 <dbl>             <dbl>
-#> 1 sample1-1 Natural   Saint-Nectaire            0.719         0.0684           0.113                                 0.00130           0.000702
-#> 2 sample1-2 Natural   Saint-Nectaire            0.715         0.0725           0.119                                 0.000801          0.000628
-#> 3 sample1-3 Natural   Saint-Nectaire            0.547         0.277            0.0938                                0.000289          0.00239 
-#> 4 sample2-1 Washed    Livarot                   0.153         0.845            0.000854                              0                 0.000349
-#> 5 sample2-2 Washed    Livarot                   0.150         0.848            0.00106                               0                 0.000176
-#> 6 sample2-3 Washed    Livarot                   0.160         0.837            0.00108                               0                 0.000212
-#> 7 sample3-1 Washed    Epoisses                  0.0513        0.944            0.00327                               0                 0.000140
-#> 8 sample3-2 Washed    Epoisses                  0.0558        0.941            0.00321                               0                 0.000176
-#> 9 sample3-3 Washed    Epoisses                  0.0547        0.942            0.00329                               0                 0.000125
-#> # ℹ abbreviated name: ¹​`Saccharomycetales fam Incertae sedis`
+#>   sample    rind_type cheese  Debaryomycetaceae Dipodascaceae Saccharomycetaceae
+#>   <fct>     <fct>     <fct>               <dbl>         <dbl>              <dbl>
+#> 1 sample1-1 Natural   Saint-…            0.719         0.0684           0.113   
+#> 2 sample1-2 Natural   Saint-…            0.715         0.0725           0.119   
+#> 3 sample1-3 Natural   Saint-…            0.547         0.277            0.0938  
+#> 4 sample2-1 Washed    Livarot            0.153         0.845            0.000854
+#> 5 sample2-2 Washed    Livarot            0.150         0.848            0.00106 
+#> 6 sample2-3 Washed    Livarot            0.160         0.837            0.00108 
+#> 7 sample3-1 Washed    Epoiss…            0.0513        0.944            0.00327 
+#> 8 sample3-2 Washed    Epoiss…            0.0558        0.941            0.00321 
+#> 9 sample3-3 Washed    Epoiss…            0.0547        0.942            0.00329 
+#> # ℹ 2 more variables: `Saccharomycetales fam Incertae sedis` <dbl>,
+#> #   Trichosporonaceae <dbl>
 ```
 
 To see which variables are kept and the associated p-values, you can use
@@ -175,7 +178,7 @@ recipe(pedcan_expression) %>%
   update_role(-disease, new_role = "predictor") %>% 
   step_select_cv(all_numeric_predictors(), prop_kept = 0.1) 
 #> 
-#> ── Recipe ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+#> ── Recipe ──────────────────────────────────────────────────────────────────────
 #> 
 #> ── Inputs
 #> Number of variables by role

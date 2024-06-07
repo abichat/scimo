@@ -41,7 +41,7 @@
 #'   prep()
 #' rec
 #' tidy(rec, 1)
-#' juice(rec)
+#' bake(rec, new_data = NULL)
 step_select_background <- function(recipe, ..., role = NA, trained = FALSE,
                                    background_level = NULL,
                                    n_samples = NULL,
@@ -183,4 +183,11 @@ tidy.step_select_background <- function(x, ...) {
 
   res$id <- x$id
   res
+}
+
+
+#' @rdname required_pkgs.scimo
+#' @export
+required_pkgs.step_select_background <- function(x, ...) {
+  c("scimo")
 }

@@ -49,7 +49,7 @@
 #'   prep()
 #' rec
 #' tidy(rec, 1)
-#' juice(rec)
+#' bake(rec, new_data = NULL)
 step_aggregate_hclust <- function(recipe, ..., role = "predictor",
                                   trained = FALSE,
                                   n_clusters,
@@ -199,4 +199,11 @@ tidy.step_aggregate_hclust <- function(x, ...) {
   # Always return the step id:
   res$id <- x$id
   res
+}
+
+
+#' @rdname required_pkgs.scimo
+#' @export
+required_pkgs.step_aggregate_hclust <- function(x, ...) {
+  c("scimo")
 }

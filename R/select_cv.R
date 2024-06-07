@@ -5,14 +5,15 @@
 #' before the computation proceeds. Default to `TRUE`.
 #'
 #' @return The coefficient of variation of `x`.
-#' @export
 #'
 #' @importFrom stats sd
 #'
 #' @author Antoine Bichat
 #'
+#' @keywords internal
+#'
 #' @examples
-#' cv(1:10)
+#' scimo:::cv(1:10)
 cv <- function(x, na.rm = TRUE) {
   sd(x, na.rm = na.rm) / abs(mean(x, na.rm = na.rm))
 }
@@ -59,7 +60,7 @@ cv <- function(x, na.rm = TRUE) {
 #'   prep()
 #' rec
 #' tidy(rec, 1)
-#' juice(rec)
+#' bake(rec, new_data = NULL)
 step_select_cv <- function(recipe, ..., role = NA, trained = FALSE,
                            n_kept = NULL,
                            prop_kept = NULL,
@@ -187,3 +188,9 @@ tidy.step_select_cv <- function(x, ...) {
   res
 }
 
+
+#' @rdname required_pkgs.scimo
+#' @export
+required_pkgs.step_select_cv <- function(x, ...) {
+  c("scimo")
+}

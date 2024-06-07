@@ -86,10 +86,14 @@ test_that("step_aggregate_hclust works", {
                           linkage_method = "ward.D2",
                           keep_original_cols = TRUE) %>%
     prep() %>%
-    juice()
+    bake(new_data = NULL)
 
   expect_equal(colnames(baked2),
                c(colnames(cheese_abundance), new_names))
+
+
+  expect_invisible(recipes_pkg_check(required_pkgs.step_aggregate_hclust()))
+
 })
 
 

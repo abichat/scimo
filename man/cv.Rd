@@ -19,8 +19,9 @@ The coefficient of variation of \code{x}.
 Coefficient of variation
 }
 \examples{
-cv(1:10)
+scimo:::cv(1:10)
 }
 \author{
 Antoine Bichat
 }
+\keyword{internal}

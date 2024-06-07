@@ -24,7 +24,7 @@
 #'   prep()
 #' rec
 #' tidy(rec, 1)
-#' juice(rec)
+#' bake(rec, new_data = NULL)
 step_select_kruskal <- function(recipe, ..., role = NA, trained = FALSE,
                                 outcome = NULL,
                                 n_kept = NULL,
@@ -178,4 +178,11 @@ tidy.step_select_kruskal <- function(x, ...) {
   # Always return the step id:
   res$id <- x$id
   res
+}
+
+
+#' @rdname required_pkgs.scimo
+#' @export
+required_pkgs.step_select_kruskal <- function(x, ...) {
+  c("scimo")
 }
