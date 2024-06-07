@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# scimo
+# scimo <a href="https://abichat.github.io/scimo/"><img src="man/figures/logo.png" align="right" height="138" alt="scimo website" /></a>
 
 <!-- badges: start -->
 

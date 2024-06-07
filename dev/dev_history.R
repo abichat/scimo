@@ -68,6 +68,8 @@ library(testthat)
 # use_r("taxonomy")
 # use_test("taxonomy")
 
+# scimo <a href="https://abichat.github.io/scimo/"><img src="man/figures/logo.png" align="right" height="138" alt="scimo website" /></a>
+
 
 ####
 
@@ -97,5 +99,5 @@ devtools::install(upgrade = "never")
 # pkgdown::template_reference()
 pkgdown::check_pkgdown()
 pkgdown::build_site()
-unlink("docs/", recursive = TRUE)
+unlink("pkgdown/", recursive = TRUE)
 
