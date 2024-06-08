@@ -5,7 +5,7 @@
 
 <!-- badges: start -->
 
-![packageversion](https://img.shields.io/badge/version-0.0.2-orange.svg)
+![packageversion](https://img.shields.io/badge/version-0.0.2.9000-orange.svg)
 [![R-CMD-check](https://github.com/abichat/scimo/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/abichat/scimo/actions/workflows/R-CMD-check.yaml)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/scimo)](https://CRAN.R-project.org/package=scimo)
