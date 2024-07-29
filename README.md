@@ -175,3 +175,7 @@ proposes 3 arguments for variable selection steps based on a statistic:
 
 **scimo** doesn’t introduce any additional dependencies compared to
 **recipes**.
+
+### But why scimo?
+
+*scimo* is simply the reverse of *omics*.
