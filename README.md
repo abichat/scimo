@@ -156,39 +156,6 @@ tidy(rec, 3)
 
 ## Notes
 
-### `protection stack overflow` error
-
-If you have a very large dataset, you may encounter this error:
-
-``` r
-data("pedcan_expression")
-recipe(disease ~ ., data = pedcan_expression) %>% 
-    step_select_cv(all_numeric_predictors(), prop_kept = 0.1) 
-#> Error: protect(): protection stack overflow
-```
-
-It is linked to [how **R** handles many variables in
-formulas](https://github.com/tidymodels/recipes/issues/467). To solve
-it, pass only the dataset to `recipe()` and manually update roles with
-`update_role()`, like in the example below:
-
-``` r
-recipe(pedcan_expression) %>% 
-  update_role(disease, new_role = "outcome") %>% 
-  update_role(-disease, new_role = "predictor") %>% 
-  step_select_cv(all_numeric_predictors(), prop_kept = 0.1) 
-#> 
-#> ── Recipe ──────────────────────────────────────────────────────────────────────
-#> 
-#> ── Inputs
-#> Number of variables by role
-#> outcome:       1
-#> predictor: 19196
-#> 
-#> ── Operations
-#> • Top CV filtering on: all_numeric_predictors()
-```
-
 ### Steps for variable selection
 
 Like [**colino**](https://github.com/stevenpawley/colino), **scimo**
