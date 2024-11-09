@@ -70,6 +70,8 @@ library(testthat)
 
 # scimo <a href="https://abichat.github.io/scimo/"><img src="man/figures/logo.png" align="right" height="138" alt="scimo website" /></a>
 
+# use_r("mfa")
+
 
 ####
 

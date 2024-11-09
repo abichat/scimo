@@ -20,6 +20,7 @@ reference:
 - title: Feature Generation Steps
   contents:
   - '`step_taxonomy`'
+  - '`step_mfa`'
 - title: Datasets
   contents:
   - '`pedcan_expression`'

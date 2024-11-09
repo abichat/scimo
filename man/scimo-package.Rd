@@ -14,6 +14,7 @@ Omics data (e.g. transcriptomics, proteomics, metagenomics...) offer a detailed 
 Useful links:
 \itemize{
   \item \url{https://github.com/abichat/scimo}
+  \item \url{https://abichat.github.io/scimo}
   \item Report bugs at \url{https://github.com/abichat/scimo/issues}
 }
 
