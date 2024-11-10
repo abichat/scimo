@@ -47,5 +47,8 @@ test_that("step_mfa works", {
   expect_equal(baked$MFA3, unname(res_mfa$ind$coord[, 3]))
   expect_equal(baked$MFA4, unname(res_mfa$ind$coord[, 4]))
 
+  baked2 <- bake(prepped, new_data = head(mtcars2))
+  expect_equal(baked2$MFA1, head(baked$MFA1))
+
 
 })
