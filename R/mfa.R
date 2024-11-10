@@ -115,7 +115,7 @@ prep.step_mfa <- function(x, training, info = NULL, ...) {
   n_vars <- vapply(x$list_groups, length, FUN.VALUE = numeric(1))
 
   fmr_call <- call2("MFA", .ns = "FactoMineR",
-                    base = training[, all_vars],
+                    base = training[, all_vars], ncp = x$num_comp,
                     group = n_vars, type = x$type_var, graph = FALSE)
 
   res_mfa <- eval_tidy(fmr_call)
@@ -186,7 +186,7 @@ print.step_mfa <- function(x, width = max(20, options()$width - 35), ...) {
 tidy.step_mfa <- function(x, ...) {
   if (is_trained(x)) {
 
-    res <- tibble(terms = unlist(x$list_groups),
+    res <- tibble(terms = unname(unlist(x$list_groups)),
                   group = rep(names(x$list_groups),
                               vapply(x$list_groups, length, numeric(1))))
 
