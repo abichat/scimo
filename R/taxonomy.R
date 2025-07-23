@@ -47,11 +47,17 @@
 #' rec
 #' tidy(rec, 1)
 #' bake(rec, new_data = NULL)
-step_taxonomy <- function(recipe, ..., role = "predictor", trained = FALSE,
-                          rank = NULL, res = NULL,
-                          keep_original_cols = FALSE,
-                          skip = FALSE, id = rand_id("taxonomy")) {
-
+step_taxonomy <- function(
+  recipe,
+  ...,
+  role = "predictor",
+  trained = FALSE,
+  rank = NULL,
+  res = NULL,
+  keep_original_cols = FALSE,
+  skip = FALSE,
+  id = rand_id("taxonomy")
+) {
   add_step(
     recipe,
     step_taxonomy_new(
@@ -68,19 +74,27 @@ step_taxonomy <- function(recipe, ..., role = "predictor", trained = FALSE,
 }
 
 #' @importFrom recipes step
-step_taxonomy_new <- function(terms, role, trained,
-                              rank, res,
-                              keep_original_cols, skip, id) {
-
-  step(subclass = "taxonomy",
-       terms = terms,
-       role = role,
-       trained = trained,
-       rank = rank,
-       res = res,
-       keep_original_cols = keep_original_cols,
-       skip = skip,
-       id = id)
+step_taxonomy_new <- function(
+  terms,
+  role,
+  trained,
+  rank,
+  res,
+  keep_original_cols,
+  skip,
+  id
+) {
+  step(
+    subclass = "taxonomy",
+    terms = terms,
+    role = role,
+    trained = trained,
+    rank = rank,
+    res = res,
+    keep_original_cols = keep_original_cols,
+    skip = skip,
+    id = id
+  )
 }
 
 #' @export
@@ -91,9 +105,7 @@ prep.step_taxonomy <- function(x, training, info = NULL, ...) {
   check_type(training[, col_names], quant = FALSE)
   check_not_null(x$rank, "rank")
 
-
-  res_txn <- expand_grid(terms = unname(col_names),
-                         rank = x$rank)
+  res_txn <- expand_grid(terms = unname(col_names), rank = x$rank)
 
   step_taxonomy_new(
     terms = x$terms,
@@ -117,9 +129,13 @@ bake.step_taxonomy <- function(object, new_data, ...) {
 
   for (i in seq_len(nrow(object$res))) {
     new_col <- paste0(object$res$terms[i], "_", object$res$rank[i])
-    yatah_call <- call2("get_clade", .ns = "yatah",
-                        lineage = new_data[[object$res$terms[i]]],
-                        rank = object$res$rank[i], same = TRUE)
+    yatah_call <- call2(
+      "get_clade",
+      .ns = "yatah",
+      lineage = new_data[[object$res$terms[i]]],
+      rank = object$res$rank[i],
+      same = TRUE
+    )
     new_data[[new_col]] <- eval_tidy(yatah_call)
   }
 
@@ -132,8 +148,7 @@ bake.step_taxonomy <- function(object, new_data, ...) {
 
 #' @export
 #' @importFrom recipes print_step
-print.step_taxonomy <- function(x,
-                                 width = max(20, options()$width - 35), ...) {
+print.step_taxonomy <- function(x, width = max(20, options()$width - 35), ...) {
   title <- "Taxonomy features from "
 
   print_step(
@@ -180,4 +195,3 @@ tidy.step_taxonomy <- function(x, ...) {
 required_pkgs.step_taxonomy <- function(x, ...) {
   c("yatah", "scimo")
 }
-

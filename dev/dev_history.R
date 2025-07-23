@@ -16,7 +16,6 @@ library(testthat)
 # use_package_doc()
 # use_pipe()
 
-
 # use_r("select_cv")
 # use_r("to_keep")
 
@@ -70,6 +69,7 @@ library(testthat)
 
 # scimo <a href="https://abichat.github.io/scimo/"><img src="man/figures/logo.png" align="right" height="138" alt="scimo website" /></a>
 
+# use_air()
 
 ####
 
@@ -92,7 +92,8 @@ goodpractice::goodpractice()
 ####
 
 devtools::install(upgrade = "never")
-rmarkdown::render("README.Rmd"); file.remove("README.html")
+rmarkdown::render("README.Rmd")
+file.remove("README.html")
 devtools::install(upgrade = "never")
 
 
@@ -100,4 +101,3 @@ devtools::install(upgrade = "never")
 pkgdown::check_pkgdown()
 pkgdown::build_site()
 unlink("pkgdown/", recursive = TRUE)
-

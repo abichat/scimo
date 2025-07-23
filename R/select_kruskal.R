@@ -25,16 +25,20 @@
 #' rec
 #' tidy(rec, 1)
 #' bake(rec, new_data = NULL)
-step_select_kruskal <- function(recipe, ..., role = NA, trained = FALSE,
-                                outcome = NULL,
-                                n_kept = NULL,
-                                prop_kept = NULL,
-                                cutoff = NULL,
-                                correction = "none",
-                                res = NULL,
-                                skip = FALSE,
-                                id = rand_id("select_kruskal")) {
-
+step_select_kruskal <- function(
+  recipe,
+  ...,
+  role = NA,
+  trained = FALSE,
+  outcome = NULL,
+  n_kept = NULL,
+  prop_kept = NULL,
+  cutoff = NULL,
+  correction = "none",
+  res = NULL,
+  skip = FALSE,
+  id = rand_id("select_kruskal")
+) {
   add_step(
     recipe,
     step_select_kruskal_new(
@@ -54,22 +58,33 @@ step_select_kruskal <- function(recipe, ..., role = NA, trained = FALSE,
 }
 
 #' @importFrom recipes step
-step_select_kruskal_new <- function(terms, role, trained, outcome,
-                                    n_kept, prop_kept, cutoff, correction,
-                                    res, skip, id) {
-
-  step(subclass = "select_kruskal",
-       terms = terms,
-       role = role,
-       trained = trained,
-       outcome = outcome,
-       n_kept = n_kept,
-       prop_kept = prop_kept,
-       cutoff = cutoff,
-       correction = correction,
-       res = res,
-       skip = skip,
-       id = id)
+step_select_kruskal_new <- function(
+  terms,
+  role,
+  trained,
+  outcome,
+  n_kept,
+  prop_kept,
+  cutoff,
+  correction,
+  res,
+  skip,
+  id
+) {
+  step(
+    subclass = "select_kruskal",
+    terms = terms,
+    role = role,
+    trained = trained,
+    outcome = outcome,
+    n_kept = n_kept,
+    prop_kept = prop_kept,
+    cutoff = cutoff,
+    correction = correction,
+    res = res,
+    skip = skip,
+    id = id
+  )
 }
 
 #' @export
@@ -91,20 +106,33 @@ prep.step_select_kruskal <- function(x, training, info = NULL, ...) {
     pvs[i] <- kruskal.test(formula = frml, data = training)$p.value
   }
 
-  res_krsk <- tibble(terms = unname(col_names),
-                     pv = pvs)
+  res_krsk <- tibble(terms = unname(col_names), pv = pvs)
 
   if (x$correction == "none") {
     res_krsk <-
       res_krsk %>%
-      mutate(kept = var_to_keep(.data$pv, x$n_kept, x$prop_kept, x$cutoff,
-                                maximize = FALSE))
+      mutate(
+        kept = var_to_keep(
+          .data$pv,
+          x$n_kept,
+          x$prop_kept,
+          x$cutoff,
+          maximize = FALSE
+        )
+      )
   } else {
     res_krsk <-
       res_krsk %>%
-      mutate(qv = p.adjust(.data$pv, method = x$correction),
-             kept = var_to_keep(.data$qv, x$n_kept, x$prop_kept, x$cutoff,
-                                maximize = FALSE))
+      mutate(
+        qv = p.adjust(.data$pv, method = x$correction),
+        kept = var_to_keep(
+          .data$qv,
+          x$n_kept,
+          x$prop_kept,
+          x$cutoff,
+          maximize = FALSE
+        )
+      )
   }
 
   step_select_kruskal_new(

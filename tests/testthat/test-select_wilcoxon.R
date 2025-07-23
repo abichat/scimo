@@ -13,14 +13,17 @@ gy <- df_expr[df_expr$event == "Metastatic", gene, drop = TRUE]
 gwt <- wilcox.test(x = gx, y = gy)
 
 test_that("step_select_wilcoxon works", {
-
   my_cutoff <- 0.05
   my_correction <- "BH"
 
   rec <-
     recipe(event ~ ., data = df_expr) %>%
-    step_select_wilcoxon(all_numeric_predictors(), outcome = "event",
-                         correction = my_correction, cutoff = my_cutoff)
+    step_select_wilcoxon(
+      all_numeric_predictors(),
+      outcome = "event",
+      correction = my_correction,
+      cutoff = my_cutoff
+    )
 
   expect_equal(nrow(tidy(rec, 1)), 1)
 
@@ -33,41 +36,52 @@ test_that("step_select_wilcoxon works", {
   expect_true(all(wt_tidy[!wt_tidy$kept, ]$qv > my_cutoff))
   expect_equal(p.adjust(wt_tidy$pv, method = my_correction), wt_tidy$qv)
 
-
   baked <- bake(prepped, new_data = NULL)
 
-  expect_setequal(colnames(baked),
-                  c(wt_tidy[wt_tidy$kept, ]$terms, "event", "disease"))
-
+  expect_setequal(
+    colnames(baked),
+    c(wt_tidy[wt_tidy$kept, ]$terms, "event", "disease")
+  )
 
   expect_invisible(recipes_pkg_check(required_pkgs.step_select_wilcoxon()))
-
 })
 
 test_that("step_select_wilcoxon throw errors", {
-
   rec <-
     recipe(disease ~ ., data = df_expr)
 
-  expect_error(rec %>%
-                 step_select_wilcoxon(all_numeric_predictors(),
-                                      outcome = "disease",
-                                      cutoff = 0.05) %>%
-                 prep(),
-               "`outcome` must be a binary vector.")
+  expect_error(
+    rec %>%
+      step_select_wilcoxon(
+        all_numeric_predictors(),
+        outcome = "disease",
+        cutoff = 0.05
+      ) %>%
+      prep(),
+    "`outcome` must be a binary vector."
+  )
 
-    expect_error(rec %>%
-                 step_select_wilcoxon(all_numeric_predictors(),
-                                      outcome = "event",
-                                      correction = c("BH", "fdr"),
-                                      cutoff = 0.05) %>%
-                 prep(), "`correction` must be a length-one vector.")
+  expect_error(
+    rec %>%
+      step_select_wilcoxon(
+        all_numeric_predictors(),
+        outcome = "event",
+        correction = c("BH", "fdr"),
+        cutoff = 0.05
+      ) %>%
+      prep(),
+    "`correction` must be a length-one vector."
+  )
 
-    expect_error(rec %>%
-                 step_select_wilcoxon(all_numeric_predictors(),
-                                      outcome = "event",
-                                      correction = "FDR",
-                                      cutoff = 0.05) %>%
-                 prep(), '`correction` must be one of "holm", "hochberg", ')
-
+  expect_error(
+    rec %>%
+      step_select_wilcoxon(
+        all_numeric_predictors(),
+        outcome = "event",
+        correction = "FDR",
+        cutoff = 0.05
+      ) %>%
+      prep(),
+    '`correction` must be one of "holm", "hochberg", '
+  )
 })

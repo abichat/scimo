@@ -19,12 +19,23 @@ df_expr_raw <-
 
 df_model <-
   df_model_raw %>%
-  select(model_id, cell_line = cell_line_name, sex,
-         event = primary_or_metastasis,
-         disease = oncotree_primary_disease) %>%
-  filter(disease %in% c("Ewing Sarcoma", "Rhabdomyosarcoma",
-                        "Osteosarcoma", "Embryonal Tumor",
-                        "Neuroblastoma")) %>%
+  select(
+    model_id,
+    cell_line = cell_line_name,
+    sex,
+    event = primary_or_metastasis,
+    disease = oncotree_primary_disease
+  ) %>%
+  filter(
+    disease %in%
+      c(
+        "Ewing Sarcoma",
+        "Rhabdomyosarcoma",
+        "Osteosarcoma",
+        "Embryonal Tumor",
+        "Neuroblastoma"
+      )
+  ) %>%
   mutate(event = if_else(is.na(event), "Unknown", event)) %>%
   arrange(cell_line)
 
@@ -39,6 +50,5 @@ pedcan_expression <-
   df_model %>%
   inner_join(df_expr, by = "model_id") %>%
   select(-model_id)
-
 
 # usethis::use_data(pedcan_expression, overwrite = TRUE)

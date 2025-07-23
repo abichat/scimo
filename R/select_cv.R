@@ -19,8 +19,6 @@ cv <- function(x, na.rm = TRUE) {
 }
 
 
-
-
 #' Feature selection step using the coefficient of variation
 #'
 #' Select variables with highest coefficient of variation.
@@ -61,13 +59,18 @@ cv <- function(x, na.rm = TRUE) {
 #' rec
 #' tidy(rec, 1)
 #' bake(rec, new_data = NULL)
-step_select_cv <- function(recipe, ..., role = NA, trained = FALSE,
-                           n_kept = NULL,
-                           prop_kept = NULL,
-                           cutoff = NULL,
-                           res = NULL,
-                           skip = FALSE, id = rand_id("select_cv")) {
-
+step_select_cv <- function(
+  recipe,
+  ...,
+  role = NA,
+  trained = FALSE,
+  n_kept = NULL,
+  prop_kept = NULL,
+  cutoff = NULL,
+  res = NULL,
+  skip = FALSE,
+  id = rand_id("select_cv")
+) {
   add_step(
     recipe,
     step_select_cv_new(
@@ -85,20 +88,29 @@ step_select_cv <- function(recipe, ..., role = NA, trained = FALSE,
 }
 
 #' @importFrom recipes step
-step_select_cv_new <- function(terms, role, trained,
-                               n_kept, prop_kept, cutoff,
-                               res, skip, id) {
-
-  step(subclass = "select_cv",
-       terms = terms,
-       role = role,
-       trained = trained,
-       n_kept = n_kept,
-       prop_kept = prop_kept,
-       cutoff = cutoff,
-       res = res,
-       skip = skip,
-       id = id)
+step_select_cv_new <- function(
+  terms,
+  role,
+  trained,
+  n_kept,
+  prop_kept,
+  cutoff,
+  res,
+  skip,
+  id
+) {
+  step(
+    subclass = "select_cv",
+    terms = terms,
+    role = role,
+    trained = trained,
+    n_kept = n_kept,
+    prop_kept = prop_kept,
+    cutoff = cutoff,
+    res = res,
+    skip = skip,
+    id = id
+  )
 }
 
 #' @export
@@ -109,13 +121,19 @@ prep.step_select_cv <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
   check_type(training[, col_names], quant = TRUE)
 
-
   res_cv <-
     training[, col_names] %>%
     apply(2, cv) %>%
     enframe(name = "terms", value = "cv") %>%
-    mutate(kept = var_to_keep(.data$cv, x$n_kept, x$prop_kept, x$cutoff,
-                              maximize = TRUE))
+    mutate(
+      kept = var_to_keep(
+        .data$cv,
+        x$n_kept,
+        x$prop_kept,
+        x$cutoff,
+        maximize = TRUE
+      )
+    )
 
   step_select_cv_new(
     terms = x$terms,
@@ -151,8 +169,11 @@ bake.step_select_cv <- function(object, new_data, ...) {
 
 #' @export
 #' @importFrom recipes print_step
-print.step_select_cv <- function(x,
-                                 width = max(20, options()$width - 35), ...) {
+print.step_select_cv <- function(
+  x,
+  width = max(20, options()$width - 35),
+  ...
+) {
   title <- "Top CV filtering on "
 
   print_step(

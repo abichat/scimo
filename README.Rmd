@@ -69,12 +69,18 @@ The following recipe will
 
 ```{r recipe}
 rec <-
-  recipe(cheese ~ ., data = cheese_abundance) %>% 
-  step_aggregate_list(all_numeric_predictors(),
-                      list_agg = list_family, fun_agg = sum) %>%
-  step_rownormalize_tss(all_numeric_predictors()) %>% 
-  step_select_kruskal(all_numeric_predictors(), 
-                      outcome = "cheese", cutoff = 0.05) %>%
+  recipe(cheese ~ ., data = cheese_abundance) %>%
+  step_aggregate_list(
+    all_numeric_predictors(),
+    list_agg = list_family,
+    fun_agg = sum
+  ) %>%
+  step_rownormalize_tss(all_numeric_predictors()) %>%
+  step_select_kruskal(
+    all_numeric_predictors(),
+    outcome = "cheese",
+    cutoff = 0.05
+  ) %>%
   prep()
 
 rec

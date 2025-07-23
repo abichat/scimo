@@ -37,10 +37,15 @@
 #' rec
 #' tidy(rec, 1)
 #' bake(rec, new_data = NULL)
-step_rownormalize_tss <- function(recipe, ..., role = NA, trained = FALSE,
-                                    res = NULL, skip = FALSE,
-                                    id = rand_id("rownormalize_tss")) {
-
+step_rownormalize_tss <- function(
+  recipe,
+  ...,
+  role = NA,
+  trained = FALSE,
+  res = NULL,
+  skip = FALSE,
+  id = rand_id("rownormalize_tss")
+) {
   add_step(
     recipe,
     step_normalize_tss_new(
@@ -55,17 +60,26 @@ step_rownormalize_tss <- function(recipe, ..., role = NA, trained = FALSE,
 }
 
 #' @importFrom recipes step
-step_normalize_tss_new <- function(terms, role, trained,
-                                   n_kept, prop_kept, cutoff,
-                                   res, skip, id) {
-
-  step(subclass = "rownormalize_tss",
-       terms = terms,
-       role = role,
-       trained = trained,
-       res = res,
-       skip = skip,
-       id = id)
+step_normalize_tss_new <- function(
+  terms,
+  role,
+  trained,
+  n_kept,
+  prop_kept,
+  cutoff,
+  res,
+  skip,
+  id
+) {
+  step(
+    subclass = "rownormalize_tss",
+    terms = terms,
+    role = role,
+    trained = trained,
+    res = res,
+    skip = skip,
+    id = id
+  )
 }
 
 #' @export
@@ -101,8 +115,11 @@ bake.step_rownormalize_tss <- function(object, new_data, ...) {
 
 #' @export
 #' @importFrom recipes print_step
-print.step_rownormalize_tss <- function(x,
-                                 width = max(20, options()$width - 35), ...) {
+print.step_rownormalize_tss <- function(
+  x,
+  width = max(20, options()$width - 35),
+  ...
+) {
   title <- "TSS normalization on "
 
   print_step(
