@@ -24,7 +24,7 @@ step_taxonomy(
 operations for this recipe.}
 
 \item{...}{One or more selector functions to choose variables
-for this step. See \code{\link[=selections]{selections()}} for more details.}
+for this step. See \code{\link[recipes:selections]{recipes::selections()}} for more details.}
 
 \item{role}{For model terms created by this step, what analysis role should
 they be assigned? By default, the new columns created by this step from
@@ -43,8 +43,8 @@ have been estimated.}
 the output. Defaults to \code{FALSE}.}
 
 \item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[=bake]{bake()}}? While all operations are baked
-when \code{\link[=prep]{prep()}} is run, some operations may not be able to be
+recipe is baked by \code{\link[recipes:bake]{recipes::bake()}}? While all operations are baked
+when \code{\link[recipes:prep]{recipes::prep()}} is run, some operations may not be able to be
 conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = TRUE} as it may affect
 the computations for subsequent operations.}

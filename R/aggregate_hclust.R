@@ -5,7 +5,7 @@
 #' @param recipe A recipe object. The step will be added to the sequence of
 #' operations for this recipe.
 #' @param ... One or more selector functions to choose variables
-#'  for this step. See [selections()] for more details.
+#'  for this step. See [recipes::selections()] for more details.
 #' @param role For model terms created by this step, what analysis role should
 #'  they be assigned? By default, the new columns created by this step from
 #'  the original variables will be used as `predictors` in a model.
@@ -23,8 +23,8 @@
 #' @param keep_original_cols A logical to keep the original variables in
 #' the output. Defaults to `FALSE`.
 #' @param skip A logical. Should the step be skipped when the
-#'  recipe is baked by [bake()]? While all operations are baked
-#'  when [prep()] is run, some operations may not be able to be
+#'  recipe is baked by [recipes::bake()]? While all operations are baked
+#'  when [recipes::prep()] is run, some operations may not be able to be
 #'  conducted on new data (e.g. processing the outcome variable(s)).
 #'  Care should be taken when using `skip = TRUE` as it may affect
 #'  the computations for subsequent operations.
