@@ -5,7 +5,7 @@
 #' @param recipe A recipe object. The step will be added to the sequence of
 #' operations for this recipe.
 #' @param ... One or more selector functions to choose variables
-#'  for this step. See [selections()] for more details.
+#'  for this step. See [recipes::selections()] for more details.
 #' @param role For model terms created by this step, what analysis role should
 #'  they be assigned? By default, the new columns created by this step from
 #'  the original variables will be used as `predictors` in a model.
@@ -25,8 +25,8 @@
 #' @param keep_original_cols A logical to keep the original variables in
 #' the output. Defaults to `FALSE`.
 #' @param skip A logical. Should the step be skipped when the
-#'  recipe is baked by [bake()]? While all operations are baked
-#'  when [prep()] is run, some operations may not be able to be
+#'  recipe is baked by [recipes::bake()]? While all operations are baked
+#'  when [recipes::prep()] is run, some operations may not be able to be
 #'  conducted on new data (e.g. processing the outcome variable(s)).
 #'  Care should be taken when using `skip = TRUE` as it may affect
 #'  the computations for subsequent operations.
@@ -54,18 +54,21 @@
 #' rec
 #' tidy(rec, 1)
 #' bake(rec, new_data = NULL)
-step_aggregate_list <- function(recipe, ..., role = "predictor",
-                                trained = FALSE,
-                                list_agg = NULL,
-                                fun_agg = NULL,
-                                others = "discard",
-                                name_others = "others",
-                                res = NULL,
-                                prefix = "agg_",
-                                keep_original_cols = FALSE,
-                                skip = FALSE,
-                                id = rand_id("aggregate_list")) {
-
+step_aggregate_list <- function(
+  recipe,
+  ...,
+  role = "predictor",
+  trained = FALSE,
+  list_agg = NULL,
+  fun_agg = NULL,
+  others = "discard",
+  name_others = "others",
+  res = NULL,
+  prefix = "agg_",
+  keep_original_cols = FALSE,
+  skip = FALSE,
+  id = rand_id("aggregate_list")
+) {
   add_step(
     recipe,
     step_aggregate_list_new(
@@ -86,24 +89,35 @@ step_aggregate_list <- function(recipe, ..., role = "predictor",
 }
 
 #' @importFrom recipes step
-step_aggregate_list_new <- function(terms, role, trained,
-                                    list_agg, fun_agg, others, name_others,
-                                    res, prefix, keep_original_cols,
-                                    skip, id) {
-
-  step(subclass = "aggregate_list",
-       terms = terms,
-       role = role,
-       trained = trained,
-       list_agg = list_agg,
-       fun_agg = fun_agg,
-       others = others,
-       name_others = name_others,
-       res = res,
-       prefix = prefix,
-       keep_original_cols = keep_original_cols,
-       skip = skip,
-       id = id)
+step_aggregate_list_new <- function(
+  terms,
+  role,
+  trained,
+  list_agg,
+  fun_agg,
+  others,
+  name_others,
+  res,
+  prefix,
+  keep_original_cols,
+  skip,
+  id
+) {
+  step(
+    subclass = "aggregate_list",
+    terms = terms,
+    role = role,
+    trained = trained,
+    list_agg = list_agg,
+    fun_agg = fun_agg,
+    others = others,
+    name_others = name_others,
+    res = res,
+    prefix = prefix,
+    keep_original_cols = keep_original_cols,
+    skip = skip,
+    id = id
+  )
 }
 
 #' @export
@@ -114,8 +128,11 @@ step_aggregate_list_new <- function(terms, role, trained,
 #' @importFrom tidyr unnest_longer
 prep.step_aggregate_list <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
-  check_in(x$others, name_x = "others",
-           values = c("discard", "asis", "aggregate"))
+  check_in(
+    x$others,
+    name_x = "others",
+    values = c("discard", "asis", "aggregate")
+  )
 
   updt_list_agg <- x$list_agg
 
@@ -134,15 +151,19 @@ prep.step_aggregate_list <- function(x, training, info = NULL, ...) {
 
   res_agg_list <-
     tibble(terms = unname(col_names)) %>%
-    left_join(df_agg,
-              by = "terms")
+    left_join(df_agg, by = "terms")
 
   if (x$others == "asis") {
     asis <- setdiff(col_names, unlist(updt_list_agg))
     res_agg_list <-
       res_agg_list %>%
-      mutate(aggregate = if_else(.data$terms %in% .env$asis,
-                                 .data$terms, .data$aggregate))
+      mutate(
+        aggregate = if_else(
+          .data$terms %in% .env$asis,
+          .data$terms,
+          .data$aggregate
+        )
+      )
   }
 
   step_aggregate_list_new(
@@ -169,10 +190,13 @@ bake.step_aggregate_list <- function(object, new_data, ...) {
   check_new_data(col_names, object, new_data)
 
   new_df <-
-    aggregate_var(new_data, list_agg = object$list_agg,
-                  fun_agg = object$fun_agg,
-                  prefix = object$prefix,
-                  keep_original_cols = object$keep_original_cols)
+    aggregate_var(
+      new_data,
+      list_agg = object$list_agg,
+      fun_agg = object$fun_agg,
+      prefix = object$prefix,
+      keep_original_cols = object$keep_original_cols
+    )
 
   if (object$others == "discard" && !object$keep_original_cols) {
     to_discard <-
@@ -182,7 +206,6 @@ bake.step_aggregate_list <- function(object, new_data, ...) {
 
     new_df[, to_discard] <- NULL
   }
-
 
   new_df
 }

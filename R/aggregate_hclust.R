@@ -5,7 +5,7 @@
 #' @param recipe A recipe object. The step will be added to the sequence of
 #' operations for this recipe.
 #' @param ... One or more selector functions to choose variables
-#'  for this step. See [selections()] for more details.
+#'  for this step. See [recipes::selections()] for more details.
 #' @param role For model terms created by this step, what analysis role should
 #'  they be assigned? By default, the new columns created by this step from
 #'  the original variables will be used as `predictors` in a model.
@@ -23,8 +23,8 @@
 #' @param keep_original_cols A logical to keep the original variables in
 #' the output. Defaults to `FALSE`.
 #' @param skip A logical. Should the step be skipped when the
-#'  recipe is baked by [bake()]? While all operations are baked
-#'  when [prep()] is run, some operations may not be able to be
+#'  recipe is baked by [recipes::bake()]? While all operations are baked
+#'  when [recipes::prep()] is run, some operations may not be able to be
 #'  conducted on new data (e.g. processing the outcome variable(s)).
 #'  Care should be taken when using `skip = TRUE` as it may affect
 #'  the computations for subsequent operations.
@@ -50,18 +50,21 @@
 #' rec
 #' tidy(rec, 1)
 #' bake(rec, new_data = NULL)
-step_aggregate_hclust <- function(recipe, ..., role = "predictor",
-                                  trained = FALSE,
-                                  n_clusters,
-                                  fun_agg,
-                                  dist_metric = "euclidean",
-                                  linkage_method = "complete",
-                                  res = NULL,
-                                  prefix = "cl_",
-                                  keep_original_cols = FALSE,
-                                  skip = FALSE,
-                                  id = rand_id("aggregate_hclust")) {
-
+step_aggregate_hclust <- function(
+  recipe,
+  ...,
+  role = "predictor",
+  trained = FALSE,
+  n_clusters,
+  fun_agg,
+  dist_metric = "euclidean",
+  linkage_method = "complete",
+  res = NULL,
+  prefix = "cl_",
+  keep_original_cols = FALSE,
+  skip = FALSE,
+  id = rand_id("aggregate_hclust")
+) {
   add_step(
     recipe,
     step_aggregate_hclust_new(
@@ -82,25 +85,35 @@ step_aggregate_hclust <- function(recipe, ..., role = "predictor",
 }
 
 #' @importFrom recipes step
-step_aggregate_hclust_new <- function(terms, role, trained,
-                                      n_clusters, fun_agg,
-                                      dist_metric, linkage_method,
-                                      res, prefix, keep_original_cols,
-                                      skip, id) {
-
-  step(subclass = "aggregate_hclust",
-       terms = terms,
-       role = role,
-       trained = trained,
-       n_clusters = n_clusters,
-       fun_agg = fun_agg,
-       dist_metric = dist_metric,
-       linkage_method = linkage_method,
-       res = res,
-       prefix = prefix,
-       keep_original_cols = keep_original_cols,
-       skip = skip,
-       id = id)
+step_aggregate_hclust_new <- function(
+  terms,
+  role,
+  trained,
+  n_clusters,
+  fun_agg,
+  dist_metric,
+  linkage_method,
+  res,
+  prefix,
+  keep_original_cols,
+  skip,
+  id
+) {
+  step(
+    subclass = "aggregate_hclust",
+    terms = terms,
+    role = role,
+    trained = trained,
+    n_clusters = n_clusters,
+    fun_agg = fun_agg,
+    dist_metric = dist_metric,
+    linkage_method = linkage_method,
+    res = res,
+    prefix = prefix,
+    keep_original_cols = keep_original_cols,
+    skip = skip,
+    id = id
+  )
 }
 
 #' @export
@@ -112,12 +125,32 @@ step_aggregate_hclust_new <- function(terms, role, trained,
 prep.step_aggregate_hclust <- function(x, training, info = NULL, ...) {
   col_names <- recipes_eval_select(x$terms, training, info)
   check_type(training[, col_names], quant = TRUE)
-  check_in(x$dist_metric, name_x = "dist_metric",
-           values = c("euclidean", "maximum", "manhattan",
-                      "canberra", "binary", "minkowski"))
-  check_in(x$linkage_method, name_x = "linkage_method",
-           values = c("ward.D", "ward.D2", "single", "complete",
-                      "average", "mcquitty", "median", "centroid"))
+  check_in(
+    x$dist_metric,
+    name_x = "dist_metric",
+    values = c(
+      "euclidean",
+      "maximum",
+      "manhattan",
+      "canberra",
+      "binary",
+      "minkowski"
+    )
+  )
+  check_in(
+    x$linkage_method,
+    name_x = "linkage_method",
+    values = c(
+      "ward.D",
+      "ward.D2",
+      "single",
+      "complete",
+      "average",
+      "mcquitty",
+      "median",
+      "centroid"
+    )
+  )
 
   ct <-
     training[, col_names] %>%
@@ -131,7 +164,6 @@ prep.step_aggregate_hclust <- function(x, training, info = NULL, ...) {
     ct %>%
     enframe(name = "terms", value = "aggregate") %>%
     mutate(aggregate = paste0(x$prefix, .data$aggregate))
-
 
   step_aggregate_hclust_new(
     terms = x$terms,
@@ -158,9 +190,13 @@ bake.step_aggregate_hclust <- function(object, new_data, ...) {
 
   list_agg_hc <- split(object$res$terms, object$res$aggregate)
 
-  aggregate_var(new_data, list_agg = list_agg_hc, fun_agg = object$fun_agg,
-                prefix = object$prefix,
-                keep_original_cols = object$keep_original_cols)
+  aggregate_var(
+    new_data,
+    list_agg = list_agg_hc,
+    fun_agg = object$fun_agg,
+    prefix = object$prefix,
+    keep_original_cols = object$keep_original_cols
+  )
 }
 
 #' @export

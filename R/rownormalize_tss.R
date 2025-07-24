@@ -6,14 +6,14 @@
 #' @param recipe A recipe object. The step will be added to the sequence of
 #' operations for this recipe.
 #' @param ... One or more selector functions to choose variables
-#'  for this step. See [selections()] for more details.
+#'  for this step. See [recipes::selections()] for more details.
 #' @param role Not used by this step since no new variables are created.
 #' @param trained A logical to indicate if the quantities for preprocessing
 #' have been estimated.
 #' @param res This parameter is only produced after the recipe has been trained.
 #' @param skip A logical. Should the step be skipped when the
-#'  recipe is baked by [bake()]? While all operations are baked
-#'  when [prep()] is run, some operations may not be able to be
+#'  recipe is baked by [recipes::bake()]? While all operations are baked
+#'  when [recipes::prep()] is run, some operations may not be able to be
 #'  conducted on new data (e.g. processing the outcome variable(s)).
 #'  Care should be taken when using `skip = TRUE` as it may affect
 #'  the computations for subsequent operations.
@@ -37,10 +37,15 @@
 #' rec
 #' tidy(rec, 1)
 #' bake(rec, new_data = NULL)
-step_rownormalize_tss <- function(recipe, ..., role = NA, trained = FALSE,
-                                    res = NULL, skip = FALSE,
-                                    id = rand_id("rownormalize_tss")) {
-
+step_rownormalize_tss <- function(
+  recipe,
+  ...,
+  role = NA,
+  trained = FALSE,
+  res = NULL,
+  skip = FALSE,
+  id = rand_id("rownormalize_tss")
+) {
   add_step(
     recipe,
     step_normalize_tss_new(
@@ -55,17 +60,26 @@ step_rownormalize_tss <- function(recipe, ..., role = NA, trained = FALSE,
 }
 
 #' @importFrom recipes step
-step_normalize_tss_new <- function(terms, role, trained,
-                                   n_kept, prop_kept, cutoff,
-                                   res, skip, id) {
-
-  step(subclass = "rownormalize_tss",
-       terms = terms,
-       role = role,
-       trained = trained,
-       res = res,
-       skip = skip,
-       id = id)
+step_normalize_tss_new <- function(
+  terms,
+  role,
+  trained,
+  n_kept,
+  prop_kept,
+  cutoff,
+  res,
+  skip,
+  id
+) {
+  step(
+    subclass = "rownormalize_tss",
+    terms = terms,
+    role = role,
+    trained = trained,
+    res = res,
+    skip = skip,
+    id = id
+  )
 }
 
 #' @export
@@ -101,8 +115,11 @@ bake.step_rownormalize_tss <- function(object, new_data, ...) {
 
 #' @export
 #' @importFrom recipes print_step
-print.step_rownormalize_tss <- function(x,
-                                 width = max(20, options()$width - 35), ...) {
+print.step_rownormalize_tss <- function(
+  x,
+  width = max(20, options()$width - 35),
+  ...
+) {
   title <- "TSS normalization on "
 
   print_step(

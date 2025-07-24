@@ -27,7 +27,7 @@ step_select_kruskal(
 operations for this recipe.}
 
 \item{...}{One or more selector functions to choose variables
-for this step. See \code{\link[=selections]{selections()}} for more details.}
+for this step. See \code{\link[recipes:selections]{recipes::selections()}} for more details.}
 
 \item{role}{Not used by this step since no new variables are created.}
 
@@ -50,8 +50,8 @@ discarded.}
 \item{res}{This parameter is only produced after the recipe has been trained.}
 
 \item{skip}{A logical. Should the step be skipped when the
-recipe is baked by \code{\link[=bake]{bake()}}? While all operations are baked
-when \code{\link[=prep]{prep()}} is run, some operations may not be able to be
+recipe is baked by \code{\link[recipes:bake]{recipes::bake()}}? While all operations are baked
+when \code{\link[recipes:prep]{recipes::prep()}} is run, some operations may not be able to be
 conducted on new data (e.g. processing the outcome variable(s)).
 Care should be taken when using \code{skip = TRUE} as it may affect
 the computations for subsequent operations.}

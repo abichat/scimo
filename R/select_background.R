@@ -6,7 +6,7 @@
 #' @param recipe A recipe object. The step will be added to the sequence of
 #' operations for this recipe.
 #' @param ... One or more selector functions to choose variables
-#'  for this step. See [selections()] for more details.
+#'  for this step. See [recipes::selections()] for more details.
 #' @param role Not used by this step since no new variables are created.
 #' @param trained A logical to indicate if the quantities for preprocessing
 #' have been estimated.
@@ -15,8 +15,8 @@
 #' feature exceeds `background_level` to be retained.
 #' @param res This parameter is only produced after the recipe has been trained.
 #' @param skip A logical. Should the step be skipped when the
-#'  recipe is baked by [bake()]? While all operations are baked
-#'  when [prep()] is run, some operations may not be able to be
+#'  recipe is baked by [recipes::bake()]? While all operations are baked
+#'  when [recipes::prep()] is run, some operations may not be able to be
 #'  conducted on new data (e.g. processing the outcome variable(s)).
 #'  Care should be taken when using `skip = TRUE` as it may affect
 #'  the computations for subsequent operations.
@@ -42,14 +42,18 @@
 #' rec
 #' tidy(rec, 1)
 #' bake(rec, new_data = NULL)
-step_select_background <- function(recipe, ..., role = NA, trained = FALSE,
-                                   background_level = NULL,
-                                   n_samples = NULL,
-                                   prop_samples = NULL,
-                                   res = NULL,
-                                   skip = FALSE,
-                                   id = rand_id("select_background")) {
-
+step_select_background <- function(
+  recipe,
+  ...,
+  role = NA,
+  trained = FALSE,
+  background_level = NULL,
+  n_samples = NULL,
+  prop_samples = NULL,
+  res = NULL,
+  skip = FALSE,
+  id = rand_id("select_background")
+) {
   add_step(
     recipe,
     step_select_background_new(
@@ -68,21 +72,29 @@ step_select_background <- function(recipe, ..., role = NA, trained = FALSE,
 
 
 #' @importFrom recipes step
-step_select_background_new <- function(terms, role, trained,
-                                       background_level,
-                                       n_samples, prop_samples,
-                                       res, skip, id) {
-
-  step(subclass = "select_background",
-       terms = terms,
-       role = role,
-       trained = trained,
-       background_level = background_level,
-       n_samples = n_samples,
-       prop_samples = prop_samples,
-       res = res,
-       skip = skip,
-       id = id)
+step_select_background_new <- function(
+  terms,
+  role,
+  trained,
+  background_level,
+  n_samples,
+  prop_samples,
+  res,
+  skip,
+  id
+) {
+  step(
+    subclass = "select_background",
+    terms = terms,
+    role = role,
+    trained = trained,
+    background_level = background_level,
+    n_samples = n_samples,
+    prop_samples = prop_samples,
+    res = res,
+    skip = skip,
+    id = id
+  )
 }
 
 #' @export

@@ -21,24 +21,22 @@
 #' @examples
 #' scimo:::var_to_keep(1:5, n_kept = 3, maximize = TRUE)
 #' scimo:::var_to_keep(1:10, cutoff = 8, maximize = FALSE)
-var_to_keep <- function(values, n_kept = NULL, prop_kept = NULL,
-                        cutoff = NULL, maximize = TRUE) {
-
-
+var_to_keep <- function(
+  values,
+  n_kept = NULL,
+  prop_kept = NULL,
+  cutoff = NULL,
+  maximize = TRUE
+) {
   if (!is.null(n_kept) & !is.null(prop_kept)) {
-
     abort("`n_kept` and `prop_kept` are mutually exclusive.")
-
   } else if (!is.null(n_kept)) {
-
     if (maximize) {
       to_keep <- rank(-values, ties.method = "min") <= n_kept
     } else {
       to_keep <- rank(values, ties.method = "min") <= n_kept
     }
-
   } else if (!is.null(prop_kept)) {
-
     n_from_prop <- prop_kept * length(values)
 
     if (maximize) {
@@ -46,13 +44,9 @@ var_to_keep <- function(values, n_kept = NULL, prop_kept = NULL,
     } else {
       to_keep <- rank(values, ties.method = "min") <= n_from_prop
     }
-
   } else if (is.null(n_kept) & is.null(prop_kept)) {
-
     to_keep <- rep(TRUE, length(values))
-
   }
-
 
   if (!is.null(cutoff)) {
     if (maximize) {

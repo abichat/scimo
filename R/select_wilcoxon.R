@@ -6,7 +6,7 @@
 #' @param recipe A recipe object. The step will be added to the sequence of
 #' operations for this recipe.
 #' @param ... One or more selector functions to choose variables
-#'  for this step. See [selections()] for more details.
+#'  for this step. See [recipes::selections()] for more details.
 #' @param role Not used by this step since no new variables are created.
 #' @param trained A logical to indicate if the quantities for preprocessing
 #' have been estimated.
@@ -16,8 +16,8 @@
 #' `p.adjust.methods`. Default to `"none"`.
 #' @param res This parameter is only produced after the recipe has been trained.
 #' @param skip A logical. Should the step be skipped when the
-#'  recipe is baked by [bake()]? While all operations are baked
-#'  when [prep()] is run, some operations may not be able to be
+#'  recipe is baked by [recipes::bake()]? While all operations are baked
+#'  when [recipes::prep()] is run, some operations may not be able to be
 #'  conducted on new data (e.g. processing the outcome variable(s)).
 #'  Care should be taken when using `skip = TRUE` as it may affect
 #'  the computations for subsequent operations.
@@ -44,16 +44,20 @@
 #' rec
 #' tidy(rec, 1)
 #' bake(rec, new_data = NULL)
-step_select_wilcoxon <- function(recipe, ..., role = NA, trained = FALSE,
-                                 outcome = NULL,
-                                 n_kept = NULL,
-                                 prop_kept = NULL,
-                                 cutoff = NULL,
-                                 correction = "none",
-                                 res = NULL,
-                                 skip = FALSE,
-                                 id = rand_id("select_wilcoxon")) {
-
+step_select_wilcoxon <- function(
+  recipe,
+  ...,
+  role = NA,
+  trained = FALSE,
+  outcome = NULL,
+  n_kept = NULL,
+  prop_kept = NULL,
+  cutoff = NULL,
+  correction = "none",
+  res = NULL,
+  skip = FALSE,
+  id = rand_id("select_wilcoxon")
+) {
   add_step(
     recipe,
     step_select_wilcoxon_new(
@@ -73,22 +77,33 @@ step_select_wilcoxon <- function(recipe, ..., role = NA, trained = FALSE,
 }
 
 #' @importFrom recipes step
-step_select_wilcoxon_new <- function(terms, role, trained, outcome,
-                                     n_kept, prop_kept, cutoff, correction,
-                                     res, skip, id) {
-
-  step(subclass = "select_wilcoxon",
-       terms = terms,
-       role = role,
-       trained = trained,
-       outcome = outcome,
-       n_kept = n_kept,
-       prop_kept = prop_kept,
-       cutoff = cutoff,
-       correction = correction,
-       res = res,
-       skip = skip,
-       id = id)
+step_select_wilcoxon_new <- function(
+  terms,
+  role,
+  trained,
+  outcome,
+  n_kept,
+  prop_kept,
+  cutoff,
+  correction,
+  res,
+  skip,
+  id
+) {
+  step(
+    subclass = "select_wilcoxon",
+    terms = terms,
+    role = role,
+    trained = trained,
+    outcome = outcome,
+    n_kept = n_kept,
+    prop_kept = prop_kept,
+    cutoff = cutoff,
+    correction = correction,
+    res = res,
+    skip = skip,
+    id = id
+  )
 }
 
 #' @export
@@ -111,20 +126,33 @@ prep.step_select_wilcoxon <- function(x, training, info = NULL, ...) {
     pvs[i] <- wilcox.test(formula = frml, data = training)$p.value
   }
 
-  res_wlcx <- tibble(terms = unname(col_names),
-                     pv = pvs)
+  res_wlcx <- tibble(terms = unname(col_names), pv = pvs)
 
   if (x$correction == "none") {
     res_wlcx <-
       res_wlcx %>%
-      mutate(kept = var_to_keep(.data$pv, x$n_kept, x$prop_kept, x$cutoff,
-                                maximize = FALSE))
+      mutate(
+        kept = var_to_keep(
+          .data$pv,
+          x$n_kept,
+          x$prop_kept,
+          x$cutoff,
+          maximize = FALSE
+        )
+      )
   } else {
     res_wlcx <-
       res_wlcx %>%
-      mutate(qv = p.adjust(.data$pv, method = x$correction),
-             kept = var_to_keep(.data$qv, x$n_kept, x$prop_kept, x$cutoff,
-                                maximize = FALSE))
+      mutate(
+        qv = p.adjust(.data$pv, method = x$correction),
+        kept = var_to_keep(
+          .data$qv,
+          x$n_kept,
+          x$prop_kept,
+          x$cutoff,
+          maximize = FALSE
+        )
+      )
   }
 
   step_select_wilcoxon_new(

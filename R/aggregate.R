@@ -1,12 +1,18 @@
-aggregate_var <- function(data, list_agg, fun_agg,
-                          prefix = "agg_",
-                          keep_original_cols = FALSE) {
-
+aggregate_var <- function(
+  data,
+  list_agg,
+  fun_agg,
+  prefix = "agg_",
+  keep_original_cols = FALSE
+) {
   list_agg <- fill_name(list_agg, prefix)
 
   for (i in seq_along(list_agg)) {
-    data[[names(list_agg[i])]] <- apply(data[, list_agg[[i]]],
-                                        MARGIN = 1, FUN = fun_agg)
+    data[[names(list_agg[i])]] <- apply(
+      data[, list_agg[[i]]],
+      MARGIN = 1,
+      FUN = fun_agg
+    )
   }
 
   if (!keep_original_cols) {
