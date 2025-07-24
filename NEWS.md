@@ -1,3 +1,5 @@
+# scimo 0.0.3.9000
+
 # scimo 0.0.3
 
 * Add a dependency on **recipes** >= 1.1 to avoid stack overflow errors with long formulas, as this issue has been resolved in this version (#2).

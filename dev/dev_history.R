@@ -96,6 +96,7 @@ rmarkdown::render("README.Rmd")
 file.remove("README.html")
 devtools::install(upgrade = "never")
 
+# devtools::build()
 
 # pkgdown::template_reference()
 pkgdown::check_pkgdown()
