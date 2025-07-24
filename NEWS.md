@@ -1,7 +1,8 @@
-# scimo 0.0.2.9000
+# scimo 0.0.3
 
 * Add a dependency on **recipes** >= 1.1 to avoid stack overflow errors with long formulas, as this issue has been resolved in this version (#2).
 
+* Small improvements in documentation (#6, CRAN notes).
 
 # scimo 0.0.2
 
